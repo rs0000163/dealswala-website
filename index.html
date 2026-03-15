@@ -2,1463 +2,1872 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CashKaro — Cashback, Coupons & Deals</title>
-<meta name="description" content="Get cashback, coupons and best deals on top brands. Save money on every purchase.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="file:images/favicon.png"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dealswala — Cashback & Best Deals</title>
+<meta name="description" content="Get cashback, coupons and best deals on 1500+ brands.">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-/* ===================== RESET & BASE ===================== */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
-body {
-  font-family: 'Nunito', sans-serif;
-  background: #f7f8fc;
-  color: #1a1a2e;
-  overflow-x: hidden;
-}
-a { text-decoration: none; color: inherit; }
-img { max-width: 100%; display: block; }
-
-/* ===================== COLOUR TOKENS ===================== */
-:root {
-  --ck-orange: #ff6b35;
-  --ck-orange-dark: #e85d2a;
-  --ck-blue: #1a3cbe;
-  --ck-blue-mid: #2448e0;
-  --ck-blue-light: #e8edff;
-  --ck-teal: #00bcd4;
-  --ck-green: #00c853;
-  --ck-red: #e53935;
-  --ck-yellow: #ffb300;
-  --ck-text: #1a1a2e;
-  --ck-text-mid: #4a5568;
-  --ck-text-light: #718096;
-  --ck-border: #e2e8f0;
-  --ck-bg: #f7f8fc;
-  --ck-white: #ffffff;
-  --ck-card: #ffffff;
-  --ck-shadow: 0 2px 16px rgba(26,60,190,0.08);
-  --ck-shadow-hover: 0 8px 32px rgba(26,60,190,0.16);
-  --radius: 14px;
-  --radius-sm: 8px;
-  --radius-lg: 20px;
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Nunito',sans-serif;background:#fff;color:#111827;overflow-x:hidden;font-size:14px}
+a{text-decoration:none;color:inherit}
+img{display:block;max-width:100%}
+button{font-family:'Nunito',sans-serif;cursor:pointer}
+:root{
+  --or:#f97316;--bl:#1641b4;--bl2:#2448e0;
+  --gr:#16a34a;--rd:#ef4444;--pk:#ff4785;
+  --txt:#111827;--t2:#374151;--t3:#6b7280;
+  --bd:#e5e7eb;--bg:#f9fafb;--wh:#fff;
+  --sh:0 2px 10px rgba(0,0,0,.08);
+  --sh2:0 8px 32px rgba(0,0,0,.14);
+  --r:16px;--rs:10px;
 }
 
-/* ===================== HEADER ===================== */
-.site-header {
-  position: sticky; top: 0; z-index: 1000;
-  background: var(--ck-white);
-  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
-  height: 60px;
-  display: flex; align-items: center;
-}
-.header-inner {
-  width: 100%; max-width: 1280px; margin: 0 auto;
-  padding: 0 20px;
-  display: flex; align-items: center; gap: 16px;
-}
-.hamburger-btn {
-  background: none; border: none; cursor: pointer;
-  display: flex; flex-direction: column; gap: 5px; padding: 4px;
-  flex-shrink: 0;
-}
-.hamburger-btn span {
-  display: block; width: 22px; height: 2px;
-  background: var(--ck-text); border-radius: 2px;
-  transition: 0.3s;
-}
-.logo-wrap { display: flex; align-items: center; }
-.logo-img { height: 32px; width: auto; }
+/* ═══════════════════════════════════════════════
+                          header
+═══════════════════════════════════════════════ */
 
-/* ===================== DRAWER ===================== */
-.drawer-overlay {
-  position: fixed; inset: 0; background: rgba(0,0,0,0.5);
-  z-index: 1999; opacity: 0; pointer-events: none;
-  transition: opacity 0.3s;
-}
-.drawer-overlay.open { opacity: 1; pointer-events: all; }
+.hdr{position:sticky;top:0;z-index:900;background:#fff;border-bottom:1px solid var(--bd);height:58px}
+.hdr-in{max-width:1320px;margin:0 auto;padding:0 20px;height:100%;display:flex;align-items:center;gap:12px}
+.hbg{background:none;border:none;display:flex;flex-direction:column;gap:4.5px;padding:6px 4px}
+.hbg span{display:block;width:21px;height:2px;background:#374151;border-radius:2px;transition:.25s}
+.logo-img{height:50px}
+.logo-txt{font-size:21px;font-weight:900;color:var(--bl);display:none}
+.logo-txt em{color:var(--or);font-style:normal}
 
-.side-drawer {
-  position: fixed; top: 0; left: -320px; bottom: 0;
-  width: 280px; background: var(--ck-white);
-  z-index: 2000; transition: left 0.35s cubic-bezier(0.4,0,0.2,1);
-  overflow-y: auto; display: flex; flex-direction: column;
-}
-.side-drawer.open { left: 0; }
+/* ═══════════════════════════════════════════════
+                          overlay
+═══════════════════════════════════════════════ */
 
-.drawer-header {
-  background: linear-gradient(135deg, var(--ck-blue) 0%, var(--ck-blue-mid) 100%);
-  padding: 20px 16px 16px;
-  display: flex; align-items: center; justify-content: space-between;
-}
-.drawer-logo { height: 28px; filter: brightness(0) invert(1); }
-.drawer-close {
-  background: rgba(255,255,255,0.2); border: none;
-  width: 32px; height: 32px; border-radius: 50%;
-  color: white; font-size: 18px; cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
+.ov{position:fixed;inset:0;background:rgba(0,0,0,.48);z-index:1800;opacity:0;pointer-events:none;transition:opacity .28s}
+.ov.on{opacity:1;pointer-events:all}
+
+/* ═══════════════════════════════════════════════
+                          Drawer
+═══════════════════════════════════════════════ */
+
+.drw{position:fixed;top:0;left:-290px;bottom:0;width:268px;background:#fff;z-index:1900;overflow-y:auto;transition:left .3s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column}
+.drw.on{left:0}
+.drw-hdr{background:linear-gradient(135deg,var(--bl),var(--bl2));padding:18px 16px 14px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.drw-logo{font-size:19px;font-weight:900;color:#fff}
+.drw-logo em{color:#ffb347;font-style:normal}
+.drw-x{background:rgba(255,255,255,.18);border:none;width:30px;height:30px;border-radius:50%;color:#fff;font-size:17px;display:flex;align-items:center;justify-content:center}
+.drw-row{display:flex;align-items:center;justify-content:space-between;padding:13px 16px;border-bottom:1px solid #f3f4f6;font-size:13.5px;font-weight:700;color:#111}
+.drw-row .ar{color:#9ca3af;font-size:15px}
+.drw-sep{height:4px;background:#f9fafb}
+.drw-cat{display:flex;align-items:center;gap:12px;padding:11px 16px;border-bottom:1px solid #f9fafb}
+.drw-cat:hover{background:#f0f4ff}
+.dci{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
+.dcn{font-size:13.5px;font-weight:600}
+.drw-lnk{display:flex;align-items:center;gap:10px;padding:13px 16px;font-size:14px;font-weight:700;border-bottom:1px solid #f3f4f6;transition:color .18s,background .18s}
+.drw-lnk:hover{color:var(--or);background:#fff8f5}
+.ni{font-size:17px}
+
+/* ═══════════════════════════════════════════════
+HERO IMAGE SLIDER
+═══════════════════════════════════════════════ */
+
+.hero{
+position:relative;
+overflow:hidden;
+width:100%;
+background:#f5f7ff;
 }
 
-.drawer-section-title {
-  padding: 14px 16px 6px;
-  font-size: 11px; font-weight: 700; color: var(--ck-orange);
-  text-transform: uppercase; letter-spacing: 0.08em;
+/* slider track */
+
+.h-track{
+display:flex;
+transition:transform .55s cubic-bezier(.4,0,.2,1);
 }
 
-.drawer-category-item {
-  display: flex; align-items: center; gap: 12px;
-  padding: 12px 16px;
-  border-bottom: 1px solid #f0f2f5;
-  cursor: default;
-  transition: background 0.2s;
-}
-.drawer-category-item:hover { background: var(--ck-blue-light); }
-.drawer-cat-icon {
-  width: 36px; height: 36px; border-radius: 10px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 18px; flex-shrink: 0;
-}
-.drawer-cat-name { font-size: 14px; font-weight: 600; color: var(--ck-text); }
-.drawer-cat-count { font-size: 11px; color: var(--ck-text-light); }
+/* slide */
 
-.drawer-nav-links { padding: 8px 0; }
-.drawer-nav-link {
-  display: flex; align-items: center; gap: 10px;
-  padding: 13px 16px;
-  font-size: 15px; font-weight: 600; color: var(--ck-text);
-  border-bottom: 1px solid #f0f2f5;
-  transition: color 0.2s, background 0.2s;
-}
-.drawer-nav-link:hover { color: var(--ck-orange); background: #fff5f0; }
-.drawer-nav-link .nav-icon { font-size: 18px; }
-
-/* ===================== HERO SLIDER ===================== */
-.hero-slider { position: relative; overflow: hidden; background: #e8edff; }
-.hero-track { display: flex; transition: transform 0.55s cubic-bezier(0.4,0,0.2,1); }
-.hero-slide {
-  min-width: 100%; position: relative; height: 380px; overflow: hidden;
-}
-.hero-slide img {
-  width: 100%; height: 100%; object-fit: cover;
-  border-radius: 0;
-}
-/* Simulated slides with gradient backgrounds */
-.hero-slide-inner {
-  width: 100%; height: 100%;
-  display: flex; align-items: center;
-  padding: 0 60px;
-  position: relative; overflow: hidden;
-}
-.hero-slide-bg {
-  position: absolute; inset: 0;
-  background-size: cover; background-position: center;
-}
-.hero-slide-content { position: relative; z-index: 2; max-width: 480px; }
-.hero-slide-content .store-logo {
-  background: white; padding: 8px 16px; border-radius: 10px;
-  display: inline-block; margin-bottom: 16px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.12);
-  font-size: 20px; font-weight: 800;
-}
-.hero-slide-content h2 {
-  font-size: clamp(24px, 3vw, 38px); font-weight: 900;
-  line-height: 1.15; margin-bottom: 10px;
-}
-.hero-slide-content p { font-size: 15px; margin-bottom: 20px; opacity: 0.9; }
-.hero-cashback-badge {
-  display: inline-flex; align-items: center; gap: 8px;
-  background: var(--ck-white); border-radius: 100px;
-  padding: 8px 16px; font-weight: 700; font-size: 14px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.12);
-  color: var(--ck-blue);
-}
-.hero-cashback-badge .ck-logo {
-  width: 24px; height: 24px; border-radius: 6px;
-  background: var(--ck-blue); color: white;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 10px; font-weight: 800;
-}
-.hero-btn {
-  display: inline-block; margin-top: 12px;
-  background: var(--ck-orange); color: white;
-  padding: 11px 24px; border-radius: 100px;
-  font-weight: 700; font-size: 14px;
-  transition: transform 0.2s, box-shadow 0.2s;
-  box-shadow: 0 4px 16px rgba(255,107,53,0.4);
-}
-.hero-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255,107,53,0.5); }
-
-.slider-arrow {
-  position: absolute; top: 50%; transform: translateY(-50%);
-  background: rgba(255,255,255,0.95); border: none; cursor: pointer;
-  width: 40px; height: 40px; border-radius: 50%;
-  font-size: 18px; color: var(--ck-text);
-  box-shadow: 0 2px 12px rgba(0,0,0,0.15);
-  z-index: 10; transition: background 0.2s, box-shadow 0.2s;
-  display: flex; align-items: center; justify-content: center;
-}
-.slider-arrow:hover { background: white; box-shadow: 0 4px 20px rgba(0,0,0,0.2); }
-.slider-arrow.prev { left: 16px; }
-.slider-arrow.next { right: 16px; }
-
-.slider-dots {
-  position: absolute; bottom: 14px; left: 50%; transform: translateX(-50%);
-  display: flex; gap: 6px; z-index: 10;
-}
-.slider-dot {
-  width: 7px; height: 7px; border-radius: 50%;
-  background: rgba(255,255,255,0.55); border: none; cursor: pointer;
-  transition: all 0.3s; padding: 0;
-}
-.slider-dot.active { background: white; width: 22px; border-radius: 100px; }
-
-/* ===================== SECTION COMMONS ===================== */
-.section { padding: 40px 0; }
-.section-inner { max-width: 1280px; margin: 0 auto; padding: 0 20px; }
-.section-head {
-  display: flex; align-items: center; justify-content: space-between;
-  margin-bottom: 20px;
-}
-.section-title {
-  font-size: 22px; font-weight: 800; color: var(--ck-text);
-  display: flex; align-items: center; gap: 8px;
-}
-.section-title .title-dot {
-  width: 8px; height: 8px; border-radius: 50%;
-  background: var(--ck-orange); display: inline-block;
-}
-.view-all-btn {
-  color: var(--ck-blue); font-weight: 700; font-size: 14px;
-  display: flex; align-items: center; gap: 4px;
-  transition: gap 0.2s;
-}
-.view-all-btn:hover { gap: 8px; color: var(--ck-orange); }
-
-/* ===================== TOP CATEGORIES ===================== */
-.categories-section { padding: 28px 0; background: white; border-bottom: 1px solid var(--ck-border); }
-.cat-scroll-wrap { position: relative; }
-.cat-scroll {
-  display: flex; gap: 12px; overflow-x: auto;
-  padding-bottom: 4px; scroll-snap-type: x mandatory;
-  -ms-overflow-style: none; scrollbar-width: none;
-}
-.cat-scroll::-webkit-scrollbar { display: none; }
-.cat-chip {
-  display: flex; flex-direction: column; align-items: center;
-  gap: 8px; flex-shrink: 0; cursor: pointer;
-  scroll-snap-align: start; padding: 4px 8px;
-  transition: transform 0.2s;
-}
-.cat-chip:hover { transform: translateY(-3px); }
-.cat-icon-wrap {
-  width: 64px; height: 64px; border-radius: 18px;
-  overflow: hidden; border: 2px solid transparent;
-  transition: border-color 0.2s, box-shadow 0.2s;
-  background: var(--ck-bg);
-}
-.cat-chip:hover .cat-icon-wrap {
-  border-color: var(--ck-orange);
-  box-shadow: 0 4px 16px rgba(255,107,53,0.2);
-}
-.cat-icon-wrap img { width: 100%; height: 100%; object-fit: cover; }
-.cat-icon-emoji {
-  width: 100%; height: 100%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 28px;
-  background: var(--bg, #f0f4ff);
-}
-.cat-label { font-size: 12px; font-weight: 700; color: var(--ck-text); text-align: center; white-space: nowrap; }
-
-/* ===================== CARD SLIDERS ===================== */
-.card-slider-section { padding: 32px 0; }
-.card-slider-section:nth-child(even) { background: white; }
-
-.cards-overflow { overflow: hidden; position: relative; }
-.cards-track {
-  display: flex; gap: 16px;
-  transition: transform 0.5s cubic-bezier(0.4,0,0.2,1);
+.h-slide{
+min-width:100%;
+height:540px;
+position:relative;
+overflow:hidden;
 }
 
-/* ---- PRODUCT/DEAL CARD ---- */
-.deal-card {
-  flex-shrink: 0; width: calc(20% - 13px);
-  background: var(--ck-card); border-radius: var(--radius-lg);
-  border: 1px solid var(--ck-border);
-  overflow: hidden; transition: transform 0.25s, box-shadow 0.25s;
-  cursor: pointer; position: relative;
-}
-.deal-card:hover {
-  transform: translateY(-5px);
-  box-shadow: var(--ck-shadow-hover);
-  border-color: rgba(26,60,190,0.15);
+/* banner image */
+
+.h-banner{
+width:100%;
+height:100%;
+object-fit:cover;
+display:block;
 }
 
-/* Credit Card style from image 1 */
-.credit-card-card {
-  flex-shrink: 0; width: calc(20% - 13px);
-  border-radius: var(--radius-lg); overflow: hidden;
-  cursor: pointer; transition: transform 0.25s, box-shadow 0.25s;
-  background: linear-gradient(135deg, #00c6d7 0%, #00e5f5 40%, #a0f0ff 100%);
-  border: 1px solid rgba(0,198,215,0.3);
-  padding: 18px;
-  min-height: 230px;
-  display: flex; flex-direction: column; justify-content: space-between;
-  position: relative;
-}
-.credit-card-card:hover { transform: translateY(-5px); box-shadow: 0 12px 36px rgba(0,198,215,0.35); }
+/* arrows */
 
-.cc-bank-badge {
-  display: inline-flex; align-items: center; gap: 6px;
-  background: white; border-radius: 8px;
-  padding: 4px 10px; font-size: 11px; font-weight: 800;
-  color: var(--ck-text); box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  width: fit-content;
-}
-.cc-card-img {
-  position: absolute; right: -10px; top: 28px;
-  width: 160px; filter: drop-shadow(0 8px 20px rgba(0,0,0,0.25));
-  transform: rotate(-12deg);
-}
-.cc-offer-text { font-size: 20px; font-weight: 900; color: var(--ck-text); line-height: 1.2; max-width: 180px; }
-.cc-sub-text { font-size: 12px; color: rgba(0,0,0,0.6); margin-top: 4px; }
-.cc-reward-badge {
-  display: inline-flex; align-items: center; gap: 6px;
-  background: var(--ck-blue); color: white;
-  border-radius: 8px; padding: 6px 10px;
-  font-size: 12px; font-weight: 700; width: fit-content;
-}
-.cc-ck-logo {
-  width: 20px; height: 20px; border-radius: 5px;
-  background: white; color: var(--ck-blue);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 9px; font-weight: 900;
-}
-.cc-apply-btn {
-  display: block; background: white;
-  text-align: center; padding: 8px 16px;
-  border-radius: 100px; font-size: 12px; font-weight: 700;
-  color: var(--ck-blue); margin-top: 10px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  transition: background 0.2s, color 0.2s;
-}
-.cc-apply-btn:hover { background: var(--ck-blue); color: white; }
-
-/* Deal card inner structure */
-.deal-card-img-wrap {
-  height: 160px; overflow: hidden; background: var(--ck-bg);
-  display: flex; align-items: center; justify-content: center;
-  padding: 12px; position: relative;
-}
-.deal-card-img-wrap img { max-height: 130px; object-fit: contain; transition: transform 0.3s; }
-.deal-card:hover .deal-card-img-wrap img { transform: scale(1.06); }
-.deal-badge {
-  position: absolute; top: 8px; left: 8px;
-  background: var(--ck-red); color: white;
-  font-size: 10px; font-weight: 800;
-  padding: 2px 8px; border-radius: 100px;
-  text-transform: uppercase;
-}
-.deal-badge.new { background: var(--ck-green); }
-.deal-badge.hot { background: var(--ck-orange); }
-
-.deal-card-body { padding: 12px 14px 14px; }
-.deal-store { font-size: 11px; font-weight: 700; color: var(--ck-text-light); margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.04em; }
-.deal-name { font-size: 14px; font-weight: 700; color: var(--ck-text); line-height: 1.3; margin-bottom: 6px;
-  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
-}
-.deal-price-row { display: flex; align-items: baseline; gap: 6px; margin-bottom: 8px; }
-.deal-price { font-size: 18px; font-weight: 900; color: var(--ck-text); }
-.deal-old-price { font-size: 13px; color: var(--ck-text-light); text-decoration: line-through; }
-.deal-discount { font-size: 12px; font-weight: 700; color: var(--ck-green); }
-
-.deal-cashback {
-  display: flex; align-items: center; gap: 6px;
-  background: var(--ck-blue-light); border-radius: 8px;
-  padding: 6px 10px; margin-bottom: 10px;
-  font-size: 12px; font-weight: 700; color: var(--ck-blue);
-}
-.deal-cashback .mini-ck {
-  width: 18px; height: 18px; border-radius: 5px;
-  background: var(--ck-blue); color: white;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 8px; font-weight: 900; flex-shrink: 0;
+.h-arr{
+position:absolute;
+top:50%;
+transform:translateY(-50%);
+background:rgba(255,255,255,.9);
+border:none;
+width:42px;
+height:42px;
+border-radius:50%;
+font-size:22px;
+color:#374151;
+cursor:pointer;
+box-shadow:0 6px 20px rgba(0,0,0,.15);
+z-index:10;
+display:flex;
+align-items:center;
+justify-content:center;
+transition:all .2s;
 }
 
-.deal-cta {
-  display: block; text-align: center;
-  background: var(--ck-orange); color: white;
-  padding: 9px; border-radius: 100px;
-  font-size: 13px; font-weight: 700;
-  transition: background 0.2s, transform 0.2s;
-}
-.deal-cta:hover { background: var(--ck-orange-dark); transform: scale(1.02); }
-
-/* Slider nav row */
-.slider-nav {
-  display: flex; align-items: center; justify-content: flex-end;
-  gap: 8px; margin-bottom: 16px;
-}
-.s-arrow {
-  width: 34px; height: 34px; border-radius: 50%;
-  border: 1.5px solid var(--ck-border);
-  background: white; cursor: pointer; font-size: 14px;
-  display: flex; align-items: center; justify-content: center;
-  transition: border-color 0.2s, background 0.2s, color 0.2s;
-  color: var(--ck-text-mid);
-}
-.s-arrow:hover { border-color: var(--ck-orange); background: var(--ck-orange); color: white; }
-
-/* ===================== BLOG SECTION ===================== */
-.blog-section { padding: 40px 0 50px; background: white; }
-.blog-grid {
-  display: grid; grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
-}
-.blog-card {
-  border-radius: var(--radius); overflow: hidden;
-  border: 1px solid var(--ck-border);
-  background: var(--ck-white);
-  transition: transform 0.25s, box-shadow 0.25s;
-  cursor: pointer;
-}
-.blog-card:hover { transform: translateY(-4px); box-shadow: var(--ck-shadow-hover); }
-.blog-card-img {
-  height: 185px; overflow: hidden; background: #f0f4ff;
-  position: relative;
-}
-.blog-card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
-.blog-card:hover .blog-card-img img { transform: scale(1.06); }
-.blog-card-cat {
-  position: absolute; top: 10px; left: 10px;
-  background: var(--ck-orange); color: white;
-  font-size: 10px; font-weight: 800; padding: 3px 8px;
-  border-radius: 100px; text-transform: uppercase; letter-spacing: 0.04em;
-}
-.blog-card-body { padding: 14px; }
-.blog-card-title {
-  font-size: 14px; font-weight: 700; color: var(--ck-text);
-  line-height: 1.4; margin-bottom: 8px;
-  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
-}
-.blog-card-date { font-size: 11px; color: var(--ck-text-light); font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; }
-
-.blog-view-all-wrap { text-align: center; margin-top: 28px; }
-.blog-view-all-btn {
-  display: inline-flex; align-items: center; gap: 8px;
-  background: var(--ck-text); color: white;
-  padding: 13px 32px; border-radius: 100px;
-  font-size: 14px; font-weight: 700;
-  transition: background 0.2s, transform 0.2s;
-}
-.blog-view-all-btn:hover { background: var(--ck-blue); transform: translateY(-2px); }
-
-/* ===================== FOOTER ===================== */
-.site-footer {
-  background: var(--ck-text);
-  color: rgba(255,255,255,0.75);
-  padding: 48px 0 0;
-}
-.footer-grid {
-  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
-  gap: 40px; padding-bottom: 40px;
-  border-bottom: 1px solid rgba(255,255,255,0.1);
-}
-.footer-brand-logo { height: 32px; filter: brightness(0) invert(1); margin-bottom: 14px; }
-.footer-brand-desc { font-size: 13px; line-height: 1.7; margin-bottom: 20px; }
-.footer-social { display: flex; gap: 10px; }
-.social-btn {
-  width: 36px; height: 36px; border-radius: 10px;
-  background: rgba(255,255,255,0.1);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 16px; transition: background 0.2s;
-}
-.social-btn:hover { background: var(--ck-orange); }
-.footer-col h4 {
-  font-size: 13px; font-weight: 800; color: white;
-  text-transform: uppercase; letter-spacing: 0.06em;
-  margin-bottom: 16px;
-}
-.footer-links { list-style: none; }
-.footer-links li { margin-bottom: 10px; }
-.footer-links a {
-  font-size: 13px; color: rgba(255,255,255,0.65);
-  transition: color 0.2s;
-}
-.footer-links a:hover { color: var(--ck-orange); }
-.footer-bottom {
-  padding: 18px 0;
-  display: flex; align-items: center; justify-content: space-between;
-  font-size: 12px; color: rgba(255,255,255,0.4);
-}
-.footer-bottom a { color: rgba(255,255,255,0.4); }
-.footer-bottom a:hover { color: var(--ck-orange); }
-
-/* ===================== UTILITIES ===================== */
-.orange { color: var(--ck-orange); }
-.blue { color: var(--ck-blue); }
-
-/* ===================== RESPONSIVE ===================== */
-@media (max-width: 1100px) {
-  .deal-card, .credit-card-card { width: calc(25% - 12px); }
-}
-@media (max-width: 860px) {
-  .deal-card, .credit-card-card { width: calc(33.33% - 11px); }
-  .blog-grid { grid-template-columns: repeat(2, 1fr); }
-  .footer-grid { grid-template-columns: 1fr 1fr; }
-  .hero-slide { height: 280px; }
-  .hero-slide-inner { padding: 0 36px; }
-}
-@media (max-width: 600px) {
-  .deal-card, .credit-card-card { width: calc(50% - 8px); }
-  .blog-grid { grid-template-columns: repeat(2, 1fr); }
-  .footer-grid { grid-template-columns: 1fr; }
-  .hero-slide { height: 240px; }
-  .hero-slide-inner { padding: 0 20px; }
-  .hero-slide-content h2 { font-size: 20px; }
-  .section-title { font-size: 18px; }
-  .footer-bottom { flex-direction: column; gap: 6px; text-align: center; }
+.h-arr:hover{
+background:#fff;
+transform:translateY(-50%) scale(1.05);
 }
 
-/* ===================== ANIMATIONS ===================== */
-@keyframes fadeSlideUp {
-  from { opacity: 0; transform: translateY(18px); }
-  to { opacity: 1; transform: translateY(0); }
+.h-arr.l{
+left:16px;
 }
-.fade-in { opacity: 0; animation: fadeSlideUp 0.5s ease forwards; }
-.delay-1 { animation-delay: 0.1s; }
-.delay-2 { animation-delay: 0.2s; }
-.delay-3 { animation-delay: 0.3s; }
-.delay-4 { animation-delay: 0.4s; }
+
+.h-arr.r{
+right:16px;
+}
+
+/* dots */
+
+.h-dots{
+position:absolute;
+bottom:16px;
+left:50%;
+transform:translateX(-50%);
+display:flex;
+gap:6px;
+z-index:10;
+}
+
+/* dot */
+
+.h-dot{
+width:8px;
+height:8px;
+border-radius:50%;
+background:rgba(255,255,255,.6);
+border:none;
+cursor:pointer;
+transition:all .3s;
+}
+
+/* active dot */
+
+.h-dot.on{
+background:#fff;
+width:24px;
+border-radius:20px;
+}
+
+/* ───────── MOBILE ───────── */
+
+@media(max-width:900px){
+
+.h-slide{
+height:260px;
+}
+
+.h-arr{
+width:34px;
+height:34px;
+font-size:18px;
+}
+
+}
+
+
+/* ─── SECTION COMMON ─── */
+.sec{padding:32px 0 24px}
+.sec.g{background:var(--bg)}
+.si{max-width:1320px;margin:0 auto;padding:0 20px}
+.s-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+.s-ttl{font-size:20px;font-weight:800}
+.va{font-size:13.5px;font-weight:800;color:var(--bl);display:flex;align-items:center;gap:4px;transition:gap .18s}
+.va:hover{gap:8px}
+.va svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2.5}
+.s-nav{display:flex;gap:6px}
+.sbt{width:32px;height:32px;border-radius:50%;border:1.5px solid var(--bd);background:#fff;font-size:16px;display:flex;align-items:center;justify-content:center;color:#6b7280;transition:all .18s}
+.sbt:hover{border-color:var(--or);background:var(--or);color:#fff}
+.sw{overflow:hidden}
+.st{display:flex;gap:16px;transition:transform .48s cubic-bezier(.4,0,.2,1)}
+
+/* ═══════════════════════════════════════════════
+                          Categories
+═══════════════════════════════════════════════ */
+
+.cat-sec{padding:24px 0 20px;background:#fff;border-bottom:1px solid var(--bd)}
+.cat-ttl{font-size:18px;font-weight:800;margin-bottom:18px}
+.cat-row{display:flex;gap:20px;overflow-x:auto;-ms-overflow-style:none;scrollbar-width:none;padding-bottom:4px}
+.cat-row::-webkit-scrollbar{display:none}
+.cat-it{display:flex;flex-direction:column;align-items:center;gap:10px;flex-shrink:0;cursor:pointer;min-width:80px}
+.cat-it:hover .cat-circle{border-color:var(--or);box-shadow:0 4px 16px rgba(249,115,22,.2)}
+.cat-circle{width:88px;height:88px;border-radius:50%;overflow:hidden;border:2px solid transparent;transition:border-color .2s,box-shadow .2s;background:#f3f4f6;display:flex;align-items:center;justify-content:center}
+.cat-circle img{width:100%;height:100%;object-fit:cover}
+.cat-lbl{font-size:13px;font-weight:600;color:#374151;text-align:center;line-height:1.3;max-width:88px}
+
+/* ═══════════════════════════════════════════════
+MOST POPULAR BRANDS SECTION
+═══════════════════════════════════════════════ */
+
+/* Slider Wrapper */
+
+#brWrap{
+width:100%;
+overflow:hidden;
+position:relative;
+}
+
+/* Slider Track */
+
+#brTrack{
+display:flex;
+gap:16px;
+transition:transform .45s cubic-bezier(.4,0,.2,1);
+}
+
+/* Each page (2 rows × 4 columns) */
+
+#brPage0,
+#brPage1{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:16px;
+
+flex-shrink:0;
+width:100%;
+}
+
+/* Brand Card */
+
+.brand-card{
+background:#fff;
+border:1px solid #f1f1f1;
+border-radius:18px;
+
+display:flex;
+flex-direction:column;
+overflow:hidden;
+cursor:pointer;
+
+transition:transform .25s ease, box-shadow .25s ease;
+}
+
+/* Hover Shrink Effect */
+
+.brand-card:hover{
+transform:scale(.96);
+box-shadow:0 12px 28px rgba(0,0,0,.12);
+}
+
+/* Top Offer Tag */
+
+.brand-tag{
+background:#ffe6e6;
+padding:8px 10px;
+
+text-align:center;
+
+font-size:13px;
+font-weight:800;
+color:#e40052;
+}
+
+/* Logo Area */
+
+.brand-logo-area{
+flex:1;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+padding:28px 16px;
+background:#fff;
+}
+
+.brand-logo-area img{
+max-height:60px;
+max-width:100%;
+object-fit:contain;
+}
+
+/* Cashback Button */
+
+.brand-cb-btn{
+background:#0036DA;
+color:#fff;
+
+text-align:center;
+
+padding:12px 10px;
+margin:16px;
+
+font-size:14px;
+font-weight:800;
+
+border-radius:14px;
+
+transition:background .2s;
+}
+
+/* Hover Button */
+
+.brand-card:hover .brand-cb-btn{
+background:#1d4ed8;
+}
+
+
+/* ═══════════════════════════════════════════════
+IMAGE CREDIT CARD SLIDER
+═══════════════════════════════════════════════ */
+
+
+.cc-card{
+flex-shrink:0;
+width:calc(33.33% - 12px);
+min-width:320px;
+
+border-radius:22px;
+overflow:hidden;
+
+display:block;
+
+cursor:pointer;
+
+transition:transform .25s, box-shadow .25s;
+box-shadow:0 4px 18px rgba(0,0,0,.08);
+}
+
+
+.cc-card img{
+width:100%;
+height:auto;
+display:block;
+}
+
+
+/* ═══════════════════════════════════════════════
+                          PRODUCT DEAL CARD
+═══════════════════════════════════════════════ */
+.pd{
+flex-shrink:0;
+width:calc(20% - 13px);
+min-width:200px;
+
+background:#fff;
+border:1px solid var(--bd);
+border-radius:14px;
+
+overflow:hidden;
+cursor:pointer;
+
+transition:transform .22s,box-shadow .22s;
+
+display:flex;
+flex-direction:column;
+}
+
+.pd:hover{
+transform:translateY(-5px);
+box-shadow:0 10px 36px rgba(26,65,180,.12);
+border-color:#c7d2fe;
+}
+
+/* Image */
+
+.pd-img{
+height:270px;
+display:flex;
+align-items:center;
+justify-content:center;
+padding:16px;
+background:#fff;
+position:relative;
+}
+
+.pd-img img{
+height:100%;
+width:100%;
+max-width:220px;   /* optional */
+object-fit:contain;
+transition:transform .3s;
+}
+
+.pd:hover .pd-img img{
+transform:scale(1.05);
+}
+
+/* Discount badge */
+
+.pd-badge{
+position:absolute;
+top:9px;
+right:9px;
+
+background:#fef2f2;
+border:1px solid #fecaca;
+
+border-radius:100px;
+
+padding:2px 8px;
+
+font-size:11px;
+font-weight:800;
+
+color:var(--rd);
+}
+
+/* Body */
+
+.pd-body{
+padding:12px 14px 16px;
+
+display:flex;
+flex-direction:column;
+gap:6px;
+
+flex:1;
+}
+
+/* Store */
+
+.pd-store{
+font-size:11.5px;
+font-weight:600;
+color:var(--t3);
+}
+
+/* Product name */
+
+.pd-name{
+font-size:13px;
+font-weight:700;
+color:#111827;
+
+line-height:1.35;
+
+display:-webkit-box;
+-webkit-line-clamp:2;
+-webkit-box-orient:vertical;
+overflow:hidden;
+}
+
+/* Price row */
+
+.pd-pr{
+display:flex;
+align-items:baseline;
+flex-wrap:wrap;
+gap:6px;
+
+margin-top:4px;
+}
+
+.pd-cur{
+font-size:16px;
+font-weight:900;
+color:#111827;
+}
+
+.pd-old{
+font-size:13px;
+font-weight:600;
+color:var(--t3);
+text-decoration:line-through;
+}
+
+.pd-pct{
+font-size:13px;
+font-weight:800;
+color:var(--bl);
+}
+
+/* SHOP NOW BUTTON */
+
+.pd-btn{
+margin-top:10px;
+
+display:block;
+
+text-align:center;
+
+background:var(--bl);
+color:#fff;
+
+font-size:13px;
+font-weight:800;
+
+padding:10px 12px;
+
+border-radius:8px;
+
+transition:.2s;
+}
+
+.pd-btn:hover{
+background:var(--bl2);
+}
+
+
+/* ═══════════════════════════════════════════════
+                          blog
+═══════════════════════════════════════════════ */
+
+.b-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:20px;
+}
+
+.b-card{
+  border-radius:12px;
+  overflow:hidden;
+  border:1px solid var(--bd);
+  background:#fff;
+  cursor:pointer;
+  transition:transform .22s, box-shadow .22s;
+}
+
+.b-card:hover{
+  transform:translateY(-5px);
+  box-shadow:var(--sh2);
+}
+
+.b-img{
+  height:182px;
+  overflow:hidden;
+  background:#f3f4f6;
+  position:relative;
+}
+
+.b-img img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transition:transform .38s;
+}
+
+
+
+.b-cat{
+  position:absolute;
+  top:10px;
+  left:10px;
+  background:var(--or);
+  color:#fff;
+  font-size:10px;
+  font-weight:800;
+  padding:3px 9px;
+  border-radius:100px;
+  text-transform:uppercase;
+  letter-spacing:.04em;
+}
+
+.b-body{
+  padding:13px 14px 15px;
+}
+
+.b-ttl{
+  font-size:14px;
+  font-weight:700;
+  color:#111827;
+  line-height:1.4;
+  margin-bottom:7px;
+  display:-webkit-box;
+  -webkit-line-clamp:2;
+  -webkit-box-orient:vertical;
+  overflow:hidden;
+}
+
+.b-date{
+  font-size:11px;
+  font-weight:700;
+  color:var(--t3);
+  text-transform:uppercase;
+  letter-spacing:.05em;
+}
+
+.b-va{
+  text-align:center;
+  margin-top:28px;
+}
+
+.b-va a{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  background:#111827;
+  color:#fff;
+  padding:12px 34px;
+  border-radius:100px;
+  font-size:14px;
+  font-weight:800;
+  transition:background .2s, transform .18s;
+}
+
+.b-va a:hover{
+  background:var(--bl);
+  transform:translateY(-2px);
+}
+
+/* ═══════════════════════════════════════════════
+                          Footer
+═══════════════════════════════════════════════ */
+
+.ft{
+  background:#111827;
+  color:rgba(255,255,255,.72);
+  padding:50px 0 0;
+}
+
+.ft-in{
+  max-width:1320px;
+  margin:0 auto;
+  padding:0 20px;
+}
+
+.ft-g{
+  display:grid;
+  grid-template-columns:2fr 1fr 1fr 1fr;
+  gap:44px;
+  padding-bottom:44px;
+  border-bottom:1px solid rgba(255,255,255,.1);
+}
+
+.ft-logo img{
+  width:200px;
+  height:80px;
+}
+
+.ft-desc{
+  font-size:15px;
+  line-height:1.75;
+  margin-bottom:20px;
+}
+
+.ft-soc{
+  display:flex;
+  gap:9px;
+}
+
+.ft-s{
+  width:36px;
+  height:36px;
+  border-radius:9px;
+  background:rgba(255,255,255,.1);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:15px;
+  transition:background .2s;
+}
+
+.ft-s:hover{
+  background:var(--or);
+}
+
+.ft-col h4{
+  font-size:13px;
+  font-weight:800;
+  color:#ffffff;
+  text-transform:uppercase;
+  letter-spacing:.07em;
+  margin-bottom:15px;
+}
+
+.ft-ul{
+  list-style:none;
+}
+
+.ft-ul li{
+  margin-bottom:9px;
+}
+
+.ft-ul a{
+  font-size:15px;
+  color:#f2f2f2;
+  transition:color .18s;
+}
+
+.ft-ul a:hover{
+  color:var(--or);
+}
+
+.ft-bot{
+  padding:17px 0;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  font-size:12px;
+  color:rgba(255,255,255,.38);
+  flex-wrap:wrap;
+  gap:8px;
+}
+
+.ft-bot a{
+  color:rgba(255,255,255,.38);
+  transition:color .18s;
+}
+
+.ft-bot a:hover{
+  color:var(--or);
+}
+
+/* ═══════════════════════════════════════════════
+                          responsive
+═══════════════════════════════════════════════ */
+
+@media(max-width:1100px){.cc-card{width:calc(50% - 8px)}.pd{width:calc(25% - 12px)}.brands-grid{grid-template-columns:repeat(4,1fr)}}
+@media(max-width:860px){.pd{width:calc(33.33% - 11px)}.b-grid{grid-template-columns:repeat(2,1fr)}.ft-g{grid-template-columns:1fr 1fr}.h-slide{height:280px}.h-ov{padding:0 36px}.h-img-r,.h-img-c{display:none}.brands-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:580px){.pd{width:calc(50% - 8px)}.b-grid{grid-template-columns:repeat(2,1fr)}.h-slide{height:240px}.h-ov{padding:0 20px}.ft-g{grid-template-columns:1fr;gap:28px}.ft-bot{flex-direction:column;text-align:center}.brands-grid{grid-template-columns:repeat(2,1fr)}.cc-card{width:calc(100% - 0px)}}
+.fu{opacity:0;transform:translateY(18px);transition:opacity .48s,transform .48s}
+.fu.vis{opacity:1;transform:none}
 </style>
 </head>
 <body>
 
-<!-- ===================== HEADER ===================== -->
-<header class="site-header">
-  <div class="header-inner">
-    <button class="hamburger-btn" id="hamburgerBtn" aria-label="Open menu">
-      <span></span><span></span><span></span>
-    </button>
-    <a href="#" class="logo-wrap">
-      <img src="https://asset22.ckassets.com/wp/wp-content/themes/CashKaro_WP_V1/img/cashkaro_logo_v1.svg"
-           alt="CashKaro" class="logo-img"
-           onerror="this.outerHTML='<span style=\'font-family:Nunito;font-weight:900;font-size:22px;color:#1a3cbe\'>Cash<span style=\'color:#ff6b35\'>Karo</span></span>'">
+<!-- HEADER -->
+<header class="hdr">
+  <div class="hdr-in">
+    <button class="hbg" id="hbgBtn"><span></span><span></span><span></span></button>
+    <a href="#">
+      <img class="logo-img"
+        src="images\logo.png"
+        alt="dealswala.shop"
+        onerror="this.style.display='none';document.querySelector('.logo-txt').style.display='block'">
+      <span class="logo-txt">Cash<em>Karo</em></span>
     </a>
   </div>
 </header>
 
-<!-- ===================== SIDE DRAWER ===================== -->
-<div class="drawer-overlay" id="drawerOverlay"></div>
-<aside class="side-drawer" id="sideDrawer">
-  <div class="drawer-header">
-    <img src="https://asset22.ckassets.com/wp/wp-content/themes/CashKaro_WP_V1/img/cashkaro_logo_v1.svg"
-         class="drawer-logo" alt="CashKaro"
-         onerror="this.outerHTML='<span style=\'font-family:Nunito;font-weight:900;font-size:18px;color:white\'>CashKaro</span>'">
-    <button class="drawer-close" id="drawerClose">✕</button>
-  </div>
+<!-- OVERLAY -->
+<div class="ov" id="ov"></div>
 
-  <!-- Categories -->
-  <div class="drawer-section-title">Categories</div>
-
-  <div class="drawer-category-item">
-    <div class="cat-icon-emoji" style="--bg:#fff0e8; width:36px;height:36px;border-radius:10px;font-size:18px;">🛍️</div>
-    <div><div class="drawer-cat-name">Most Popular Retailers</div><div class="drawer-cat-count">500+ stores</div></div>
+<!-- SIDE DRAWER -->
+<aside class="drw" id="drw">
+  <div class="drw-hdr">
+    <span class="drw-logo">deals<em>wala</em></span>
+    <button class="drw-x" id="drwX">✕</button>
   </div>
-  <div class="drawer-category-item">
-    <div class="cat-icon-emoji" style="--bg:#e8f0ff; width:36px;height:36px;border-radius:10px;font-size:18px;">📱</div>
-    <div><div class="drawer-cat-name">Mobiles</div><div class="drawer-cat-count">120+ offers</div></div>
-  </div>
-  <div class="drawer-category-item">
-    <div class="cat-icon-emoji" style="--bg:#e8fff0; width:36px;height:36px;border-radius:10px;font-size:18px;">👗</div>
-    <div><div class="drawer-cat-name">Fashion</div><div class="drawer-cat-count">300+ deals</div></div>
-  </div>
-  <div class="drawer-category-item">
-    <div class="cat-icon-emoji" style="--bg:#fff8e8; width:36px;height:36px;border-radius:10px;font-size:18px;">💄</div>
-    <div><div class="drawer-cat-name">Beauty & Grooming</div><div class="drawer-cat-count">200+ brands</div></div>
-  </div>
-  <div class="drawer-category-item">
-    <div class="cat-icon-emoji" style="--bg:#ffe8f0; width:36px;height:36px;border-radius:10px;font-size:18px;">💻</div>
-    <div><div class="drawer-cat-name">Electronics</div><div class="drawer-cat-count">180+ offers</div></div>
-  </div>
-  <div class="drawer-category-item">
-    <div class="cat-icon-emoji" style="--bg:#e8f8ff; width:36px;height:36px;border-radius:10px;font-size:18px;">🏠</div>
-    <div><div class="drawer-cat-name">Home & Kitchen</div><div class="drawer-cat-count">250+ deals</div></div>
-  </div>
-  <div class="drawer-category-item">
-    <div class="cat-icon-emoji" style="--bg:#f0e8ff; width:36px;height:36px;border-radius:10px;font-size:18px;">✈️</div>
-    <div><div class="drawer-cat-name">Flights & Hotels</div><div class="drawer-cat-count">50+ partners</div></div>
-  </div>
-  <div class="drawer-category-item">
-    <div class="cat-icon-emoji" style="--bg:#e8fff8; width:36px;height:36px;border-radius:10px;font-size:18px;">🛒</div>
-    <div><div class="drawer-cat-name">Grocery & Food</div><div class="drawer-cat-count">90+ stores</div></div>
-  </div>
-
-  <!-- Nav links -->
-  <div class="drawer-nav-links" style="margin-top:8px;">
-    <a href="#" class="drawer-nav-link"><span class="nav-icon">📝</span> Blog & Articles</a>
-    <a href="#" class="drawer-nav-link"><span class="nav-icon">ℹ️</span> About Us</a>
-    <a href="#" class="drawer-nav-link"><span class="nav-icon">❓</span> Help & Support</a>
-    <a href="#" class="drawer-nav-link"><span class="nav-icon">📞</span> Contact</a>
-  </div>
+  <div class="drw-row"><span>Category</span><span class="ar">›</span></div>
+  <div class="drw-row"><span>Most Popular Retailers</span><span class="ar">›</span></div>
+  <div class="drw-row"><span>Retailers by Category</span><span class="ar">›</span></div>
+  <div class="drw-row"><span>Top Product Deals</span><span class="ar">›</span></div>
+  <div class="drw-sep"></div>
+  <div class="drw-cat"><div class="dci" style="background:#fff0e8">📱</div><span class="dcn">Mobiles</span></div>
+  <div class="drw-cat"><div class="dci" style="background:#e8f0ff">🎧</div><span class="dcn">Headphones</span></div>
+  <div class="drw-cat"><div class="dci" style="background:#e8fff0">💻</div><span class="dcn">Laptops</span></div>
+  <div class="drw-cat"><div class="dci" style="background:#fff8e8">👔</div><span class="dcn">Men Fashion</span></div>
+  <div class="drw-cat"><div class="dci" style="background:#ffe8f0">👗</div><span class="dcn">Women Fashion</span></div>
+  <div class="drw-cat"><div class="dci" style="background:#f0e8ff">👟</div><span class="dcn">Men Shoes</span></div>
+  <div class="drw-cat"><div class="dci" style="background:#ffe8ee">👠</div><span class="dcn">Women Shoes</span></div>
+  <div class="drw-cat"><div class="dci" style="background:#fff0f8">💄</div><span class="dcn">Beauty</span></div>
+  <div class="drw-cat"><div class="dci" style="background:#e8fff8">🛒</div><span class="dcn">Grocery</span></div>
+  <div class="drw-sep"></div>
+  <a href="#" class="drw-lnk"><span class="ni">📝</span> Blog &amp; Articles</a>
 </aside>
 
-<!-- ===================== HERO SLIDER ===================== -->
-<section class="hero-slider" id="heroSlider">
-  <div class="hero-track" id="heroTrack">
 
-    <!-- Slide 1: Amazon -->
-    <div class="hero-slide">
-      <div class="hero-slide-inner" style="background: linear-gradient(135deg, #FF9900 0%, #ff6b35 100%);">
-        <div class="hero-slide-content">
-          <div class="store-logo">🛒 Amazon</div>
-          <h2 style="color:white;">Upto 80% Off + Extra Cashback</h2>
-          <p style="color:rgba(255,255,255,0.9);">Electronics, Fashion, Home & more</p>
-          <div class="hero-cashback-badge">
-            <div class="ck-logo">CK</div>
-            Flat 3.5% Extra Cashback
-          </div><br>
-          <a href="#" class="hero-btn">Shop Now →</a>
-        </div>
-        <img src="https://images.unsplash.com/photo-1523474253046-8cd2748b5fd2?w=380&h=300&fit=crop" alt="Amazon deals"
-             style="position:absolute;right:40px;top:50%;transform:translateY(-50%);width:340px;height:280px;object-fit:cover;border-radius:20px;box-shadow:0 16px 48px rgba(0,0,0,0.25);opacity:0.92;">
-      </div>
-    </div>
+<!-- ═══════════════════════════════════════
+slider
+══════════════════════════════════════ -->
+<section class="hero">
 
-    <!-- Slide 2: Myntra -->
-    <div class="hero-slide">
-      <div class="hero-slide-inner" style="background: linear-gradient(135deg, #ff1f71 0%, #ff6b35 100%);">
-        <div class="hero-slide-content">
-          <div class="store-logo" style="color:#ff1f71;">👗 Myntra</div>
-          <h2 style="color:white;">Fashion Sale is LIVE</h2>
-          <p style="color:rgba(255,255,255,0.9);">50-90% Off on top brands</p>
-          <div class="hero-cashback-badge">
-            <div class="ck-logo">CK</div>
-            Upto 6% Cashback
-          </div><br>
-          <a href="#" class="hero-btn">Explore Sale →</a>
-        </div>
-        <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=380&h=300&fit=crop" alt="Fashion"
-             style="position:absolute;right:40px;top:50%;transform:translateY(-50%);width:300px;height:300px;object-fit:cover;border-radius:50%;box-shadow:0 16px 48px rgba(0,0,0,0.25);">
-      </div>
-    </div>
+<div class="h-track" id="hTrack">
 
-    <!-- Slide 3: Flipkart -->
-    <div class="hero-slide">
-      <div class="hero-slide-inner" style="background: linear-gradient(135deg, #2874f0 0%, #00bcd4 100%);">
-        <div class="hero-slide-content">
-          <div class="store-logo" style="color:#2874f0;">⚡ Flipkart</div>
-          <h2 style="color:white;">Big Billion Days Sale</h2>
-          <p style="color:rgba(255,255,255,0.9);">Massive deals on Electronics & more</p>
-          <div class="hero-cashback-badge">
-            <div class="ck-logo">CK</div>
-            Upto 7% Cashback
-          </div><br>
-          <a href="#" class="hero-btn">Grab Deals →</a>
-        </div>
-        <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=380&h=300&fit=crop" alt="Products"
-             style="position:absolute;right:40px;top:50%;transform:translateY(-50%);width:340px;height:260px;object-fit:cover;border-radius:20px;box-shadow:0 16px 48px rgba(0,0,0,0.3);opacity:0.9;">
-      </div>
-    </div>
+<!-- Slide 1 -->
+<div class="h-slide">
+<img src="images\koozo_banner.png" class="h-banner" alt="koozo offer">
+</div>
 
-    <!-- Slide 4: Beauty/Mamaearth -->
-    <div class="hero-slide">
-      <div class="hero-slide-inner" style="background: linear-gradient(135deg, #56ab2f 0%, #a8e063 100%);">
-        <div class="hero-slide-content">
-          <div class="store-logo" style="color:#56ab2f;">🌿 MamaEarth</div>
-          <h2 style="color:white;">Buy 1 Get 1 Free!</h2>
-          <p style="color:rgba(255,255,255,0.9);">Natural skincare & personal care</p>
-          <div class="hero-cashback-badge">
-            <div class="ck-logo">CK</div>
-            Flat 12% Cashback
-          </div><br>
-          <a href="#" class="hero-btn">Shop Natural →</a>
-        </div>
-        <img src="https://images.unsplash.com/photo-1556228578-dd8e4fe0d0a7?w=380&h=300&fit=crop" alt="Beauty"
-             style="position:absolute;right:40px;top:50%;transform:translateY(-50%);width:300px;height:300px;object-fit:cover;border-radius:50%;box-shadow:0 16px 48px rgba(0,0,0,0.2);">
-      </div>
-    </div>
+<!-- Slide 2 -->
+<div class="h-slide">
+<img src="images\timesprime_banner.png" class="h-banner" alt="Flipkart Sale">
+</div>
 
-    <!-- Slide 5: Travel -->
-    <div class="hero-slide">
-      <div class="hero-slide-inner" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
-        <div class="hero-slide-content">
-          <div class="store-logo" style="color:#667eea;">✈️ MakeMyTrip</div>
-          <h2 style="color:white;">Flight Deals from ₹999</h2>
-          <p style="color:rgba(255,255,255,0.9);">Best fares on flights & hotels</p>
-          <div class="hero-cashback-badge">
-            <div class="ck-logo">CK</div>
-            Flat 5.5% Cashback
-          </div><br>
-          <a href="#" class="hero-btn">Book Now →</a>
-        </div>
-        <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=380&h=300&fit=crop" alt="Travel"
-             style="position:absolute;right:40px;top:50%;transform:translateY(-50%);width:340px;height:260px;object-fit:cover;border-radius:20px;box-shadow:0 16px 48px rgba(0,0,0,0.25);opacity:0.9;">
-      </div>
-    </div>
+<!-- Slide 3 -->
+<div class="h-slide">
+<img src="images\clove_banner.png" class="h-banner" alt="Clove deals">
+</div>
 
-  </div>
-  <button class="slider-arrow prev" id="heroPrev">&#8249;</button>
-  <button class="slider-arrow next" id="heroNext">&#8250;</button>
-  <div class="slider-dots" id="heroDots"></div>
+
+<!-- Slide 4 -->
+<div class="h-slide">
+<img src="images\creditcard_banner.png" class="h-banner" alt="koozo offer">
+</div>
+
+
+</div>
+
+<!-- Navigation -->
+<button class="h-arr l" id="hPrev">&#8249;</button>
+<button class="h-arr r" id="hNext">&#8250;</button>
+
+<!-- Dots -->
+<div class="h-dots" id="hDots"></div>
+
 </section>
 
-<!-- ===================== TOP CATEGORIES ===================== -->
-<section class="categories-section">
-  <div class="section-inner">
-    <div class="cat-scroll" id="catScroll">
-      <a href="#" class="cat-chip">
-        <div class="cat-icon-wrap"><div class="cat-icon-emoji" style="--bg:#fff0e8; background:#fff0e8;">⭐</div></div>
-        <span class="cat-label">Most Popular</span>
+
+<!-- ═══════════════════════════════════════
+categories
+══════════════════════════════════════ -->
+
+<!-- TOP CATEGORIES — Image 1 exact style: circles with real images -->
+<section class="cat-sec">
+  <div class="si">
+    <div class="cat-ttl">Top Categories</div>
+    <div class="cat-row" id="catRow">
+      <a href="#" class="cat-it">
+        <div class="cat-circle" style="background:linear-gradient(135deg,#1641b4,#2874f0)">
+          <img src="https://asset20.ckassets.com/resources/image/category/most-popular-5257-17696609361.gif" alt="Most Popular" onerror="this.parentElement.innerHTML='<span style=\'font-size:28px\'>⭐</span>'">
+        </div>
+        <span class="cat-lbl">Most Popular</span>
       </a>
-      <a href="#" class="cat-chip">
-        <div class="cat-icon-wrap"><div class="cat-icon-emoji" style="background:#e8f0ff;">💳</div></div>
-        <span class="cat-label">Credit Cards</span>
+      <a href="#" class="cat-it">
+        <div class="cat-circle" style="background:#00bcd4">
+          <img src="https://asset20.ckassets.com/resources/image/category/banking-finance-offers-4684-17593288271.gif" alt="Credit Cards" onerror="this.parentElement.innerHTML='<span style=\'font-size:28px\'>💳</span>'">
+        </div>
+        <span class="cat-lbl">Credit Cards</span>
       </a>
-      <a href="#" class="cat-chip">
-        <div class="cat-icon-wrap"><div class="cat-icon-emoji" style="background:#ffe8f0;">👗</div></div>
-        <span class="cat-label">Fashion</span>
+      <a href="#" class="cat-it">
+        <div class="cat-circle">
+          <img src="https://asset20.ckassets.com/resources/image/category/fashion-offers-4199-17352129510.png" alt="Fashion" onerror="this.parentElement.innerHTML='<span style=\'font-size:28px\'>👗</span>'">
+        </div>
+        <span class="cat-lbl">Fashion</span>
       </a>
-      <a href="#" class="cat-chip">
-        <div class="cat-icon-wrap"><div class="cat-icon-emoji" style="background:#fff8e8;">💄</div></div>
-        <span class="cat-label">Beauty</span>
+      <a href="#" class="cat-it">
+        <div class="cat-circle">
+          <img src="https://asset20.ckassets.com/resources/image/category/beauty-personal-care-offers-4206-17352128850.png" alt="Beauty" onerror="this.parentElement.innerHTML='<span style=\'font-size:28px\'>💄</span>'">
+        </div>
+        <span class="cat-lbl">Beauty &amp; Grooming</span>
       </a>
-      <a href="#" class="cat-chip">
-        <div class="cat-icon-wrap"><div class="cat-icon-emoji" style="background:#e8f4ff;">💻</div></div>
-        <span class="cat-label">Electronics</span>
+      <a href="#" class="cat-it">
+        <div class="cat-circle">
+          <img src="https://asset20.ckassets.com/resources/image/category/electronics-offers-4205-17584717970.png" alt="Electronics" onerror="this.parentElement.innerHTML='<span style=\'font-size:28px\'>💻</span>'">
+        </div>
+        <span class="cat-lbl">Electronics</span>
       </a>
-      <a href="#" class="cat-chip">
-        <div class="cat-icon-wrap"><div class="cat-icon-emoji" style="background:#e8ffee;">📱</div></div>
-        <span class="cat-label">Mobiles</span>
+      <a href="#" class="cat-it">
+        <div class="cat-circle">
+          <img src="https://asset20.ckassets.com/resources/image/category/mobiles-phones-offers-4200-17352851830.png" alt="Mobiles" onerror="this.parentElement.innerHTML='<span style=\'font-size:28px\'>📱</span>'">
+        </div>
+        <span class="cat-lbl">Mobiles</span>
       </a>
-      <a href="#" class="cat-chip">
-        <div class="cat-icon-wrap"><div class="cat-icon-emoji" style="background:#fff0f8;">🏠</div></div>
-        <span class="cat-label">Home & Kitchen</span>
+      <a href="#" class="cat-it">
+        <div class="cat-circle">
+          <img src="https://asset20.ckassets.com/resources/image/category/home-kitchen-offers-4209-17352129920.png" alt="Home" onerror="this.parentElement.innerHTML='<span style=\'font-size:28px\'>🏠</span>'">
+        </div>
+        <span class="cat-lbl">Home &amp; Kitchen</span>
       </a>
-      <a href="#" class="cat-chip">
-        <div class="cat-icon-wrap"><div class="cat-icon-emoji" style="background:#fffde8;">🏷️</div></div>
-        <span class="cat-label">Min 50% Off</span>
+      <a href="#" class="cat-it">
+        <div class="cat-circle">
+          <img src="https://asset20.ckassets.com/resources/image/category/min-cashback-5417-17585353791.png" alt="Min 50%" onerror="this.parentElement.innerHTML='<span style=\'font-size:28px\'>🏷️</span>'">
+        </div>
+        <span class="cat-lbl">Min 50% Cashback</span>
       </a>
-      <a href="#" class="cat-chip">
-        <div class="cat-icon-wrap"><div class="cat-icon-emoji" style="background:#f0e8ff;">✈️</div></div>
-        <span class="cat-label">Flights</span>
+      <a href="#" class="cat-it">
+        <div class="cat-circle">
+          <img src="https://asset20.ckassets.com/resources/image/category/travel-offers-4207-17352130220.png" alt="Flights" onerror="this.parentElement.innerHTML='<span style=\'font-size:28px\'>✈️</span>'">
+        </div>
+        <span class="cat-lbl">Flights &amp; Hotels</span>
       </a>
-      <a href="#" class="cat-chip">
-        <div class="cat-icon-wrap"><div class="cat-icon-emoji" style="background:#e8fff4;">💊</div></div>
-        <span class="cat-label">Pharmacy</span>
+      <a href="#" class="cat-it">
+        <div class="cat-circle">
+          <img src="https://asset20.ckassets.com/resources/image/category/health-medicine-offers-4203-17352130130.png" alt="Pharmacy" onerror="this.parentElement.innerHTML='<span style=\'font-size:28px\'>💊</span>'">
+        </div>
+        <span class="cat-lbl">Pharmacy</span>
       </a>
-      <a href="#" class="cat-chip">
-        <div class="cat-icon-wrap"><div class="cat-icon-emoji" style="background:#ffe8e8;">🛒</div></div>
-        <span class="cat-label">Grocery</span>
+      <a href="#" class="cat-it">
+        <div class="cat-circle">
+          <img src="https://asset20.ckassets.com/resources/image/category/food-and-grocery-4901-17352860840.png" alt="Food" onerror="this.parentElement.innerHTML='<span style=\'font-size:28px\'>🛒</span>'">
+        </div>
+        <span class="cat-lbl">Food &amp; Grocery</span>
       </a>
-      <a href="#" class="cat-chip">
-        <div class="cat-icon-wrap"><div class="cat-icon-emoji" style="background:#e8f8ff;">🎓</div></div>
-        <span class="cat-label">Education</span>
+      <a href="#" class="cat-it">
+        <div class="cat-circle">
+          <img src="https://asset20.ckassets.com/resources/image/category/health-and-wellness-4900-17352129720.png" alt="Health" onerror="this.parentElement.innerHTML='<span style=\'font-size:28px\'>💪</span>'">
+        </div>
+        <span class="cat-lbl">Health &amp; Wellness</span>
       </a>
     </div>
   </div>
 </section>
 
-<!-- ===================== SECTION 1: BEST CARDS FOR TRAVEL (Credit Card style) ===================== -->
-<section class="card-slider-section section" id="section-cards">
-  <div class="section-inner">
-    <div class="section-head">
-      <h2 class="section-title"><span class="title-dot"></span> Best Cards for Travel</h2>
-      <div style="display:flex;align-items:center;gap:12px;">
-        <button class="s-arrow" id="cards-prev">&#8249;</button>
-        <button class="s-arrow" id="cards-next">&#8250;</button>
-        <a href="#" class="view-all-btn">View All →</a>
+<!-- ═══════════════════════════════════════
+     MOST POPULAR BRANDS 
+══════════════════════════════════════ -->
+
+<section class="sec">
+<div class="si fu">
+
+<div class="s-hd">
+<h2 class="s-ttl">Most Popular Brands</h2>
+
+<div style="display:flex;align-items:center;gap:10px">
+
+<a href="#" class="va">
+View All
+<svg viewBox="0 0 24 24">
+<line x1="5" y1="12" x2="19" y2="12"/>
+<polyline points="12 5 19 12 12 19"/>
+</svg>
+</a>
+
+</div>
+</div>
+
+<div style="overflow:hidden" id="brWrap">
+
+<div id="brTrack" style="display:flex;gap:20px;transition:transform .48s cubic-bezier(.4,0,.2,1)">
+
+<!-- PAGE 1 (8 CARDS) -->
+<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:18px;flex-shrink:0;width:100%" id="brPage0">
+
+<a href="https://earningshub.co/Vipul-Gupta-177349360948256913890" class="brand-card">
+<div class="brand-tag">Best Deal</div>
+<div class="brand-logo-area">
+<img src="images\clove_logo.png">
+</div>
+<div class="brand-cb-btn">Flat 65% Cahback</div>
+</a>
+
+<a href="https://earningshub.co/Vipul-Gupta-177349364199257013890" class="brand-card">
+<div class="brand-tag">Grab Deal</div>
+<div class="brand-logo-area">
+<img src="images\tiarra_logo.png">
+</div>
+<div class="brand-cb-btn">Flat 40% Cahback</div>
+</a>
+
+<a href="https://earningshub.co/Vipul-Gupta-177349379969646213890" class="brand-card">
+<div class="brand-tag">New Drop</div>
+<div class="brand-logo-area">
+<img src="images\timesprime_logo.png">
+</div>
+<div class="brand-cb-btn">Flat 400 Cashback</div>
+</a>
+
+<a href="https://earningshub.co/Vipul-Gupta-177349404290448813890" class="brand-card">
+<div class="brand-tag">Grab or Gone</div>
+<div class="brand-logo-area">
+<img src="images\pop_logo.jpg">
+</div>
+<div class="brand-cb-btn">Flat 1050 Cashback</div>
+</a>
+
+<a href="https://earningshub.co/Vipul-Gupta-177349414022853113890" class="brand-card">
+<div class="brand-tag">New Deal</div>
+<div class="brand-logo-area">
+<img src="images\citygold_logo.png">
+</div>
+<div class="brand-cb-btn">Flat 25% Cashback</div>
+</a>
+
+<a href="https://earningshub.co/Vipul-Gupta-177349428351253813890" class="brand-card">
+<div class="brand-tag">Upto 60% Off</div>
+<div class="brand-logo-area">
+<img src="images\koparo_logo.jpg">
+</div>
+<div class="brand-cb-btn">Flat 35% Cashback</div>
+</a>
+
+<a href="https://earningshub.co/Vipul-Gupta-177349445632557313890" class="brand-card">
+<div class="brand-tag">New Drop</div>
+<div class="brand-logo-area">
+<img src="images\jivisa_logo.png">
+</div>
+<div class="brand-cb-btn">Flat 60% Cashback</div>
+</a>
+
+<a href="https://earningshub.co/Vipul-Gupta-177349469619019713890" class="brand-card">
+<div class="brand-tag">Best Deal</div>
+<div class="brand-logo-area">
+<img src="images\tide_logo.png">
+</div>
+<div class="brand-cb-btn">Flat 300 Cashback</div>
+</a>
+
+</div>
+
+
+</div>
+</div>
+
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     CREDIT CARD SECTION
+══════════════════════════════════════ -->
+
+<section class="sec g">
+
+<div class="si fu">
+
+<div class="s-hd">
+
+<h2 class="s-ttl">Best Cards for Shopping</h2>
+
+<div style="display:flex;align-items:center;gap:10px">
+
+<div class="s-nav">
+<button class="sbt" id="c0p">&#8249;</button>
+<button class="sbt" id="c0n">&#8250;</button>
+</div>
+
+<a href="#" class="va">
+View All
+<svg viewBox="0 0 24 24">
+<line x1="5" y1="12" x2="19" y2="12"/>
+<polyline points="12 5 19 12 12 19"/>
+</svg>
+</a>
+
+</div>
+</div>
+
+
+<div class="sw">
+<div class="st" id="c0">
+
+
+<!-- CARD 1 -->
+<a href="https://earningshub.co/Vipul-Gupta-177349538041647413890" class="cc-card">
+<img src="images\airtel.png">
+</a>
+
+
+<!-- CARD 2 -->
+<a href="https://earningshub.co/Vipul-Gupta-177349541724754713890" class="cc-card">
+<img src="images\bpcl.png">
+</a>
+
+
+
+
+
+<!-- CARD 3 -->
+<a href="https://earningshub.co/Vipul-Gupta-177349544976248613890" class="cc-card">
+<img src="images\cashback.png">
+</a>
+
+
+<!-- CARD 4 -->
+<a href="https://earningshub.co/Vipul-Gupta-177349547764747313890" class="cc-card">
+<img src="images\indianoil.png">
+</a>
+
+
+<!-- CARD 5 -->
+<a href="https://earningshub.co/Vipul-Gupta-177349552596751713890" class="cc-card">
+<img src="images\kiwi.png">
+</a>
+
+
+<!-- CARD 6 -->
+<a href="https://earningshub.co/Vipul-Gupta-177349554209747713890" class="cc-card">
+<img src="images\myzone.png">
+</a>
+
+
+</div>
+</div>
+
+</div>
+</section>
+
+
+<!-- ═══════════════════════════════════════
+     deals SECTION
+══════════════════════════════════════ -->
+<!-- PRODUCT SECTION 1 -->
+<section class="sec">
+  <div class="si fu">
+    <div class="s-hd">
+      <h2 class="s-ttl">Latest Deals</h2>
+      <div style="display:flex;align-items:center;gap:10px">
+        <div class="s-nav"><button class="sbt" id="p1p">&#8249;</button><button class="sbt" id="p1n">&#8250;</button></div>
+        <a href="#" class="va">View All <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
       </div>
     </div>
-    <div class="cards-overflow">
-      <div class="cards-track" id="cards-track">
+    <div class="sw"><div class="st" id="p1">
 
-        <!-- Card 1 -->
-        <div class="credit-card-card">
-          <div>
-            <div class="cc-bank-badge">
-              <span style="color:#1a3cbe;font-size:13px;">🏦</span> SBI Card <span style="font-size:9px;color:#888;font-weight:500;">PRIME CARD</span>
-            </div>
-            <img src="https://asset20.ckassets.com/resources/image/stores/sbi-cashback-card-1759465154.png"
-                 class="cc-card-img" alt="SBI Card"
-                 onerror="this.style.display='none'">
-            <div class="cc-offer-text" style="margin-top:14px;">₹3000 Welcome Voucher</div>
-            <div class="cc-sub-text">On Dining & Entertainment</div>
-          </div>
-          <div>
-            <div class="cc-reward-badge"><div class="cc-ck-logo">CK</div> Flat ₹1,400 Rewards</div>
-            <a href="#" class="cc-apply-btn">Apply Now</a>
-          </div>
-        </div>
+<!-- PRODUCT 1 -->
+<div class="pd">
 
-        <!-- Card 2 -->
-        <div class="credit-card-card" style="background:linear-gradient(135deg,#1a1a2e 0%,#2d2d4e 100%);">
-          <div>
-            <div class="cc-bank-badge">
-              <span style="color:#cc2929;font-size:13px;">🏦</span> HDFC Bank <span style="font-size:9px;color:#888;font-weight:500;">MARRIOTT CARD</span>
-            </div>
-            <div style="position:absolute;right:-5px;top:20px;font-size:80px;opacity:0.15;">💳</div>
-            <div class="cc-offer-text" style="margin-top:14px;color:#ffd700;">Premium Perks & Complimentary Stay</div>
-            <div class="cc-sub-text" style="color:rgba(255,255,255,0.6);display:flex;align-items:center;gap:6px;">at <span style="font-size:18px;">🏨</span> Marriott Bonvoy</div>
-          </div>
-          <div>
-            <div class="cc-reward-badge"><div class="cc-ck-logo">CK</div> Upto ₹1,100 Rewards</div>
-            <a href="#" class="cc-apply-btn" style="color:#1a1a2e;">Apply Now</a>
-          </div>
-        </div>
+<div class="pd-img">
+<img src="https://rukminim2.flixcart.com/image/1440/1440/xif0q/shoe/p/7/i/7-rsl1384-7-0-red-tape-black-white-original-imahg6f9qcqckwqf.jpeg?q=90" alt="">
+<span class="pd-badge">84% off</span>
+</div>
 
-        <!-- Card 3 -->
-        <div class="credit-card-card" style="background:linear-gradient(135deg,#c0392b 0%,#e74c3c 60%,#ff6b6b 100%);">
-          <div>
-            <div class="cc-bank-badge">
-              <span style="color:#cc0000;font-size:13px;">🔴</span> Axis Bank <span style="font-size:9px;color:#888;font-weight:500;">SELECT CARD</span>
-            </div>
-            <div class="cc-offer-text" style="margin-top:14px;color:white;">20% Discount on Swiggy & BigBasket</div>
-            <div class="cc-sub-text" style="color:rgba(255,255,255,0.8);">+ 10K Edge Rewards</div>
-          </div>
-          <div>
-            <div class="cc-reward-badge"><div class="cc-ck-logo">CK</div> Upto ₹1,300 Rewards</div>
-            <a href="#" class="cc-apply-btn">Apply Now</a>
-          </div>
-        </div>
+<div class="pd-body">
 
-        <!-- Card 4 -->
-        <div class="credit-card-card" style="background:linear-gradient(135deg,#1565c0 0%,#1976d2 100%);">
-          <div>
-            <div class="cc-bank-badge">
-              <span style="color:#cc2929;font-size:13px;">🏦</span> HDFC Bank <span style="font-size:9px;color:#888;font-weight:500;">IRCTC CARD</span>
-            </div>
-            <div class="cc-offer-text" style="margin-top:14px;color:white;">5% Cashback on Train Bookings</div>
-            <div class="cc-sub-text" style="color:rgba(255,255,255,0.75);">+ Railway Lounge Access</div>
-          </div>
-          <div>
-            <div class="cc-reward-badge"><div class="cc-ck-logo">CK</div> Flat ₹1,200 Rewards</div>
-            <a href="#" class="cc-apply-btn">Apply Now</a>
-          </div>
-        </div>
+<div class="pd-store">REDTAPE</div>
 
-        <!-- Card 5 -->
-        <div class="credit-card-card" style="background:linear-gradient(135deg,#6a1b9a 0%,#9c27b0 100%);">
-          <div>
-            <div class="cc-bank-badge">
-              <span style="color:#6a1b9a;font-size:13px;">🏦</span> ICICI Bank <span style="font-size:9px;color:#888;font-weight:500;">AMAZON PAY</span>
-            </div>
-            <div class="cc-offer-text" style="margin-top:14px;color:white;">5% Back on Amazon Purchases</div>
-            <div class="cc-sub-text" style="color:rgba(255,255,255,0.75);">+ 2% on all other spends</div>
-          </div>
-          <div>
-            <div class="cc-reward-badge"><div class="cc-ck-logo">CK</div> Upto ₹1,500 Rewards</div>
-            <a href="#" class="cc-apply-btn">Apply Now</a>
-          </div>
-        </div>
+<div class="pd-name">
+Black and White Sneakers <br>for Men
+</div>
 
-        <!-- Card 6 (extra for slider) -->
-        <div class="credit-card-card" style="background:linear-gradient(135deg,#00695c 0%,#26a69a 100%);">
-          <div>
-            <div class="cc-bank-badge">
-              <span style="color:#00695c;font-size:13px;">🏦</span> Kotak <span style="font-size:9px;color:#888;font-weight:500;">LEAGUE CARD</span>
-            </div>
-            <div class="cc-offer-text" style="margin-top:14px;color:white;">₹5000 Worth Free Vouchers</div>
-            <div class="cc-sub-text" style="color:rgba(255,255,255,0.75);">Welcome gift on first spend</div>
-          </div>
-          <div>
-            <div class="cc-reward-badge"><div class="cc-ck-logo">CK</div> Upto ₹1,800 Rewards</div>
-            <a href="#" class="cc-apply-btn">Apply Now</a>
-          </div>
-        </div>
+<div class="pd-pr">
+<span class="pd-cur">₹1,087</span>
+<span class="pd-old">₹6,799</span>
+<span class="pd-pct">(84% off)</span>
+</div>
 
-      </div>
-    </div>
+<a href="https://fktr.in/zpds13M" class="pd-btn">Shop Now</a>
+
+</div>
+</div>
+
+
+<!-- PRODUCT 2 -->
+<div class="pd">
+
+<div class="pd-img">
+<img src="https://www.koozo.com/cdn/shop/files/1500X1500_Banner_9_2.png?v=1770972082&width=846" alt="">
+<span class="pd-badge">56% off</span>
+</div>
+
+<div class="pd-body">
+
+<div class="pd-store">Viva Glam</div>
+
+<div class="pd-name">
+Acne Light Therapy <br>Patch<br>
+</div>
+
+<div class="pd-pr">
+<span class="pd-cur">₹1,299</span>
+<span class="pd-old">₹2,999</span>
+<span class="pd-pct">(56% off)</span>
+</div>
+
+<a href="https://www.koozo.com/products/vivaglam-led-therapy-acne_patch" class="pd-btn">Shop Now</a>
+
+</div>
+</div>
+
+
+<!-- PRODUCT 3 -->
+<div class="pd">
+
+<div class="pd-img">
+<img src="https://rukminim2.flixcart.com/image/1440/1440/xif0q/trouser/5/g/h/40-pt220l051-indiclub-original-imahk5gxjsqwff8p.jpeg?q=90" alt="">
+<span class="pd-badge">66% off</span>
+</div>
+
+<div class="pd-body">
+
+<div class="pd-store">INDICLUB</div>
+
+<div class="pd-name">
+Men Regular Fit Beige Corduroy Trousers
+</div>
+
+<div class="pd-pr">
+<span class="pd-cur">₹336</span>
+<span class="pd-old">₹999</span>
+<span class="pd-pct">(66% off)</span>
+</div>
+
+<a href="https://fktr.in/V0i33Wm" class="pd-btn">Shop Now</a>
+
+</div>
+</div>
+
+<!-- PRODUCT 4 -->
+     <div class="pd">
+
+<div class="pd-img">
+<img src="https://rukminim2.flixcart.com/image/1440/1440/xif0q/sari/w/g/w/free-ty-and-416-rani-pikham-unstitched-original-imahhg5vwymyuyfv.jpeg?q=90" alt="Woven Banarasi Jacquard Saree (Pink)">
+<span class="pd-badge">81% off</span>
+</div>
+
+<div class="pd-body">
+
+<div class="pd-store">Pikham</div>
+
+<div class="pd-name">
+Woven Banarasi Jacquard Saree (Pink)
+</div>
+
+<div class="pd-pr">
+<span class="pd-cur">₹494</span>
+<span class="pd-old">₹2,599</span>
+<span class="pd-pct">(81% off)</span>
+</div>
+
+<a href="https://fktr.in/IwzN7n0" class="pd-btn">Shop Now</a>
+
+</div>
+</div>
+
+<!-- PRODUCT 5 -->
+<div class="pd">
+
+<div class="pd-img">
+<img src="https://rukminim2.flixcart.com/image/1440/1440/xif0q/table-lamp/n/2/u/cute-panda-night-light-for-kids-nursery-silicone-night-light-7-original-imagwu7uwxypvjnj.jpeg?q=90" alt="Cute Panda Lamp | Rechargeable 7-Color Light
+">
+<span class="pd-badge">84% off</span>
+</div>
+
+<div class="pd-body">
+
+<div class="pd-store">Refulgix</div>
+
+<div class="pd-name">
+Cute Panda Lamp | Rechargeable 7-Color Light
+</div>
+
+<div class="pd-pr">
+<span class="pd-cur">₹298</span>
+<span class="pd-old">₹1,899</span>
+<span class="pd-pct">(84% off)</span>
+</div>
+
+<a href="https://fktr.in/UAxlp2y" class="pd-btn">Shop Now</a>
+
+</div>
+</div>
+
+<!-- PRODUCT 6 -->
+<div class="pd">
+
+<div class="pd-img">
+<img src="https://www.koozo.com/cdn/shop/files/Collapsible_bowl_blue.png?v=1763040317&width=846" alt="">
+<span class="pd-badge">45% off</span>
+</div>
+
+<div class="pd-body">
+
+<div class="pd-store">Slursh</div>
+
+<div class="pd-name">
+Collapsible Silicone Box<br>(Pack of 3)
+</div>
+
+<div class="pd-pr">
+<span class="pd-cur">₹2,999</span>
+<span class="pd-old">₹5,499</span>
+<span class="pd-pct">(45% off)</span>
+</div>
+
+<a href="https://www.koozo.com/products/collapsible-silicone-boxnew-pack-of-3" class="pd-btn">Shop Now</a>
+
+</div>
+</div>
+
+
   </div>
 </section>
 
-<!-- ===================== SECTION 2: LATEST DEALS ===================== -->
-<section class="card-slider-section section" id="section-latest">
-  <div class="section-inner">
-    <div class="section-head">
-      <h2 class="section-title"><span class="title-dot"></span> Latest Deals</h2>
-      <div style="display:flex;align-items:center;gap:12px;">
-        <button class="s-arrow" id="latest-prev">&#8249;</button>
-        <button class="s-arrow" id="latest-next">&#8250;</button>
-        <a href="#" class="view-all-btn">View All →</a>
+<!-- PRODUCT SECTION 2: best deals -->
+<section class="sec g">
+  <div class="si fu">
+    <div class="s-hd">
+      <h2 class="s-ttl">Top Deals</h2>
+      <div style="display:flex;align-items:center;gap:10px">
+        <div class="s-nav"><button class="sbt" id="p2p">&#8249;</button><button class="sbt" id="p2n">&#8250;</button></div>
+        <a href="#" class="va">View All <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
       </div>
     </div>
-    <div class="cards-overflow">
-      <div class="cards-track" id="latest-track">
+    <div class="sw"><div class="st" id="p2">
 
-        <div class="deal-card">
-          <div class="deal-card-img-wrap">
-            <img src="https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?w=300&h=200&fit=crop" alt="Samsung S25">
-            <span class="deal-badge new">NEW</span>
-          </div>
-          <div class="deal-card-body">
-            <div class="deal-store">Flipkart</div>
-            <div class="deal-name">Samsung Galaxy S25 Ultra 5G</div>
-            <div class="deal-price-row"><span class="deal-price">₹1,09,999</span><span class="deal-old-price">₹1,34,999</span><span class="deal-discount">19% off</span></div>
-            <div class="deal-cashback"><div class="mini-ck">CK</div> Upto 1.4% Cashback</div>
-            <a href="#" class="deal-cta">Get Deal</a>
-          </div>
-        </div>
 
-        <div class="deal-card">
-          <div class="deal-card-img-wrap">
-            <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=300&h=200&fit=crop" alt="Shoes">
-            <span class="deal-badge hot">HOT</span>
-          </div>
-          <div class="deal-card-body">
-            <div class="deal-store">Myntra</div>
-            <div class="deal-name">Nike Air Max 270 Running Shoes</div>
-            <div class="deal-price-row"><span class="deal-price">₹5,995</span><span class="deal-old-price">₹11,495</span><span class="deal-discount">48% off</span></div>
-            <div class="deal-cashback"><div class="mini-ck">CK</div> Flat 6% Cashback</div>
-            <a href="#" class="deal-cta">Get Deal</a>
-          </div>
-        </div>
+<!-- PRODUCT 1 -->
+<div class="pd">
 
-        <div class="deal-card">
-          <div class="deal-card-img-wrap">
-            <img src="https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=300&h=200&fit=crop" alt="Skincare">
-          </div>
-          <div class="deal-card-body">
-            <div class="deal-store">MamaEarth</div>
-            <div class="deal-name">Vitamin C Face Serum + Moisturizer Combo</div>
-            <div class="deal-price-row"><span class="deal-price">₹799</span><span class="deal-old-price">₹1,398</span><span class="deal-discount">43% off</span></div>
-            <div class="deal-cashback"><div class="mini-ck">CK</div> Flat 12% Cashback</div>
-            <a href="#" class="deal-cta">Get Deal</a>
-          </div>
-        </div>
+<div class="pd-img">
+<img src="https://www.koozo.com/cdn/shop/files/Mini_Cooler.png?v=1763040710&width=846" alt="">
+<span class="pd-badge">50% off</span>
+</div>
 
-        <div class="deal-card">
-          <div class="deal-card-img-wrap">
-            <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=300&h=200&fit=crop" alt="Laptop">
-            <span class="deal-badge">DEAL</span>
-          </div>
-          <div class="deal-card-body">
-            <div class="deal-store">Amazon</div>
-            <div class="deal-name">Apple MacBook Air M2 Chip, 8GB RAM 256GB</div>
-            <div class="deal-price-row"><span class="deal-price">₹89,990</span><span class="deal-old-price">₹1,14,900</span><span class="deal-discount">22% off</span></div>
-            <div class="deal-cashback"><div class="mini-ck">CK</div> Upto 3.5% Cashback</div>
-            <a href="#" class="deal-cta">Get Deal</a>
-          </div>
-        </div>
+<div class="pd-body">
 
-        <div class="deal-card">
-          <div class="deal-card-img-wrap">
-            <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=300&h=200&fit=crop" alt="Headphones">
-            <span class="deal-badge new">NEW</span>
-          </div>
-          <div class="deal-card-body">
-            <div class="deal-store">Reliance Digital</div>
-            <div class="deal-name">Sony WH-1000XM5 Wireless Noise Cancelling</div>
-            <div class="deal-price-row"><span class="deal-price">₹24,990</span><span class="deal-old-price">₹34,990</span><span class="deal-discount">29% off</span></div>
-            <div class="deal-cashback"><div class="mini-ck">CK</div> Flat 3% Cashback</div>
-            <a href="#" class="deal-cta">Get Deal</a>
-          </div>
-        </div>
+<div class="pd-store">LivinH</div>
 
-        <div class="deal-card">
-          <div class="deal-card-img-wrap">
-            <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=300&h=200&fit=crop" alt="Watch">
-            <span class="deal-badge hot">HOT</span>
-          </div>
-          <div class="deal-card-body">
-            <div class="deal-store">Amazon</div>
-            <div class="deal-name">Samsung Galaxy Watch 6 Classic 47mm</div>
-            <div class="deal-price-row"><span class="deal-price">₹26,999</span><span class="deal-old-price">₹39,999</span><span class="deal-discount">33% off</span></div>
-            <div class="deal-cashback"><div class="mini-ck">CK</div> Upto 3.5% Cashback</div>
-            <a href="#" class="deal-cta">Get Deal</a>
-          </div>
-        </div>
+<div class="pd-name">
+Mini Air Cooler<br> <br>
+</div>
 
-        <div class="deal-card">
-          <div class="deal-card-img-wrap">
-            <img src="https://images.unsplash.com/photo-1512104556455-ab5bb4154024?w=300&h=200&fit=crop" alt="Appliance">
-          </div>
-          <div class="deal-card-body">
-            <div class="deal-store">Flipkart</div>
-            <div class="deal-name">LG 6.5 Kg 5 Star Inverter Washing Machine</div>
-            <div class="deal-price-row"><span class="deal-price">₹28,490</span><span class="deal-old-price">₹47,990</span><span class="deal-discount">41% off</span></div>
-            <div class="deal-cashback"><div class="mini-ck">CK</div> Upto 1.4% Cashback</div>
-            <a href="#" class="deal-cta">Get Deal</a>
-          </div>
-        </div>
+<div class="pd-pr">
+<span class="pd-cur">₹1,499</span>
+<span class="pd-old">₹2,999</span>
+<span class="pd-pct">(50% off)</span>
+</div>
 
-      </div>
-    </div>
-  </div>
+<a href="https://www.koozo.com/products/livinh-coolmist-pro" class="pd-btn">Shop Now</a>
+
+</div>
+</div>
+
+
+<!-- PRODUCT 2 -->
+<div class="pd">
+
+<div class="pd-img">
+<img src="https://image.clovia.com/media/images/clovia-picture-geometric-print-kurta-top-pyjama-set-in-white-rayon-587855.jpg" alt="">
+<span class="pd-badge">69% off</span>
+</div>
+
+<div class="pd-body">
+
+<div class="pd-store">Clovia</div>
+
+<div class="pd-name">
+Geometric Print Kurta Top & Pyjama Set
+</div>
+
+<div class="pd-pr">
+<span class="pd-cur">₹639</span>
+<span class="pd-old">₹2099</span>
+<span class="pd-pct">(69% off)</span>
+</div>
+
+<a href="https://bitli.in/z6USc7D" class="pd-btn">Shop Now</a>
+
+</div>
+</div>
+
+
+<!-- PRODUCT 3 -->
+<div class="pd">
+
+<div class="pd-img">
+<img src="https://salty.co.in/cdn/shop/files/The-Butterfly-Magic-Jewellery-Set-Salty-224198352.jpg?v=1773373064&width=1080" alt="">
+<span class="pd-badge">23% off</span>
+</div>
+
+<div class="pd-body">
+
+<div class="pd-store">Salty</div>
+
+<div class="pd-name">
+Radiant Butterfly Tassel <br>Necklace
+</div>
+
+<div class="pd-pr">
+<span class="pd-cur">₹699</span>
+<span class="pd-old">₹910</span>
+<span class="pd-pct">(23% off)</span>
+</div>
+
+<a href="https://bitli.in/mjM0ni6" class="pd-btn">Shop Now</a>
+
+</div>
+</div>
+
+<!-- PRODUCT 4 -->
+     <div class="pd">
+
+<div class="pd-img">
+<img src="https://www.koozo.com/cdn/shop/files/baby_head_support_main_image.png?v=1763543320&width=846" alt="">
+<span class="pd-badge">50% off</span>
+</div>
+
+<div class="pd-body">
+
+<div class="pd-store">Trulittle</div>
+
+<div class="pd-name">
+Baby Head Support <br>Pillow
+</div>
+
+<div class="pd-pr">
+<span class="pd-cur">₹2,499</span>
+<span class="pd-old">₹4,999</span>
+<span class="pd-pct">(50% off)</span>
+</div>
+
+<a href="https://www.koozo.com/products/anti-twist-orthopaedic-baby-head-support" class="pd-btn">Shop Now</a>
+
+</div>
+</div>
+
+<!-- PRODUCT 5 -->
+<div class="pd">
+
+<div class="pd-img">
+<img src="https://www.gonoise.com/cdn/shop/files/16_7081f4a2-56bc-4860-8161-0779f02a06f9.png?v=1724763666" alt="">
+<span class="pd-badge">68% off</span>
+</div>
+
+<div class="pd-body">
+
+<div class="pd-store">Noice</div>
+
+<div class="pd-name">
+Buds N1 Pro<br>60 hrs playtime, ANC
+</div>
+
+<div class="pd-pr">
+<span class="pd-cur">₹1,599</span>
+<span class="pd-old">₹4,999</span>
+<span class="pd-pct">(68% off)</span>
+</div>
+
+<a href="https://bitli.in/xq1RiQt" class="pd-btn">Shop Now</a>
+
+</div>
+</div>
+
+<!-- PRODUCT 6 -->
+<div class="pd">
+
+<div class="pd-img">
+<img src="https://houseofkoala.com/cdn/shop/files/BD0A1034_09c0c9b2-a9de-4406-a42d-e4218e844bf6.jpg?v=1756277087&width=980" alt="">
+<span class="pd-badge">70% off</span>
+</div>
+
+<div class="pd-body">
+
+<div class="pd-store">House of Koala</div>
+
+<div class="pd-name">
+Blue & White Stripe Printed Oversized Set
+</div>
+
+<div class="pd-pr">
+<span class="pd-cur">₹1,349</span>
+<span class="pd-old">₹4,498</span>
+<span class="pd-pct">(70% off)</span>
+</div>
+
+<a href="https://bitli.in/79lXfNr" class="pd-btn">Shop Now</a>
+
+</div>
+</div>
+
+</div>
 </section>
 
-<!-- ===================== SECTION 3: BEST SELLING ===================== -->
-<section class="card-slider-section section" style="background:white;" id="section-best">
-  <div class="section-inner">
-    <div class="section-head">
-      <h2 class="section-title"><span class="title-dot"></span> Best Selling Products</h2>
-      <div style="display:flex;align-items:center;gap:12px;">
-        <button class="s-arrow" id="best-prev">&#8249;</button>
-        <button class="s-arrow" id="best-next">&#8250;</button>
-        <a href="#" class="view-all-btn">View All →</a>
+<!-- PRODUCT SECTION 3: Myntra -->
+<section class="sec">
+  <div class="si fu">
+    <div class="s-hd">
+      <h2 class="s-ttl">Top Selling Offers</h2>
+      <div style="display:flex;align-items:center;gap:10px">
+        <div class="s-nav"><button class="sbt" id="p3p">&#8249;</button><button class="sbt" id="p3n">&#8250;</button></div>
+        <a href="#" class="va">View All <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
       </div>
     </div>
-    <div class="cards-overflow">
-      <div class="cards-track" id="best-track">
+    <div class="sw"><div class="st" id="p3">
 
-        <div class="deal-card">
-          <div class="deal-card-img-wrap">
-            <img src="https://images.unsplash.com/photo-1556228578-dd8e4fe0d0a7?w=300&h=200&fit=crop" alt="Beauty">
-          </div>
-          <div class="deal-card-body">
-            <div class="deal-store">Nykaa</div>
-            <div class="deal-name">Lakme 9 to 5 Primer + Matte Lip Color</div>
-            <div class="deal-price-row"><span class="deal-price">₹425</span><span class="deal-old-price">₹700</span><span class="deal-discount">39% off</span></div>
-            <div class="deal-cashback"><div class="mini-ck">CK</div> Flat 5% Cashback</div>
-            <a href="#" class="deal-cta">Get Deal</a>
-          </div>
-        </div>
 
-        <div class="deal-card">
-          <div class="deal-card-img-wrap">
-            <img src="https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=300&h=200&fit=crop" alt="Keyboard">
-            <span class="deal-badge hot">HOT</span>
-          </div>
-          <div class="deal-card-body">
-            <div class="deal-store">Amazon</div>
-            <div class="deal-name">Logitech MX Keys Advanced Wireless Keyboard</div>
-            <div class="deal-price-row"><span class="deal-price">₹6,495</span><span class="deal-old-price">₹9,995</span><span class="deal-discount">35% off</span></div>
-            <div class="deal-cashback"><div class="mini-ck">CK</div> Flat 3.5% Cashback</div>
-            <a href="#" class="deal-cta">Get Deal</a>
-          </div>
-        </div>
+<!-- PRODUCT 1 -->
+<div class="pd">
 
-        <div class="deal-card">
-          <div class="deal-card-img-wrap">
-            <img src="https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=300&h=200&fit=crop" alt="Shoes">
-          </div>
-          <div class="deal-card-body">
-            <div class="deal-store">Ajio</div>
-            <div class="deal-name">Adidas Ultraboost 22 Running Shoes</div>
-            <div class="deal-price-row"><span class="deal-price">₹7,499</span><span class="deal-old-price">₹13,999</span><span class="deal-discount">46% off</span></div>
-            <div class="deal-cashback"><div class="mini-ck">CK</div> Upto 10% Cashback</div>
-            <a href="#" class="deal-cta">Get Deal</a>
-          </div>
-        </div>
+<div class="pd-img">
+<img src="https://www.koozo.com/cdn/shop/files/Blender_white.png?v=1763040620&width=846" alt="">
+<span class="pd-badge">50% off</span>
+</div>
 
-        <div class="deal-card">
-          <div class="deal-card-img-wrap">
-            <img src="https://images.unsplash.com/photo-1603791440384-56cd371ee9a7?w=300&h=200&fit=crop" alt="Camera">
-            <span class="deal-badge">DEAL</span>
-          </div>
-          <div class="deal-card-body">
-            <div class="deal-store">Croma</div>
-            <div class="deal-name">Canon EOS 1500D DSLR Camera with 18-55mm Lens</div>
-            <div class="deal-price-row"><span class="deal-price">₹34,990</span><span class="deal-old-price">₹52,995</span><span class="deal-discount">34% off</span></div>
-            <div class="deal-cashback"><div class="mini-ck">CK</div> Flat 2% Cashback</div>
-            <a href="#" class="deal-cta">Get Deal</a>
-          </div>
-        </div>
+<div class="pd-body">
 
-        <div class="deal-card">
-          <div class="deal-card-img-wrap">
-            <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=300&h=200&fit=crop" alt="Smart Home">
-            <span class="deal-badge new">NEW</span>
-          </div>
-          <div class="deal-card-body">
-            <div class="deal-store">Amazon</div>
-            <div class="deal-name">Echo Show 8 Smart Display with Alexa</div>
-            <div class="deal-price-row"><span class="deal-price">₹7,999</span><span class="deal-old-price">₹13,999</span><span class="deal-discount">43% off</span></div>
-            <div class="deal-cashback"><div class="mini-ck">CK</div> Flat 3.5% Cashback</div>
-            <a href="#" class="deal-cta">Get Deal</a>
-          </div>
-        </div>
+<div class="pd-store">Slursh</div>
 
-        <div class="deal-card">
-          <div class="deal-card-img-wrap">
-            <img src="https://images.unsplash.com/photo-1592921870789-04563d55041c?w=300&h=200&fit=crop" alt="Bag">
-          </div>
-          <div class="deal-card-body">
-            <div class="deal-store">Myntra</div>
-            <div class="deal-name">Lavie Women's Satchel Handbag</div>
-            <div class="deal-price-row"><span class="deal-price">₹1,499</span><span class="deal-old-price">₹3,999</span><span class="deal-discount">63% off</span></div>
-            <div class="deal-cashback"><div class="mini-ck">CK</div> Flat 6% Cashback</div>
-            <a href="#" class="deal-cta">Get Deal</a>
-          </div>
-        </div>
+<div class="pd-name">
+Bolt 350ML<br> <br>
+</div>
 
-        <div class="deal-card">
-          <div class="deal-card-img-wrap">
-            <img src="https://images.unsplash.com/photo-1547592180-85f173990554?w=300&h=200&fit=crop" alt="Food">
-            <span class="deal-badge hot">HOT</span>
-          </div>
-          <div class="deal-card-body">
-            <div class="deal-store">Swiggy</div>
-            <div class="deal-name">Swiggy One Membership — 3 Months</div>
-            <div class="deal-price-row"><span class="deal-price">₹299</span><span class="deal-old-price">₹699</span><span class="deal-discount">57% off</span></div>
-            <div class="deal-cashback"><div class="mini-ck">CK</div> Flat 10% Cashback</div>
-            <a href="#" class="deal-cta">Get Deal</a>
-          </div>
-        </div>
+<div class="pd-pr">
+<span class="pd-cur">₹1,999</span>
+<span class="pd-old">₹3,999</span>
+<span class="pd-pct">(50% off)</span>
+</div>
 
-      </div>
-    </div>
-  </div>
+<a href="https://www.koozo.com/products/bolt-350ml" class="pd-btn">Shop Now</a>
+
+</div>
+</div>
+
+
+<!-- PRODUCT 2 -->
+<div class="pd">
+
+<div class="pd-img">
+<img src="https://www.themancompany.com/cdn/shop/files/GentlemanMoodsboxPrimary1100x11001_9829391b-9892-42e5-9a9d-f90832c2fb37.jpg?v=1769668902&width=1946" alt="">
+<span class="pd-badge">49% off</span>
+</div>
+
+<div class="pd-body">
+
+<div class="pd-store">The Man Company</div>
+
+<div class="pd-name">
+Gentlemen's Moods | Gift Hamper for Him
+</div>
+
+<div class="pd-pr">
+<span class="pd-cur">₹499</span>
+<span class="pd-old">₹996</span>
+<span class="pd-pct">(49% off)</span>
+</div>
+
+<a href="https://bitli.in/9QRcHsA" class="pd-btn">Shop Now</a>
+
+</div>
+</div>
+
+
+<!-- PRODUCT 3 -->
+<div class="pd">
+
+<div class="pd-img">
+<img src="https://www.koozo.com/cdn/shop/files/B-Bodysuit6.webp?v=1758631134&width=846" alt="">
+<span class="pd-badge">50% off</span>
+</div>
+
+<div class="pd-body">
+
+<div class="pd-store">Skimmylo</div>
+
+<div class="pd-name">
+Backless Shapewear Bodysuit<br> <br>
+</div>
+
+<div class="pd-pr">
+<span class="pd-cur">₹1,999</span>
+<span class="pd-old">₹3,999</span>
+<span class="pd-pct">(50% off)</span>
+</div>
+
+<a href="https://www.koozo.com/products/backless-waist-reduction-bodysuit-new" class="pd-btn">Shop Now</a>
+
+</div>
+</div>
+
+<!-- PRODUCT 4 -->
+     <div class="pd">
+
+<div class="pd-img">
+<img src="https://d2p5rd30inmhrb.cloudfront.net/m2/media/catalog/product/2/0/20_feb_2026_aqua_light_spf50_30g_2_.jpg" alt="">
+<span class="pd-badge">24% off</span>
+</div>
+
+<div class="pd-body">
+
+<div class="pd-store">VLCC</div>
+
+<div class="pd-name">
+Aqua Light Sunscreen Gel<br> <br>
+</div>
+
+<div class="pd-pr">
+<span class="pd-cur">₹190</span>
+<span class="pd-old">₹250</span>
+<span class="pd-pct">(24% off)</span>
+</div>
+
+<a href="https://bitli.in/KLpbD5d" class="pd-btn">Shop Now</a>
+
+</div>
+</div>
+
+<!-- PRODUCT 5 -->
+<div class="pd">
+
+<div class="pd-img">
+<img src="https://www.koozo.com/cdn/shop/files/Smart_band.png?v=1763040146&width=846" alt="">
+<span class="pd-badge">25% off</span>
+</div>
+
+<div class="pd-body">
+
+<div class="pd-store">Qorfit</div>
+
+<div class="pd-name">
+Pulse – Smart Health Tracker<br> <br>
+</div>
+
+<div class="pd-pr">
+<span class="pd-cur">₹6,666</span>
+<span class="pd-old">₹8,999</span>
+<span class="pd-pct">(25% off)</span>
+</div>
+
+<a href="https://www.koozo.com/products/qorfit-pulse-smart-health-tracker" class="pd-btn">Shop Now</a>
+
+</div>
+</div>
+
+<!-- PRODUCT 6 -->
+<div class="pd">
+
+<div class="pd-img">
+<img src="https://image.clovia.com/media/images/clovia-picture-at0153p12-924019.jpg" alt="">
+<span class="pd-badge">76% off</span>
+</div>
+
+<div class="pd-body">
+
+<div class="pd-store">Clovia</div>
+
+<div class="pd-name">
+Comfort-Fit Active Crop Top in Lilac
+</div>
+
+<div class="pd-pr">
+<span class="pd-cur">₹288</span>
+<span class="pd-old">₹1,199</span>
+<span class="pd-pct">(76% off)</span>
+</div>
+
+<a href="https://bitli.in/yB5e8Ao" class="pd-btn">Shop Now</a>
+
+</div>
+</div>
+
+
+</div>
 </section>
 
-<!-- ===================== SECTION 4: ON SALE / FLASH ===================== -->
-<section class="card-slider-section section" id="section-sale">
-  <div class="section-inner">
-    <div class="section-head">
-      <h2 class="section-title">
-        <span class="title-dot" style="background:var(--ck-red);"></span>
-        🔥 On Sale Today
-      </h2>
-      <div style="display:flex;align-items:center;gap:12px;">
-        <button class="s-arrow" id="sale-prev">&#8249;</button>
-        <button class="s-arrow" id="sale-next">&#8250;</button>
-        <a href="#" class="view-all-btn">View All →</a>
-      </div>
+<!-- ═══════════════════════════════════════
+     Blog SECTION
+══════════════════════════════════════ -->
+<section class="sec">
+  <div class="si fu">
+    <div class="s-hd">
+      <h2 class="s-ttl">Blogs</h2>
     </div>
-    <div class="cards-overflow">
-      <div class="cards-track" id="sale-track">
 
-        <div class="deal-card" style="border-top:3px solid var(--ck-red);">
-          <div class="deal-card-img-wrap" style="background:#fff5f5;">
-            <img src="https://images.unsplash.com/photo-1473308822086-710304d7d30c?w=300&h=200&fit=crop" alt="Dress">
-            <span class="deal-badge">SALE</span>
-          </div>
-          <div class="deal-card-body">
-            <div class="deal-store">Ajio</div>
-            <div class="deal-name">Women's Floral Midi Dress — Summer Collection</div>
-            <div class="deal-price-row"><span class="deal-price">₹999</span><span class="deal-old-price">₹2,999</span><span class="deal-discount">67% off</span></div>
-            <div class="deal-cashback"><div class="mini-ck">CK</div> Upto 10% Cashback</div>
-            <a href="#" class="deal-cta" style="background:var(--ck-red);">Shop Sale</a>
-          </div>
+    <div class="b-grid">
+      <a href="#" class="b-card">
+        <div class="b-img">
+          <img src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=540&h=364&fit=crop" alt="">
+          <span class="b-cat">Travel</span>
         </div>
-
-        <div class="deal-card" style="border-top:3px solid var(--ck-red);">
-          <div class="deal-card-img-wrap" style="background:#fff5f5;">
-            <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=300&h=200&fit=crop" alt="Sofa">
-          </div>
-          <div class="deal-card-body">
-            <div class="deal-store">Pepperfry</div>
-            <div class="deal-name">3 Seater Fabric Sofa with Cushions</div>
-            <div class="deal-price-row"><span class="deal-price">₹15,490</span><span class="deal-old-price">₹34,990</span><span class="deal-discount">56% off</span></div>
-            <div class="deal-cashback"><div class="mini-ck">CK</div> Flat 5% Cashback</div>
-            <a href="#" class="deal-cta" style="background:var(--ck-red);">Shop Sale</a>
-          </div>
-        </div>
-
-        <div class="deal-card" style="border-top:3px solid var(--ck-red);">
-          <div class="deal-card-img-wrap" style="background:#fff5f5;">
-            <img src="https://images.unsplash.com/photo-1523206489230-c012c64b2b48?w=300&h=200&fit=crop" alt="Perfume">
-            <span class="deal-badge">SALE</span>
-          </div>
-          <div class="deal-card-body">
-            <div class="deal-store">Nykaa</div>
-            <div class="deal-name">Fogg Scent Black Collection Perfume 100ml</div>
-            <div class="deal-price-row"><span class="deal-price">₹349</span><span class="deal-old-price">₹599</span><span class="deal-discount">42% off</span></div>
-            <div class="deal-cashback"><div class="mini-ck">CK</div> Flat 5% Cashback</div>
-            <a href="#" class="deal-cta" style="background:var(--ck-red);">Shop Sale</a>
-          </div>
-        </div>
-
-        <div class="deal-card" style="border-top:3px solid var(--ck-red);">
-          <div class="deal-card-img-wrap" style="background:#fff5f5;">
-            <img src="https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=300&h=200&fit=crop" alt="Laptop">
-          </div>
-          <div class="deal-card-body">
-            <div class="deal-store">Amazon</div>
-            <div class="deal-name">HP 15 Core i5 12th Gen Laptop 16GB RAM</div>
-            <div class="deal-price-row"><span class="deal-price">₹56,990</span><span class="deal-old-price">₹74,999</span><span class="deal-discount">24% off</span></div>
-            <div class="deal-cashback"><div class="mini-ck">CK</div> Flat 3.5% Cashback</div>
-            <a href="#" class="deal-cta" style="background:var(--ck-red);">Shop Sale</a>
-          </div>
-        </div>
-
-        <div class="deal-card" style="border-top:3px solid var(--ck-red);">
-          <div class="deal-card-img-wrap" style="background:#fff5f5;">
-            <img src="https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=300&h=200&fit=crop" alt="Bottle">
-            <span class="deal-badge">SALE</span>
-          </div>
-          <div class="deal-card-body">
-            <div class="deal-store">BigBasket</div>
-            <div class="deal-name">Milton Thermosteel Flask 1000ml — Pack of 2</div>
-            <div class="deal-price-row"><span class="deal-price">₹899</span><span class="deal-old-price">₹1,798</span><span class="deal-discount">50% off</span></div>
-            <div class="deal-cashback"><div class="mini-ck">CK</div> Flat 3% Cashback</div>
-            <a href="#" class="deal-cta" style="background:var(--ck-red);">Shop Sale</a>
-          </div>
-        </div>
-
-        <div class="deal-card" style="border-top:3px solid var(--ck-red);">
-          <div class="deal-card-img-wrap" style="background:#fff5f5;">
-            <img src="https://images.unsplash.com/photo-1560343090-f0409e92791a?w=300&h=200&fit=crop" alt="Shoes sale">
-          </div>
-          <div class="deal-card-body">
-            <div class="deal-store">Myntra</div>
-            <div class="deal-name">Puma Men's Running Sports Shoes</div>
-            <div class="deal-price-row"><span class="deal-price">₹2,249</span><span class="deal-old-price">₹4,499</span><span class="deal-discount">50% off</span></div>
-            <div class="deal-cashback"><div class="mini-ck">CK</div> Flat 6% Cashback</div>
-            <a href="#" class="deal-cta" style="background:var(--ck-red);">Shop Sale</a>
-          </div>
-        </div>
-
-        <div class="deal-card" style="border-top:3px solid var(--ck-red);">
-          <div class="deal-card-img-wrap" style="background:#fff5f5;">
-            <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=300&h=200&fit=crop" alt="Food">
-            <span class="deal-badge">SALE</span>
-          </div>
-          <div class="deal-card-body">
-            <div class="deal-store">Swiggy Instamart</div>
-            <div class="deal-name">Cadbury Celebrations Premium Gift Pack</div>
-            <div class="deal-price-row"><span class="deal-price">₹349</span><span class="deal-old-price">₹599</span><span class="deal-discount">42% off</span></div>
-            <div class="deal-cashback"><div class="mini-ck">CK</div> Flat 10% Cashback</div>
-            <a href="#" class="deal-cta" style="background:var(--ck-red);">Shop Sale</a>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===================== BLOG SECTION ===================== -->
-<section class="blog-section">
-  <div class="section-inner">
-    <div class="section-head">
-      <h2 class="section-title"><span class="title-dot"></span> Blogs</h2>
-    </div>
-    <div class="blog-grid">
-
-      <a href="#" class="blog-card">
-        <div class="blog-card-img">
-          <img src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=600&h=370&fit=crop" alt="Blog 1">
-          <span class="blog-card-cat">Travel</span>
-        </div>
-        <div class="blog-card-body">
-          <div class="blog-card-title">Best Collapsible Silicone Lunch Box for Travel &amp; Work in 2026</div>
-          <div class="blog-card-date">March 13, 2026</div>
+        <div class="b-body">
+          <div class="b-ttl">Best Collapsible Silicone Lunch Box for Travel &amp; Work in 2026</div>
+          <div class="b-date">March 13, 2026</div>
         </div>
       </a>
 
-      <a href="#" class="blog-card">
-        <div class="blog-card-img">
-          <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=600&h=370&fit=crop" alt="Blog 2">
-          <span class="blog-card-cat">Lifestyle</span>
+<!-- ═══════════════════════════════════════
+ Blog to be add soon  
+
+      <a href="#" class="b-card">
+        <div class="b-img">
+          <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=540&h=364&fit=crop" alt="">
+          <span class="b-cat">Lifestyle</span>
         </div>
-        <div class="blog-card-body">
-          <div class="blog-card-title">5 Summer Essentials Products to Beat the Heat This Season</div>
-          <div class="blog-card-date">March 11, 2026</div>
+        <div class="b-body">
+          <div class="b-ttl">5 Summer Essentials Products to Beat the Heat This Season</div>
+          <div class="b-date">March 11, 2026</div>
         </div>
       </a>
 
-      <a href="#" class="blog-card">
-        <div class="blog-card-img">
-          <img src="https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?w=600&h=370&fit=crop" alt="Blog 3">
-          <span class="blog-card-cat">Skincare</span>
+      <a href="#" class="b-card">
+        <div class="b-img">
+          <img src="https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?w=540&h=364&fit=crop" alt="">
+          <span class="b-cat">Skincare</span>
         </div>
-        <div class="blog-card-body">
-          <div class="blog-card-title">How India's Environment Accelerates Skin Aging — and How to Rejuvenate Your Skin</div>
-          <div class="blog-card-date">January 6, 2026</div>
-        </div>
-      </a>
-
-      <a href="#" class="blog-card">
-        <div class="blog-card-img">
-          <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&h=370&fit=crop" alt="Blog 4">
-          <span class="blog-card-cat">Fitness</span>
-        </div>
-        <div class="blog-card-body">
-          <div class="blog-card-title">Portable Blender vs Traditional Blender: Which Wins for Bulk Meal Prep?</div>
-          <div class="blog-card-date">January 6, 2026</div>
+        <div class="b-body">
+          <div class="b-ttl">How India's Environment Accelerates Skin Aging &amp; How to Rejuvenate</div>
+          <div class="b-date">January 6, 2026</div>
         </div>
       </a>
 
+      <a href="#" class="b-card">
+        <div class="b-img">
+          <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=540&h=364&fit=crop" alt="">
+          <span class="b-cat">Fitness</span>
+        </div>
+        <div class="b-body">
+          <div class="b-ttl">Portable Blender vs Traditional: Which Wins for Bulk Meal Prep?</div>
+          <div class="b-date">January 6, 2026</div>
+        </div>
+      </a>
+    </div>             
+
+
+    <div class="b-va">
+      <a href="#">View all →</a>
     </div>
-    <div class="blog-view-all-wrap">
-      <a href="#" class="blog-view-all-btn">View all →</a>
-    </div>
+══════════════════════════════════════ -->
+
   </div>
 </section>
 
-<!-- ===================== FOOTER ===================== -->
-<footer class="site-footer">
-  <div class="section-inner">
-    <div class="footer-grid">
+
+<!-- ═══════════════════════════════════════
+      FOOTER
+══════════════════════════════════════ -->
+
+<footer class="ft">
+  <div class="ft-in">
+
+    <div class="ft-g">
       <div>
-        <img src="https://asset22.ckassets.com/wp/wp-content/themes/CashKaro_WP_V1/img/cashkaro_logo_v1.svg"
-             alt="CashKaro" class="footer-brand-logo"
-             onerror="this.outerHTML='<div style=\'font-family:Nunito;font-weight:900;font-size:20px;color:white;margin-bottom:14px;\'>Cash<span style=\'color:#ff6b35\'>Karo</span></div>'">
-        <p class="footer-brand-desc">India's largest cashback &amp; coupons platform. Get extra savings on every online purchase with cashback, promo codes, and exclusive deals.</p>
-        <div class="footer-social">
-          <a href="#" class="social-btn">𝕏</a>
-          <a href="#" class="social-btn">f</a>
-          <a href="#" class="social-btn">in</a>
-          <a href="#" class="social-btn">▶</a>
-          <a href="#" class="social-btn">📸</a>
-        </div>
+
+<div class="ft-logo">
+  <img src="images/logo.png" alt="DealsWala Logo">
+</div>
+        <p class="ft-desc">
+          <br>India's best cashback &amp; deals platform. Save more on every purchase
+          with extra cashback and exclusive deals.
+        </p>
       </div>
+
+
       <div>
-        <h4>Quick Links</h4>
-        <ul class="footer-links">
-          <li><a href="#">All Stores</a></li>
+        <h3>Quick Links</h3><br>
+        <ul class="ft-ul">
+          <li><a href="#">Credit Card</a></li>
           <li><a href="#">All Brands</a></li>
           <li><a href="#">Top Deals</a></li>
-          <li><a href="#">Coupons</a></li>
-          <li><a href="#">Refer &amp; Earn</a></li>
           <li><a href="#">Blog</a></li>
-          <li><a href="#">About Us</a></li>
         </ul>
       </div>
+
       <div>
-        <h4>Categories</h4>
-        <ul class="footer-links">
-          <li><a href="#">Mobiles &amp; Tablets</a></li>
+        <h3>Categories</h3><br>
+
+        <ul class="ft-ul">
           <li><a href="#">Fashion</a></li>
-          <li><a href="#">Beauty &amp; Grooming</a></li>
+          <li><a href="#">Beauty</a></li>
           <li><a href="#">Electronics</a></li>
           <li><a href="#">Home &amp; Kitchen</a></li>
-          <li><a href="#">Travel</a></li>
-          <li><a href="#">Health &amp; Wellness</a></li>
-          <li><a href="#">Grocery</a></li>
         </ul>
       </div>
-      <div>
-        <h4>Support</h4>
-        <ul class="footer-links">
-          <li><a href="#">Help Center</a></li>
-          <li><a href="#">Contact Us</a></li>
-          <li><a href="#">Report Missing Cashback</a></li>
-          <li><a href="#">Privacy Policy</a></li>
-          <li><a href="#">Terms &amp; Conditions</a></li>
-          <li><a href="#">Affiliate Program</a></li>
-          <li><a href="#">Advertise with Us</a></li>
-        </ul>
-      </div>
+
     </div>
-    <div class="footer-bottom">
-      <p>© 2026 CashKaro.com — A Pouring Pounds Company. All rights reserved.</p>
-      <p>
-        <a href="#">Privacy Policy</a> &nbsp;·&nbsp;
-        <a href="#">Terms</a> &nbsp;·&nbsp;
-        <a href="#">Disclaimer</a>
-      </p>
+    <div class="ft-bot">
+      <p>© 2026 dealswala.shop  — All rights reserved.</p
     </div>
+
   </div>
 </footer>
 
-<!-- ===================== JAVASCRIPT ===================== -->
+
+
+<!-- ═══════════════════════════════════════
+      html end
+══════════════════════════════════════ -->
+
+
+
+
 <script>
-// ---- Drawer ----
-const hamburgerBtn = document.getElementById('hamburgerBtn');
-const sideDrawer = document.getElementById('sideDrawer');
-const drawerOverlay = document.getElementById('drawerOverlay');
-const drawerClose = document.getElementById('drawerClose');
+/* Drawer */
+const hbg=document.getElementById('hbgBtn'),drw=document.getElementById('drw'),ov=document.getElementById('ov'),drwX=document.getElementById('drwX');
+function open(){drw.classList.add('on');ov.classList.add('on');document.body.style.overflow='hidden'}
+function close(){drw.classList.remove('on');ov.classList.remove('on');document.body.style.overflow=''}
+hbg.addEventListener('click',open);drwX.addEventListener('click',close);ov.addEventListener('click',close);
 
-function openDrawer() {
-  sideDrawer.classList.add('open');
-  drawerOverlay.classList.add('open');
-  document.body.style.overflow = 'hidden';
+/* ───────────────── HERO SLIDER ───────────────── */
+
+(function(){
+
+const track = document.getElementById("hTrack");
+const dotsWrap = document.getElementById("hDots");
+
+const slides = track.children;
+const total = slides.length;
+
+let current = 0;
+let timer;
+
+/* Create dots */
+
+for(let i=0;i<total;i++){
+
+const dot = document.createElement("button");
+dot.className = "h-dot" + (i===0 ? " on" : "");
+
+dot.addEventListener("click",()=>{
+goTo(i);
+resetAuto();
+});
+
+dotsWrap.appendChild(dot);
+
 }
-function closeDrawer() {
-  sideDrawer.classList.remove('open');
-  drawerOverlay.classList.remove('open');
-  document.body.style.overflow = '';
+
+/* Slide change */
+
+function goTo(n){
+
+current = (n + total) % total;
+
+track.style.transform = `translateX(-${current*100}%)`;
+
+dotsWrap.querySelectorAll(".h-dot").forEach((d,i)=>{
+d.classList.toggle("on", i===current);
+});
+
 }
-hamburgerBtn.addEventListener('click', openDrawer);
-drawerClose.addEventListener('click', closeDrawer);
-drawerOverlay.addEventListener('click', closeDrawer);
 
-// ---- Hero Slider ----
-(function() {
-  const track = document.getElementById('heroTrack');
-  const dotsWrap = document.getElementById('heroDots');
-  const slides = track.querySelectorAll('.hero-slide');
-  let current = 0;
-  let autoTimer;
+/* Arrow navigation */
 
-  // Build dots
-  slides.forEach((_, i) => {
-    const d = document.createElement('button');
-    d.className = 'slider-dot' + (i === 0 ? ' active' : '');
-    d.addEventListener('click', () => goTo(i));
-    dotsWrap.appendChild(d);
-  });
+document.getElementById("hPrev").addEventListener("click",()=>{
+goTo(current-1);
+resetAuto();
+});
 
-  function goTo(n) {
-    current = (n + slides.length) % slides.length;
-    track.style.transform = `translateX(-${current * 100}%)`;
-    dotsWrap.querySelectorAll('.slider-dot').forEach((d, i) => d.classList.toggle('active', i === current));
-  }
+document.getElementById("hNext").addEventListener("click",()=>{
+goTo(current+1);
+resetAuto();
+});
 
-  document.getElementById('heroPrev').addEventListener('click', () => { goTo(current - 1); resetAuto(); });
-  document.getElementById('heroNext').addEventListener('click', () => { goTo(current + 1); resetAuto(); });
+/* Auto slide */
 
-  function autoPlay() { goTo(current + 1); }
-  function startAuto() { autoTimer = setInterval(autoPlay, 4000); }
-  function resetAuto() { clearInterval(autoTimer); startAuto(); }
-  startAuto();
+function startAuto(){
+timer = setInterval(()=>{
+goTo(current+1);
+},4500);
+}
+
+function resetAuto(){
+clearInterval(timer);
+startAuto();
+}
+
+startAuto();
+
+})();
+/* Product card sliders */
+function initSldr(tid,pp,np){
+  const tk=document.getElementById(tid);if(!tk)return;
+  const cards=Array.from(tk.children);let pos=0;
+  function cols(){const w=tk.parentElement.offsetWidth;return w>=1100?5:w>=860?4:w>=580?3:2}
+  function cw(){return cards[0]?cards[0].offsetWidth+16:0}
+  function maxP(){return Math.max(0,cards.length-cols())}
+  function upd(){tk.style.transform=`translateX(-${pos*cw()}px)`}
+  document.getElementById(pp)?.addEventListener('click',()=>{pos=Math.max(0,pos-1);upd()});
+  document.getElementById(np)?.addEventListener('click',()=>{pos=Math.min(maxP(),pos+1);upd()});
+  window.addEventListener('resize',()=>{pos=Math.min(pos,maxP());upd()});
+}
+initSldr('p1','p1p','p1n');
+initSldr('p2','p2p','p2n');
+initSldr('p3','p3p','p3n');
+
+/* CC card slider — 3 visible */
+(function(){
+  const tk=document.getElementById('c0');if(!tk)return;
+  const cards=Array.from(tk.children);let pos=0;
+  function cols(){const w=tk.parentElement.offsetWidth;return w>=1100?3:w>=700?2:1}
+  function cw(){return cards[0]?cards[0].offsetWidth+16:0}
+  function maxP(){return Math.max(0,cards.length-cols())}
+  function upd(){tk.style.transform=`translateX(-${pos*cw()}px)`}
+  document.getElementById('c0p')?.addEventListener('click',()=>{pos=Math.max(0,pos-1);upd()});
+  document.getElementById('c0n')?.addEventListener('click',()=>{pos=Math.min(maxP(),pos+1);upd()});
+  window.addEventListener('resize',()=>{pos=Math.min(pos,maxP());upd()});
 })();
 
-// ---- Card Sliders ----
-function initCardSlider(trackId, prevId, nextId) {
-  const track = document.getElementById(trackId);
-  if (!track) return;
-  const cards = track.querySelectorAll('.deal-card, .credit-card-card');
-  let pos = 0;
 
-  function getVisible() {
-    const w = track.parentElement.offsetWidth;
-    if (w >= 1100) return 5;
-    if (w >= 860) return 4;
-    if (w >= 600) return 3;
-    return 2;
-  }
 
-  function getCardWidth() {
-    const c = cards[0];
-    if (!c) return 0;
-    return c.offsetWidth + 16;
-  }
-
-  function maxPos() {
-    return Math.max(0, cards.length - getVisible());
-  }
-
-  function update() {
-    track.style.transform = `translateX(-${pos * getCardWidth()}px)`;
-  }
-
-  document.getElementById(prevId)?.addEventListener('click', () => {
-    pos = Math.max(0, pos - 1);
-    update();
-  });
-  document.getElementById(nextId)?.addEventListener('click', () => {
-    pos = Math.min(maxPos(), pos + 1);
-    update();
-  });
-
-  window.addEventListener('resize', () => { pos = Math.min(pos, maxPos()); update(); });
-}
-
-initCardSlider('cards-track', 'cards-prev', 'cards-next');
-initCardSlider('latest-track', 'latest-prev', 'latest-next');
-initCardSlider('best-track', 'best-prev', 'best-next');
-initCardSlider('sale-track', 'sale-prev', 'sale-next');
-
-// ---- Scroll animations ----
-const io = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      e.target.style.opacity = '1';
-      e.target.style.transform = 'translateY(0)';
-      io.unobserve(e.target);
-    }
-  });
-}, { threshold: 0.08 });
-
-document.querySelectorAll('.section-head, .blog-card').forEach(el => {
-  el.style.opacity = '0';
-  el.style.transform = 'translateY(16px)';
-  el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-  io.observe(el);
-});
+/* Scroll reveal */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');io.unobserve(e.target)}}),{threshold:.07});
+document.querySelectorAll('.fu').forEach(el=>io.observe(el));
 </script>
 </body>
 </html>
