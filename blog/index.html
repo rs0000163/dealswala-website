@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="../images/favicon.png">
+<title>Blog — Dealswala</title>
+<meta name="description" content="Deals guides, product reviews and money-saving tips on Dealswala.">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+
+/* ─── RESET ─── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Nunito', sans-serif;
+  background: #f5f7ff;
+  color: #111827;
+  overflow-x: hidden;
+  font-size: 14px;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+button {
+  font-family: 'Nunito', sans-serif;
+  cursor: pointer;
+}
+
+:root {
+  --or: #f97316;
+  --bl: #1641b4;
+  --bl2: #2448e0;
+  --t2: #374151;
+  --t3: #6b7280;
+  --bd: #e5e7eb;
+  --bg: #f5f7ff;
+  --wh: #fff;
+  --sh: 0 2px 12px rgba(0,0,0,.07);
+  --sh2: 0 8px 32px rgba(0,0,0,.13);
+}
+
+
+/* ═══════════════════════════════════════════════
+   HEADER
+═══════════════════════════════════════════════ */
+
+.hdr {
+  position: sticky;
+  top: 0;
+  z-index: 900;
+  background: #fff;
+  border-bottom: 1px solid var(--bd);
+  height: 58px;
+}
+
+.hdr-in {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 20px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.hbg {
+  background: none;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  gap: 4.5px;
+  padding: 6px 4px;
+}
+
+.hbg span {
+  display: block;
+  width: 21px;
+  height: 2px;
+  background: #374151;
+  border-radius: 2px;
+  transition: .25s;
+}
+
+.logo-img {
+  height: 50px;
+}
+
+.logo-txt {
+  font-size: 21px;
+  font-weight: 900;
+  color: var(--bl);
+  display: none;
+}
+
+.logo-txt em {
+  color: var(--or);
+  font-style: normal;
+}
+
+
+/* ═══════════════════════════════════════════════
+   OVERLAY
+═══════════════════════════════════════════════ */
+
+.ov {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.48);
+  z-index: 1800;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .28s;
+}
+
+.ov.on {
+  opacity: 1;
+  pointer-events: all;
+}
+
+
+/* ═══════════════════════════════════════════════
+   DRAWER
+═══════════════════════════════════════════════ */
+
+.drw {
+  position: fixed;
+  top: 0;
+  left: -290px;
+  bottom: 0;
+  width: 268px;
+  background: #fff;
+  z-index: 1900;
+  overflow-y: auto;
+  transition: left .3s cubic-bezier(.4,0,.2,1);
+  display: flex;
+  flex-direction: column;
+}
+
+.drw.on {
+  left: 0;
+}
+
+.drw-hdr {
+  background: linear-gradient(135deg, var(--bl), var(--bl2));
+  padding: 18px 16px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+
+.drw-logo {
+  font-size: 19px;
+  font-weight: 900;
+  color: #fff;
+}
+
+.drw-logo em {
+  color: #ffb347;
+  font-style: normal;
+}
+
+.drw-x {
+  background: rgba(255,255,255,.18);
+  border: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 17px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.drw-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 13px 16px;
+  border-bottom: 1px solid #f3f4f6;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #111;
+}
+
+.drw-row .ar {
+  color: #9ca3af;
+}
+
+.drw-sep {
+  height: 4px;
+  background: #f9fafb;
+}
+
+.drw-cat {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 16px;
+  border-bottom: 1px solid #f9fafb;
+}
+
+.drw-cat:hover {
+  background: #f0f4ff;
+}
+
+.dci {
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 17px;
+  flex-shrink: 0;
+}
+
+.dcn {
+  font-size: 13.5px;
+  font-weight: 600;
+}
+
+.drw-lnk {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 16px;
+  font-size: 14px;
+  font-weight: 700;
+  border-bottom: 1px solid #f3f4f6;
+  transition: color .18s, background .18s;
+}
+
+.drw-lnk:hover {
+  color: var(--or);
+  background: #fff8f5;
+}
+
+.ni {
+  font-size: 17px;
+}
+
+
+/* ═══════════════════════════════════════════════
+   PAGE HERO
+═══════════════════════════════════════════════ */
+
+.page-hero {
+  background: linear-gradient(135deg, var(--bl) 0%, var(--bl2) 100%);
+  padding: 52px 0 44px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.page-hero::before {
+  content: '';
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 280px;
+  height: 280px;
+  background: rgba(255,255,255,.06);
+  border-radius: 50%;
+}
+
+.page-hero::after {
+  content: '';
+  position: absolute;
+  bottom: -80px;
+  left: -40px;
+  width: 220px;
+  height: 220px;
+  background: rgba(255,255,255,.05);
+  border-radius: 50%;
+}
+
+.page-hero h1 {
+  font-size: clamp(26px, 4vw, 42px);
+  font-weight: 900;
+  color: #fff;
+  position: relative;
+  z-index: 1;
+}
+
+.page-hero p {
+  color: rgba(255,255,255,.75);
+  font-size: 15px;
+  margin-top: 10px;
+  position: relative;
+  z-index: 1;
+}
+
+
+/* ═══════════════════════════════════════════════
+   BREADCRUMB
+═══════════════════════════════════════════════ */
+
+.bc {
+  background: #fff;
+  border-bottom: 1px solid var(--bd);
+  padding: 10px 0;
+}
+
+.bc-in {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--t3);
+}
+
+.bc-in a {
+  color: var(--bl);
+  font-weight: 600;
+}
+
+.bc-in a:hover {
+  text-decoration: underline;
+}
+
+
+/* ═══════════════════════════════════════════════
+   MAIN WRAP
+═══════════════════════════════════════════════ */
+
+.wrap {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 32px 20px 60px;
+}
+
+
+/* ═══════════════════════════════════════════════
+   FILTER TABS
+═══════════════════════════════════════════════ */
+
+.filters {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 28px;
+}
+
+.ftab {
+  padding: 8px 18px;
+  border-radius: 100px;
+  border: 1.5px solid var(--bd);
+  background: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--t2);
+  cursor: pointer;
+  transition: all .18s;
+  box-shadow: var(--sh);
+}
+
+.ftab:hover,
+.ftab.active {
+  background: var(--bl);
+  border-color: var(--bl);
+  color: #fff;
+}
+
+
+/* ═══════════════════════════════════════════════
+   BLOG GRID  —  3 columns
+═══════════════════════════════════════════════ */
+
+.b-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+}
+
+@media (max-width: 900px) {
+  .b-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 540px) {
+  .b-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* ─── Blog Card ─── */
+
+.b-card {
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: var(--sh);
+  cursor: pointer;
+  transition: transform .22s, box-shadow .22s;
+  display: flex;
+  flex-direction: column;
+}
+
+.b-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--sh2);
+}
+
+/* Hidden cards — not visible until View More is clicked */
+.b-card.hidden {
+  display: none;
+}
+
+.b-img {
+  height: 190px;
+  overflow: hidden;
+  position: relative;
+  background: #f3f4f6;
+}
+
+.b-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .38s;
+}
+
+.b-card:hover .b-img img {
+  transform: scale(1.06);
+}
+
+.b-cat {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: var(--or);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 800;
+  padding: 3px 9px;
+  border-radius: 100px;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+}
+
+.b-body {
+  padding: 18px 18px 20px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.b-meta {
+  font-size: 12px;
+  color: var(--t3);
+  font-weight: 600;
+  margin-bottom: 8px;
+  display: flex;
+  gap: 8px;
+}
+
+.b-ttl {
+  font-size: 16px;
+  font-weight: 800;
+  color: #111827;
+  line-height: 1.4;
+  margin-bottom: 8px;
+  flex: 1;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.b-excerpt {
+  font-size: 13px;
+  color: var(--t3);
+  line-height: 1.55;
+  margin-bottom: 16px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.b-read {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--bl);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: auto;
+}
+
+.b-read:hover {
+  color: var(--or);
+  gap: 8px;
+}
+
+
+/* ═══════════════════════════════════════════════
+   VIEW MORE BUTTON
+═══════════════════════════════════════════════ */
+
+.view-more-wrap {
+  text-align: center;
+  margin-top: 36px;
+}
+
+.view-more-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #fff;
+  border: 1.5px solid var(--bd);
+  color: var(--t2);
+  padding: 13px 40px;
+  border-radius: 100px;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: var(--sh);
+  transition: all .22s;
+}
+
+.view-more-btn:hover {
+  background: var(--bl);
+  border-color: var(--bl);
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: var(--sh2);
+}
+
+/* Hides the button after all posts are revealed */
+.view-more-wrap.done {
+  display: none;
+}
+
+
+/* ═══════════════════════════════════════════════
+                          Footer
+═══════════════════════════════════════════════ */
+
+.ft{
+  background:#111827;
+  color:rgba(255,255,255,.72);
+  padding:50px 0 0;
+}
+
+.ft-in{
+  max-width:1320px;
+  margin:0 auto;
+  padding:0 20px;
+}
+
+.ft-g{
+  display:grid;
+  grid-template-columns:2fr 1fr 1fr 1fr;
+  gap:44px;
+  padding-bottom:44px;
+  border-bottom:1px solid rgba(255,255,255,.1);
+}
+
+.ft-logo img{
+  width:200px;
+  height:80px;
+}
+
+.ft-desc{
+  font-size:15px;
+  line-height:1.75;
+  margin-bottom:20px;
+}
+
+.ft-soc{
+  display:flex;
+  gap:9px;
+}
+
+.ft-s{
+  width:36px;
+  height:36px;
+  border-radius:9px;
+  background:rgba(255,255,255,.1);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:15px;
+  transition:background .2s;
+}
+
+.ft-s:hover{
+  background:var(--or);
+}
+
+.ft-col h4{
+  font-size:13px;
+  font-weight:800;
+  color:#ffffff;
+  text-transform:uppercase;
+  letter-spacing:.07em;
+  margin-bottom:15px;
+}
+
+.ft-ul{
+  list-style:none;
+}
+
+.ft-ul li{
+  margin-bottom:9px;
+}
+
+.ft-ul a{
+  font-size:15px;
+  color:#f2f2f2;
+  transition:color .18s;
+}
+
+.ft-ul a:hover{
+  color:var(--or);
+}
+
+.ft-bot{
+  padding:17px 0;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  font-size:12px;
+  color:rgba(255,255,255,.38);
+  flex-wrap:wrap;
+  gap:8px;
+}
+
+.ft-bot a{
+  color:rgba(255,255,255,.38);
+  transition:color .18s;
+}
+
+.ft-bot a:hover{
+  color:var(--or);
+}
+
+
+/* ═══════════════════════════════════════════════
+   FADE-IN
+═══════════════════════════════════════════════ */
+
+.fu {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity .45s, transform .45s;
+}
+
+.fu.vis {
+  opacity: 1;
+  transform: none;
+}
+
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="hdr">
+  <div class="hdr-in">
+    <button class="hbg" id="hbgBtn"><span></span><span></span><span></span></button>
+    <a href="index.html">
+      <img class="logo-img" src="images/logo.png" alt="dealswala.shop"
+        onerror="this.style.display='none';document.querySelector('.logo-txt').style.display='block'">
+      <span class="logo-txt">deals<em>wala</em></span>
+    </a>
+  </div>
+</header>
+
+<div class="ov" id="ov"></div>
+
+<aside class="drw" id="drw">
+  <div class="drw-hdr">
+    <span class="drw-logo">deals<em>wala</em></span>
+    <button class="drw-x" id="drwX">✕</button>
+  </div>
+  <div class="drw-row"><span>Category</span><span class="ar">›</span></div>
+  <div class="drw-row"><span>Most Popular Retailers</span><span class="ar">›</span></div>
+  <div class="drw-row"><span>Top Product Deals</span><span class="ar">›</span></div>
+  <div class="drw-sep"></div>
+  <div class="drw-cat"><div class="dci" style="background:#fff0e8">📱</div><span class="dcn">Mobiles</span></div>
+  <div class="drw-cat"><div class="dci" style="background:#e8f0ff">🎧</div><span class="dcn">Headphones</span></div>
+  <div class="drw-cat"><div class="dci" style="background:#e8fff0">💻</div><span class="dcn">Laptops</span></div>
+  <div class="drw-cat"><div class="dci" style="background:#fff8e8">👔</div><span class="dcn">Men Fashion</span></div>
+  <div class="drw-cat"><div class="dci" style="background:#ffe8f0">👗</div><span class="dcn">Women Fashion</span></div>
+  <div class="drw-cat"><div class="dci" style="background:#fff0f8">💄</div><span class="dcn">Beauty</span></div>
+  <div class="drw-sep"></div>
+  <a href="blog.html" class="drw-lnk"><span class="ni">📝</span> Blog &amp; Articles</a>
+</aside>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <h1>Blog &amp; Articles</h1>
+  <p>Deals guides, product reviews, and money-saving tips</p>
+</div>
+
+<!-- BREADCRUMB -->
+<div class="bc">
+  <div class="bc-in">
+    <a href="index.html">Home</a>
+    <span>›</span>
+    <span>Blog</span>
+  </div>
+</div>
+
+<!-- MAIN WRAP -->
+<div class="wrap">
+
+  
+  <!-- ─────────────────────────────────────────
+       BLOG GRID
+       First 6 cards show by default.
+       Cards with class "b-card hidden" are
+       hidden until View More is clicked.
+  ───────────────────────────────────────── -->
+  <div class="b-grid fu" id="blogGrid">
+
+    <!-- Visible by default ─── -->
+
+    <a href="blog-post.html" class="b-card">
+      <div class="b-img">
+        <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=600&h=380&fit=crop" alt="">
+        <span class="b-cat">Lifestyle</span>
+      </div>
+      <div class="b-body">
+        <div class="b-meta"><span>March 11, 2026</span><span>·</span><span>4 min read</span></div>
+        <div class="b-ttl">5 Summer Essentials Products to Beat the Heat This Season</div>
+        <div class="b-excerpt">Stay cool without burning a hole in your pocket — our curated list of summer must-haves with exclusive cashback offers.</div>
+        <span class="b-read">Read More →</span>
+      </div>
+    </a>
+
+
+  <!-- ─────────────────────────────────────────
+       BLOG baad me add honge 
+    <a href="blog-post.html" class="b-card">
+      <div class="b-img">
+        <img src="https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?w=600&h=380&fit=crop" alt="">
+        <span class="b-cat">Skincare</span>
+      </div>
+      <div class="b-body">
+        <div class="b-meta"><span>January 6, 2026</span><span>·</span><span>7 min read</span></div>
+        <div class="b-ttl">How India's Environment Accelerates Skin Aging &amp; How to Rejuvenate</div>
+        <div class="b-excerpt">Pollution, humidity and UV rays take a serious toll. Dermatologist-backed tips plus the best skincare deals right now.</div>
+        <span class="b-read">Read More →</span>
+      </div>
+    </a>
+
+    <a href="blog-post.html" class="b-card">
+      <div class="b-img">
+        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&h=380&fit=crop" alt="">
+        <span class="b-cat">Fitness</span>
+      </div>
+      <div class="b-body">
+        <div class="b-meta"><span>January 6, 2026</span><span>·</span><span>6 min read</span></div>
+        <div class="b-ttl">Portable Blender vs Traditional: Which Wins for Bulk Meal Prep?</div>
+        <div class="b-excerpt">We pit the compact Slursh Bolt against a traditional blender in a real-world 7-day meal prep challenge.</div>
+        <span class="b-read">Read More →</span>
+      </div>
+    </a>
+
+    <a href="blog-post.html" class="b-card">
+      <div class="b-img">
+        <img src="https://images.unsplash.com/photo-1556228578-dd8e4fe0d0a7?w=600&h=380&fit=crop" alt="">
+        <span class="b-cat">Reviews</span>
+      </div>
+      <div class="b-body">
+        <div class="b-meta"><span>December 20, 2025</span><span>·</span><span>8 min read</span></div>
+        <div class="b-ttl">Viva Glam LED Therapy Patch Review: Does It Actually Clear Acne?</div>
+        <div class="b-excerpt">We put the viral Viva Glam Acne Light Therapy Patch to the test over 4 weeks. Here's what the science says.</div>
+        <span class="b-read">Read More →</span>
+      </div>
+    </a>
+
+    <a href="blog-post.html" class="b-card">
+      <div class="b-img">
+        <img src="https://images.unsplash.com/photo-1523206489230-c012c64b2b48?w=600&h=380&fit=crop" alt="">
+        <span class="b-cat">Guides</span>
+      </div>
+      <div class="b-body">
+        <div class="b-meta"><span>December 15, 2025</span><span>·</span><span>5 min read</span></div>
+        <div class="b-ttl">10 Best Fragrance Deals Under ₹500 You Can't Miss</div>
+        <div class="b-excerpt">Great scent doesn't need a premium price tag. These under-₹500 picks have been tested and approved by our team.</div>
+        <span class="b-read">Read More →</span>
+      </div>
+    </a>
+
+    <a href="blog-post.html" class="b-card">
+      <div class="b-img">
+        <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&h=380&fit=crop" alt="">
+        <span class="b-cat">Fashion</span>
+      </div>
+      <div class="b-body">
+        <div class="b-meta"><span>December 5, 2025</span><span>·</span><span>4 min read</span></div>
+        <div class="b-ttl">Best Sneakers Under ₹2000 in India — 2026 Buying Guide</div>
+        <div class="b-excerpt">From Nike to RedTape, we've rounded up the best value-for-money sneakers available right now with current prices.</div>
+        <span class="b-read">Read More →</span>
+      </div>
+    </a>
+
+    
+
+    <a href="blog-post.html" class="b-card hidden">
+      <div class="b-img">
+        <img src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=600&h=380&fit=crop" alt="">
+        <span class="b-cat">Deals</span>
+      </div>
+      <div class="b-body">
+        <div class="b-meta"><span>March 13, 2026</span><span>·</span><span>5 min read</span></div>
+        <div class="b-ttl">Best Collapsible Silicone Lunch Box for Travel &amp; Work in 2026</div>
+        <div class="b-excerpt">Tired of bulky lunch boxes? We tested the top collapsible silicone options — here's our honest verdict.</div>
+        <span class="b-read">Read More →</span>
+      </div>
+    </a>
+
+    <a href="blog-post.html" class="b-card hidden">
+      <div class="b-img">
+        <img src="https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=600&h=380&fit=crop" alt="">
+        <span class="b-cat">Tech</span>
+      </div>
+      <div class="b-body">
+        <div class="b-meta"><span>November 28, 2025</span><span>·</span><span>6 min read</span></div>
+        <div class="b-ttl">Top 5 Wireless Keyboards Under ₹7000 — Tested &amp; Ranked</div>
+        <div class="b-excerpt">We tested 12 wireless keyboards for typing feel, battery life and build quality. Here are the ones worth buying.</div>
+        <span class="b-read">Read More →</span>
+      </div>
+    </a>
+
+    <a href="blog-post.html" class="b-card hidden">
+      <div class="b-img">
+        <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=600&h=380&fit=crop" alt="">
+        <span class="b-cat">Gadgets</span>
+      </div>
+      <div class="b-body">
+        <div class="b-meta"><span>November 15, 2025</span><span>·</span><span>5 min read</span></div>
+        <div class="b-ttl">Best Smartwatches Under ₹30,000 in India for 2026</div>
+        <div class="b-excerpt">From Samsung Galaxy Watch to Apple Watch SE — we compare the best smartwatches across every budget segment.</div>
+        <span class="b-read">Read More →</span>
+      </div>
+    </a>
+  ───────────────────────────────────────── -->
+
+  </div><!-- /b-grid -->
+
+  <!-- View More button -->
+  <div class="view-more-wrap fu" id="viewMoreWrap">
+    <button class="view-more-btn" id="viewMoreBtn">View More Posts ↓</button>
+  </div>
+
+</div><!-- /wrap -->
+
+<!-- ═══════════════════════════════════════
+      FOOTER
+══════════════════════════════════════ -->
+
+<footer class="ft">
+  <div class="ft-in">
+
+    <div class="ft-g">
+      <div>
+
+<div class="ft-logo">
+  <img src="../images/logo.png" alt="DealsWala Logo">
+</div>
+        <p class="ft-desc">
+          <br>India's best cashback &amp; deals platform. Save more on every purchase
+          with extra cashback and exclusive deals.
+        </p>
+      </div>
+
+
+      <div>
+        <h3>Quick Links</h3><br>
+        <ul class="ft-ul">
+          <li><a href="#">Credit Card</a></li>
+          <li><a href="#">All Brands</a></li>
+          <li><a href="#">Top Deals</a></li>
+          <li><a href="#">Blog</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h3>Categories</h3><br>
+
+        <ul class="ft-ul">
+          <li><a href="#">Fashion</a></li>
+          <li><a href="#">Beauty</a></li>
+          <li><a href="#">Electronics</a></li>
+          <li><a href="#">Home &amp; Kitchen</a></li>
+        </ul>
+      </div>
+
+    </div>
+    <div class="ft-bot">
+      <p>© 2026 dealswala.shop  — All rights reserved.</p
+    </div>
+
+  </div>
+</footer>
+
+<script>
+
+/* ─── Drawer ─── */
+const hbg  = document.getElementById('hbgBtn');
+const drw  = document.getElementById('drw');
+const ov   = document.getElementById('ov');
+const drwX = document.getElementById('drwX');
+
+function openD()  {
+  drw.classList.add('on');
+  ov.classList.add('on');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeD() {
+  drw.classList.remove('on');
+  ov.classList.remove('on');
+  document.body.style.overflow = '';
+}
+
+hbg.addEventListener('click', openD);
+drwX.addEventListener('click', closeD);
+ov.addEventListener('click', closeD);
+
+
+/* ─── Filter tabs ─── */
+document.querySelectorAll('.ftab').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.ftab').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  });
+});
+
+
+/* ─── View More ─── */
+const viewMoreBtn  = document.getElementById('viewMoreBtn');
+const viewMoreWrap = document.getElementById('viewMoreWrap');
+const hiddenCards  = document.querySelectorAll('.b-card.hidden');
+
+viewMoreBtn.addEventListener('click', () => {
+
+  hiddenCards.forEach(card => {
+
+    /* Make card visible in the grid */
+    card.classList.remove('hidden');
+
+    /* Trigger fade-in animation */
+    card.classList.add('fu');
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        card.classList.add('vis');
+      });
+    });
+
+  });
+
+  /* Hide button once all posts are shown */
+  viewMoreWrap.classList.add('done');
+
+});
+
+
+/* ─── Scroll reveal ─── */
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('vis');
+      io.unobserve(e.target);
+    }
+  });
+}, { threshold: .07 });
+
+document.querySelectorAll('.fu').forEach(el => io.observe(el));
+
+</script>
+</body>
+</html>
