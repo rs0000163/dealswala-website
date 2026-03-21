@@ -1,0 +1,3140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Credit Cards — Dealswala</title>
+<link rel="icon" type="image/png" href="../images/favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Nunito',sans-serif;background:#f4f6fb;color:#111827;overflow-x:hidden;font-size:14px}
+a{text-decoration:none;color:inherit}
+img{display:block;max-width:100%}
+button{font-family:'Nunito',sans-serif;cursor:pointer}
+:root{
+  --or:#f97316;--bl:#1641b4;--bl2:#2448e0;
+  --gr:#16a34a;--rd:#ef4444;
+  --txt:#111827;--t2:#374151;--t3:#6b7280;
+  --bd:#e5e7eb;--bg:#f9fafb;--wh:#fff;
+  --sh:0 2px 10px rgba(0,0,0,.08);
+  --sh2:0 8px 32px rgba(0,0,0,.14);
+  --r:16px;
+}
+
+/* ══════════════ HEADER (exact from dealswala) ══════════════ */
+.hdr{position:sticky;top:0;z-index:900;background:#fff;border-bottom:1px solid var(--bd);height:58px}
+.hdr-in{max-width:1320px;margin:0 auto;padding:0 20px;height:100%;display:flex;align-items:center;gap:12px}
+.hbg{background:none;border:none;display:flex;flex-direction:column;gap:4.5px;padding:6px 4px}
+.hbg span{display:block;width:21px;height:2px;background:#374151;border-radius:2px;transition:.25s}
+.logo-img{height:50px}
+.logo-txt{font-size:21px;font-weight:900;color:var(--bl);display:none}
+.logo-txt em{color:var(--or);font-style:normal}
+
+/* ══════════════ OVERLAY + DRAWER ══════════════ */
+.ov{position:fixed;inset:0;background:rgba(0,0,0,.48);z-index:1800;opacity:0;pointer-events:none;transition:opacity .28s}
+.ov.on{opacity:1;pointer-events:all}
+.drw{position:fixed;top:0;left:-290px;bottom:0;width:268px;background:#fff;z-index:1900;overflow-y:auto;transition:left .3s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column}
+.drw.on{left:0}
+.drw-hdr{background:linear-gradient(135deg,var(--bl),var(--bl2));padding:18px 16px 14px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.drw-logo{font-size:19px;font-weight:900;color:#fff}
+.drw-logo em{color:#ffb347;font-style:normal}
+.drw-x{background:rgba(255,255,255,.18);border:none;width:30px;height:30px;border-radius:50%;color:#fff;font-size:17px;display:flex;align-items:center;justify-content:center}
+.drw-row{display:flex;align-items:center;justify-content:space-between;padding:13px 16px;border-bottom:1px solid #f3f4f6;font-size:13.5px;font-weight:700;color:#111}
+.drw-row .ar{color:#9ca3af;font-size:15px}
+.drw-sep{height:4px;background:#f9fafb}
+.drw-cat{display:flex;align-items:center;gap:12px;padding:11px 16px;border-bottom:1px solid #f9fafb}
+.drw-cat:hover{background:#f0f4ff}
+.dci{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
+.dcn{font-size:13.5px;font-weight:600}
+.drw-lnk{display:flex;align-items:center;gap:10px;padding:13px 16px;font-size:14px;font-weight:700;border-bottom:1px solid #f3f4f6;transition:color .18s,background .18s}
+.drw-lnk:hover{color:var(--or);background:#fff8f5}
+
+/* ══════════════ PAGE HERO STRIP ══════════════ */
+.page-hero{
+  background:linear-gradient(135deg,#1641b4 0%,#2448e0 60%,#1e3fcc 100%);
+  padding:36px 20px 32px;
+  text-align:center;
+}
+.page-hero h1{font-size:clamp(22px,3.5vw,36px);font-weight:900;color:#fff;margin-bottom:8px}
+.page-hero p{font-size:15px;color:rgba(255,255,255,.75);max-width:560px;margin:0 auto;line-height:1.6}
+.hero-chips{display:flex;justify-content:center;gap:8px;margin-top:18px;flex-wrap:wrap}
+.hero-chip{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.25);border-radius:999px;padding:6px 16px;font-size:12px;font-weight:700}
+
+.page-hero-img img {
+  width: 100%;
+  height: 420px;   /* 👈 isko adjust kar sakte hain */
+  object-fit: cover;
+  border-radius: 4px;
+}
+/* ══════════════ MAIN LAYOUT ══════════════ */
+.page-wrap{max-width:1320px;margin:0 auto;padding:28px 20px 60px;display:grid;grid-template-columns:270px 1fr;gap:24px;align-items:start}
+
+/* ══════════════ FILTER SIDEBAR ══════════════ */
+.filter-sidebar{
+  background:#fff;
+  border-radius:16px;
+  border:1px solid var(--bd);
+  box-shadow:var(--sh);
+  overflow:hidden;
+  position:sticky;
+  top:76px;
+}
+.fs-head{
+  background:linear-gradient(135deg,var(--bl),var(--bl2));
+  padding:16px 18px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.fs-head h3{font-size:14px;font-weight:800;color:#fff;display:flex;align-items:center;gap:8px}
+.fs-reset{background:rgba(255,255,255,.2);border:none;color:#fff;font-size:11px;font-weight:700;font-family:'Nunito',sans-serif;padding:4px 12px;border-radius:999px;cursor:pointer;transition:background .2s}
+.fs-reset:hover{background:rgba(255,255,255,.35)}
+
+.filter-group{border-bottom:1px solid #f3f4f6;padding:16px 18px}
+.filter-group:last-child{border-bottom:none}
+.fg-title{
+  font-size:12px;font-weight:800;color:var(--t2);
+  text-transform:uppercase;letter-spacing:.06em;
+  margin-bottom:12px;cursor:pointer;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.fg-title i{font-size:11px;color:var(--t3);transition:transform .2s}
+.fg-title.open i{transform:rotate(180deg)}
+.fg-body{display:flex;flex-direction:column;gap:8px}
+.fg-body.hidden{display:none}
+
+.f-check{display:flex;align-items:center;gap:10px;cursor:pointer;padding:3px 0}
+.f-check input[type=checkbox]{
+  width:16px;height:16px;border-radius:4px;
+  accent-color:var(--bl);cursor:pointer;flex-shrink:0;
+}
+.f-check span{font-size:13px;font-weight:600;color:var(--t2);flex:1;line-height:1.3}
+.f-check .f-count{font-size:11px;font-weight:700;color:var(--t3);background:#f3f4f6;border-radius:999px;padding:1px 7px}
+.f-check:hover span{color:var(--bl)}
+
+/* Active count badge */
+.active-count{
+  background:var(--or);color:#fff;
+  font-size:10px;font-weight:800;
+  border-radius:999px;padding:1px 7px;margin-left:6px;
+  display:none;
+}
+.active-count.show{display:inline}
+
+/* Search inside filter */
+.f-search{
+  width:100%;border:1.5px solid var(--bd);border-radius:8px;
+  padding:7px 11px;font-size:13px;font-family:'Nunito',sans-serif;
+  outline:none;color:var(--txt);margin-bottom:10px;
+  transition:border-color .2s;
+}
+.f-search:focus{border-color:var(--bl)}
+
+/* ══════════════ RESULTS AREA ══════════════ */
+.results-area{}
+
+.results-top{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:18px;flex-wrap:wrap;gap:12px;
+}
+.results-count{font-size:14px;font-weight:700;color:var(--t2)}
+.results-count span{color:var(--bl);font-size:16px;font-weight:900}
+.sort-wrap{display:flex;align-items:center;gap:8px}
+.sort-wrap label{font-size:13px;font-weight:700;color:var(--t3)}
+.sort-sel{
+  border:1.5px solid var(--bd);border-radius:8px;
+  padding:7px 12px;font-size:13px;font-family:'Nunito',sans-serif;
+  color:var(--txt);background:#fff;outline:none;cursor:pointer;
+  transition:border-color .2s;
+}
+.sort-sel:focus{border-color:var(--bl)}
+
+/* Active filters chips row */
+.active-chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.a-chip{
+  display:inline-flex;align-items:center;gap:6px;
+  background:#eff2ff;color:var(--bl);border:1px solid #c7d2fe;
+  border-radius:999px;padding:4px 12px;font-size:12px;font-weight:700;
+}
+.a-chip button{background:none;border:none;color:var(--bl);font-size:14px;line-height:1;cursor:pointer;padding:0}
+
+/* ══════════════ CREDIT CARD ITEM ══════════════ */
+.cc-list{display:flex;flex-direction:column;gap:16px}
+
+.cc-item{
+  background:#fff;
+  border:1.5px solid var(--bd);
+  border-radius:18px;
+  padding:22px 24px;
+  display:flex;
+  align-items:flex-start;
+  gap:24px;
+  box-shadow:var(--sh);
+  transition:transform .22s,box-shadow .22s,border-color .22s;
+  position:relative;
+  overflow:hidden;
+}
+.cc-item::before{
+  content:'';
+  position:absolute;left:0;top:0;bottom:0;width:4px;
+  background:var(--bl);
+  border-radius:18px 0 0 18px;
+}
+.cc-item:hover{
+  transform:translateY(-3px);
+  box-shadow:0 12px 36px rgba(22,65,180,.13);
+  border-color:#c7d2fe;
+}
+
+/* Badge */
+.cc-badge{
+  position:absolute;top:14px;right:14px;
+  background:linear-gradient(135deg,#f97316,#ef4444);
+  color:#fff;font-size:18px;font-weight:800;
+  padding:3px 11px;border-radius:999px;
+  text-transform:uppercase;letter-spacing:.05em;
+}
+
+/* Card image */
+.cc-img-wrap{
+  flex-shrink:0;
+  width:160px;
+  background:#f0f4ff;
+  border-radius:14px;
+  overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+  padding:14px 10px;
+  border:1px solid #e0e7ff;
+  min-height:110px;
+}
+.cc-img-wrap img{
+  width:100%;max-width:140px;
+  height:auto;object-fit:contain;
+  border-radius:8px;
+  filter:drop-shadow(0 4px 10px rgba(0,0,0,.18));
+}
+
+/* Stars + rating */
+.cc-rating{
+  display:flex;align-items:center;gap:5px;margin-top:10px;
+}
+.cc-stars{color:#f59e0b;font-size:13px;display:flex;gap:2px}
+.cc-rating-num{font-size:12px;font-weight:800;color:var(--t2)}
+
+/* Right content */
+.cc-info{flex:1;min-width:0}
+
+.cc-name{font-size:18px;font-weight:900;color:var(--txt);margin-bottom:10px;line-height:1.25}
+
+/* Fees row */
+.cc-fees{
+  display:flex;gap:20px;flex-wrap:wrap;
+  margin-bottom:14px;padding:10px 14px;
+  background:#f8faff;border-radius:10px;
+  border:1px solid #e0e7ff;
+}
+.cc-fee-item{display:flex;align-items:center;gap:7px;font-size:13px;color:var(--t2)}
+.cc-fee-item i{color:var(--bl);font-size:14px}
+.cc-fee-item strong{color:var(--txt);font-weight:800}
+.cc-fees .sep{width:1px;background:#e0e7ff;align-self:stretch}
+
+/* Benefits list */
+.cc-benefits{list-style:none;margin-bottom:14px;display:flex;flex-direction:column;gap:7px}
+.cc-benefits li{
+  display:flex;align-items:flex-start;gap:9px;
+  font-size:13.5px;color:var(--t2);line-height:1.4;
+}
+.cc-benefits li i{color:var(--bl);font-size:13px;margin-top:2px;flex-shrink:0}
+
+/* Tags */
+.cc-tags{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:16px}
+.cc-tag{
+  background:#f0f4ff;color:var(--bl);border:1px solid #c7d2fe;
+  border-radius:999px;padding:4px 13px;
+  font-size:12px;font-weight:700;
+  display:flex;align-items:center;gap:5px;
+}
+.cc-tag i{font-size:11px}
+
+/* Action row */
+.cc-actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.cc-details-btn{
+  display:inline-flex;align-items:center;gap:6px;
+  color:var(--bl);font-size:13px;font-weight:800;
+  border:none;background:none;cursor:pointer;
+  padding:4px 0;transition:gap .18s;
+}
+.cc-details-btn:hover{gap:10px}
+.cc-details-btn i{font-size:12px}
+.cc-compare{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:700;color:var(--t3);cursor:pointer}
+.cc-compare input{width:15px;height:15px;accent-color:var(--bl);cursor:pointer}
+.cc-apply{
+  margin-left:auto;
+  background:var(--bl);color:#fff;
+  padding:12px 28px;border-radius:10px;
+  font-size:14px;font-weight:800;
+  border:none;cursor:pointer;
+  transition:background .2s,transform .18s;
+  display:inline-flex;align-items:center;gap:8px;
+}
+.cc-apply:hover{background:var(--bl2);transform:translateY(-1px)}
+
+/* Expandable more details panel */
+.cc-more{
+  display:none;
+  margin-top:16px;
+  padding:16px;
+  background:#f8faff;
+  border-radius:12px;
+  border:1px solid #e0e7ff;
+}
+.cc-more.open{display:block}
+.cc-more h4{font-size:13px;font-weight:800;color:var(--txt);margin-bottom:10px;text-transform:uppercase;letter-spacing:.05em}
+.cc-more-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.cc-more-row{display:flex;flex-direction:column;gap:2px;padding:8px 10px;background:#fff;border-radius:8px;border:1px solid #e0e7ff}
+.cc-more-row .mk{font-size:11px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.04em}
+.cc-more-row .mv{font-size:13px;font-weight:700;color:var(--txt)}
+
+/* ══════════════ FOOTER (exact from dealswala) ══════════════ */
+.ft{background:#111827;color:rgba(255,255,255,.72);padding:50px 0 0}
+.ft-in{max-width:1320px;margin:0 auto;padding:0 20px}
+.ft-g{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:44px;padding-bottom:44px;border-bottom:1px solid rgba(255,255,255,.1)}
+.ft-logo img{width:200px;height:80px}
+.ft-desc{font-size:15px;line-height:1.75;margin-bottom:20px}
+.ft-soc{display:flex;gap:9px}
+.ft-s{width:36px;height:36px;border-radius:9px;background:rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:15px;transition:background .2s}
+.ft-s:hover{background:var(--or)}
+.ft-col h4{font-size:13px;font-weight:800;color:#ffffff;text-transform:uppercase;letter-spacing:.07em;margin-bottom:15px}
+.ft-ul{list-style:none}
+.ft-ul li{margin-bottom:9px}
+.ft-ul a{font-size:15px;color:#f2f2f2;transition:color .18s}
+.ft-ul a:hover{color:var(--or)}
+.ft-bot{padding:17px 0;display:flex;align-items:center;justify-content:space-between;font-size:12px;color:rgba(255,255,255,.38);flex-wrap:wrap;gap:8px}
+.ft-bot a{color:rgba(255,255,255,.38);transition:color .18s}
+.ft-bot a:hover{color:var(--or)}
+
+/* No results */
+.no-results{text-align:center;padding:60px 20px;color:var(--t3)}
+.no-results i{font-size:48px;margin-bottom:14px;display:block;color:#d1d5db}
+.no-results p{font-size:16px;font-weight:700}
+
+/* ══════════════ RESPONSIVE ══════════════ */
+@media(max-width:1060px){
+  .page-wrap{grid-template-columns:240px 1fr;gap:18px}
+  .cc-img-wrap{width:130px}
+  .cc-name{font-size:16px}
+}
+@media(max-width:860px){
+  .page-wrap{grid-template-columns:1fr}
+  .filter-sidebar{position:fixed;top:0;left:-300px;width:280px;bottom:0;z-index:1900;border-radius:0;transition:left .3s;overflow-y:auto}
+  .filter-sidebar.mob-open{left:0}
+  .mob-filter-btn{display:flex}
+}
+@media(max-width:600px){
+  .cc-item{flex-direction:column;gap:16px}
+  .cc-img-wrap{width:100%;min-height:140px}
+  .cc-apply{width:100%;justify-content:center}
+  .cc-more-grid{grid-template-columns:1fr}
+  .ft-g{grid-template-columns:1fr 1fr}
+  .ft-bot{flex-direction:column;text-align:center}
+}
+
+/* Mobile filter btn */
+.mob-filter-btn{
+  display:none;
+  align-items:center;gap:8px;
+  background:var(--bl);color:#fff;border:none;
+  padding:9px 18px;border-radius:10px;
+  font-size:13px;font-weight:800;font-family:'Nunito',sans-serif;
+  cursor:pointer;margin-bottom:14px;
+}
+@media(max-width:860px){.mob-filter-btn{display:flex}}
+</style>
+</head>
+<body>
+
+<!-- ══════════════ HEADER ══════════════ -->
+<header class="hdr">
+  <div class="hdr-in">
+    <button class="hbg" id="hbgBtn"><span></span><span></span><span></span></button>
+    <a href="#">
+      <img class="logo-img" src="../images/logo.png" alt="dealswala.shop"
+        onerror="this.style.display='none';document.querySelector('.logo-txt').style.display='block'">
+      <span class="logo-txt">deals<em>wala</em></span>
+    </a>
+  </div>
+</header>
+
+<!-- OVERLAY -->
+<div class="ov" id="ov"></div>
+
+<!-- SIDE DRAWER -->
+<aside class="drw" id="drw">
+  <div class="drw-hdr">
+    <span class="drw-logo">deals<em>wala</em></span>
+    <button class="drw-x" id="drwX">✕</button>
+  </div>
+  <div class="drw-row"><span>Category</span><span class="ar">›</span></div>
+  <div class="drw-row"><span>Most Popular Retailers</span><span class="ar">›</span></div>
+  <div class="drw-row"><span>Retailers by Category</span><span class="ar">›</span></div>
+  <div class="drw-row"><span>Top Product Deals</span><span class="ar">›</span></div>
+  <div class="drw-sep"></div>
+  <div class="drw-cat"><div class="dci" style="background:#fff0e8">📱</div><span class="dcn">Mobiles</span></div>
+  <div class="drw-cat"><div class="dci" style="background:#e8f0ff">🎧</div><span class="dcn">Headphones</span></div>
+  <div class="drw-cat"><div class="dci" style="background:#e8fff0">💻</div><span class="dcn">Laptops</span></div>
+  <div class="drw-cat"><div class="dci" style="background:#fff8e8">👔</div><span class="dcn">Men Fashion</span></div>
+  <div class="drw-cat"><div class="dci" style="background:#ffe8f0">👗</div><span class="dcn">Women Fashion</span></div>
+  <div class="drw-cat"><div class="dci" style="background:#fff0f8">💄</div><span class="dcn">Beauty</span></div>
+  <div class="drw-sep"></div>
+  <a href="credit-cards.html" class="drw-lnk"><span>💳</span> Credit Cards</a>
+  <a href="#" class="drw-lnk"><span>📝</span> Blog &amp; Articles</a>
+</aside>
+
+<!-- HERO BANNER IMAGE -->
+<div class="page-hero-img">
+  <img src="../images/creditcardbanner.png" alt="Best Credit Cards India 2026">
+</div>
+<!-- ══════════════ PAGE WRAP ══════════════ -->
+<div class="page-wrap">
+
+  <!-- ══ FILTER SIDEBAR ══ -->
+  <aside class="filter-sidebar" id="filterSidebar">
+    <div class="fs-head">
+      <h3><i class="fa fa-sliders-h"></i> Filters</h3>
+      <button class="fs-reset" onclick="resetAllFilters()">Reset All</button>
+    </div>
+
+<!-- BANK -->
+<div class="filter-group">
+  <div class="fg-title open" onclick="toggleGroup(this)">
+    Bank <span class="active-count" id="bankCount"></span>
+    <i class="fa fa-chevron-down"></i>
+  </div>
+  <div class="fg-body" id="bankBody">
+    <input class="f-search" placeholder="Search bank..." oninput="searchFilter(this,'bankBody')">
+    
+<label class="f-check"><input type="checkbox" data-filter="bank" value="Axis Bank" onchange="applyFilters()"><span>Axis Bank</span></label>
+
+<label class="f-check"><input type="checkbox" data-filter="bank" value="SBI" onchange="applyFilters()"><span>SBI</span></label>
+
+<label class="f-check"><input type="checkbox" data-filter="bank" value="HDFC Bank" onchange="applyFilters()"><span>HDFC Bank</span></label>
+
+<label class="f-check"><input type="checkbox" data-filter="bank" value="IDFC First Bank" onchange="applyFilters()"><span>IDFC First Bank</span></label>
+
+<label class="f-check"><input type="checkbox" data-filter="bank" value="Yes Bank" onchange="applyFilters()"><span>Yes Bank</span></label>
+
+<label class="f-check"><input type="checkbox" data-filter="bank" value="Bank of Baroda" onchange="applyFilters()"><span>Bank of Baroda</span></label>
+
+<label class="f-check"><input type="checkbox" data-filter="bank" value="AU Bank" onchange="applyFilters()"><span>AU Bank</span></label>
+
+<label class="f-check"><input type="checkbox" data-filter="bank" value="SBM Bank" onchange="applyFilters()"><span>SBM Bank</span></label>
+
+<label class="f-check"><input type="checkbox" data-filter="bank" value="Suryoday Bank" onchange="applyFilters()"><span>Suryoday Bank</span></label>
+
+  </div>
+</div>
+
+<!-- CARD TYPE -->
+<div class="filter-group">
+  <div class="fg-title open" onclick="toggleGroup(this)">
+    Card Type <span class="active-count" id="typeCount"></span>
+    <i class="fa fa-chevron-down"></i>
+  </div>
+  <div class="fg-body" id="typeBody">
+    
+<label class="f-check"><input type="checkbox" data-filter="type" value="Cashback" onchange="applyFilters()"><span>💰 Cashback</span></label>
+
+<label class="f-check"><input type="checkbox" data-filter="type" value="Fuel" onchange="applyFilters()"><span>⛽ Fuel</span></label>
+
+<label class="f-check"><input type="checkbox" data-filter="type" value="Shopping" onchange="applyFilters()"><span>🛒 Shopping</span></label>
+
+<label class="f-check"><input type="checkbox" data-filter="type" value="Premium" onchange="applyFilters()"><span>💎 Premium</span></label>  </div>
+</div>
+
+<!-- NETWORK -->
+<div class="filter-group">
+  <div class="fg-title open" onclick="toggleGroup(this)">
+    Card Network <span class="active-count" id="networkCount"></span>
+    <i class="fa fa-chevron-down"></i>
+  </div>
+  <div class="fg-body" id="networkBody">
+    
+    <label class="f-check"><input type="checkbox" data-filter="network" value="Visa" onchange="applyFilters()"><span>Visa</span></label>
+    <label class="f-check"><input type="checkbox" data-filter="network" value="Mastercard" onchange="applyFilters()"><span>Mastercard</span></label>
+    <label class="f-check"><input type="checkbox" data-filter="network" value="RuPay" onchange="applyFilters()"><span>RuPay</span></label>
+    <label class="f-check"><input type="checkbox" data-filter="network" value="Amex" onchange="applyFilters()"><span>Amex</span></label>
+  </div>
+</div>
+      </aside>
+
+  <!-- ══ RESULTS AREA ══ -->
+  <div class="results-area">
+
+    <!-- Mobile filter toggle -->
+    <button class="mob-filter-btn" onclick="document.getElementById('filterSidebar').classList.add('mob-open');document.getElementById('ov').classList.add('on')">
+      <i class="fa fa-sliders-h"></i> Filters
+    </button>
+
+    <div class="results-top">
+      <div class="results-count">Showing <span id="cardCount">8</span> credit cards</div>
+          </div>
+
+    <!-- Active filter chips -->
+    <div class="active-chips" id="activeChips"></div>
+
+    <!-- ══ CREDIT CARD LIST ══ -->
+    <div class="cc-list" id="ccList">
+
+
+
+<!-- ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ 
+CARD: Axis MyZone RuPay
+══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══  -->
+
+<div class="cc-item" data-bank="Axis Bank" data-type="Cashback" data-network="Visa">
+
+  <!-- 💰 CASHBACK -->
+  <div class="cc-badge">1500 cashback</div>
+
+  <div style="display:flex;flex-direction:column;align-items:center;gap:0">
+    
+    <div class="cc-img-wrap">
+      <img src="https://offline-agent-bk.s3.ap-south-1.amazonaws.com/profit_share1692859037877"
+        alt="Axis MyZone RuPay Credit Card"
+        onerror="this.src='https://placehold.co/140x88/1641b4/fff?text=Credit+Card'">
+    </div>
+
+    <!-- ⭐ RATING -->
+    <div class="cc-rating">
+      <div class="cc-stars">
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+      </div>
+      <span class="cc-rating-num">4/5</span>
+    </div>
+
+  </div>
+
+  <div class="cc-info">
+    
+    <div class="cc-name">Axis MyZone Credit Card</div>
+
+    <div class="cc-fees">
+      <div class="cc-fee-item">
+        <i class="fa fa-rupee-sign"></i> Joining fee: <strong>₹0</strong>
+      </div>
+      <div class="sep"></div>
+      <div class="cc-fee-item">
+        <i class="fa fa-sync-alt"></i> Annual Fee: <strong>₹0</strong>
+      </div>
+    </div>
+
+    <!-- BENEFITS -->
+    <ul class="cc-benefits">
+      <li><i class="fa fa-check-circle"></i> Buy 1 Get 1 free movie tickets</li>
+      <li><i class="fa fa-check-circle"></i> ₹120 off on Swiggy orders twice a month</li>
+      <li><i class="fa fa-check-circle"></i> SonyLiv Premium subscription</li>
+    </ul>
+
+    <!-- TAGS -->
+    <div class="cc-tags">
+      <span class="cc-tag">Cashback</span>
+      <span class="cc-tag">Movies</span>
+      <span class="cc-tag">Dining</span>
+    </div>
+
+    <!-- ACTIONS -->
+    <div class="cc-actions">
+      <button class="cc-details-btn" onclick="toggleMore(this)">
+        <i class="fa fa-plus-circle"></i> More Details
+      </button>
+
+
+
+      <a href="https://earningshub.co/Vipul-Gupta-177408530771647713890" target="_blank" class="cc-apply">
+        Apply Now <i class="fa fa-arrow-right"></i>
+      </a>
+    </div>
+
+    <!-- MORE DETAILS -->
+    <div class="cc-more">
+      <h4>More Details</h4>
+      <div class="cc-more-grid">
+
+        <div class="cc-more-row">
+          <span class="mk">Welcome Benefit</span>
+          <span class="mv">SonyLiv Premium subscription</span>
+        </div>
+
+        <div class="cc-more-row">
+          <span class="mk">Rewards Rate</span>
+          <span class="mv">4 EDGE RP per ₹200</span>
+        </div>
+
+        <div class="cc-more-row">
+          <span class="mk">Lounge Access</span>
+          <span class="mv">1 per quarter</span>
+        </div>
+
+        <div class="cc-more-row">
+          <span class="mk">Fuel Benefit</span>
+          <span class="mv">1% surcharge waiver</span>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ 
+                 CARD: Axis Flipkart
+ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══  -->
+
+<div class="cc-item" data-bank="Axis Bank" data-type="Cashback" data-network="
+Mastercard">
+
+  <!-- 💰 CASHBACK -->
+  <div class="cc-badge">940 cashback</div>
+
+  <div style="display:flex;flex-direction:column;align-items:center;gap:0">
+    
+    <div class="cc-img-wrap">
+      <img src="https://offline-agent-bk.s3.ap-south-1.amazonaws.com/profit_share1692859012036"
+        alt="Axis Flipkart Credit Card"
+        onerror="this.src='https://placehold.co/140x88/1641b4/fff?text=Credit+Card'">
+    </div>
+
+    <div class="cc-rating">
+      <div class="cc-stars">
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+      </div>
+      <span class="cc-rating-num">4/5</span>
+    </div>
+
+  </div>
+
+  <div class="cc-info">
+    
+    <div class="cc-name">Axis Flipkart Credit Card</div>
+
+    <div class="cc-fees">
+      <div class="cc-fee-item">
+        <i class="fa fa-rupee-sign"></i> Joining fee: <strong>₹0</strong>
+      </div>
+      <div class="sep"></div>
+      <div class="cc-fee-item">
+        <i class="fa fa-sync-alt"></i> Annual Fee: <strong>1st Year Free</strong>
+      </div>
+    </div>
+
+    <!-- 🔥 BENEFITS (CONVERSION FOCUSED) -->
+    <ul class="cc-benefits">
+      <li><i class="fa fa-check-circle"></i> High cashback on Flipkart and Myntra shopping</li>
+      <li><i class="fa fa-check-circle"></i> Extra savings on travel, food and entertainment</li>
+      <li><i class="fa fa-check-circle"></i> Unlimited cashback on everyday spending</li>
+    </ul>
+
+    <!-- TAGS WITH ICONS -->
+    <div class="cc-tags">
+      <span class="cc-tag"><i class="fa fa-shopping-cart"></i> Shopping</span>
+      <span class="cc-tag"><i class="fa fa-rupee-sign"></i> Cashback</span>
+      <span class="cc-tag"><i class="fa fa-gift"></i> Rewards</span>
+    </div>
+
+    <!-- ACTIONS -->
+    <div class="cc-actions">
+      <button class="cc-details-btn" onclick="toggleMore(this)">
+        <i class="fa fa-plus-circle"></i> More Details
+      </button>
+
+    
+      <a href="https://earningshub.co/Vipul-Gupta-177408598110347613890" target="_blank" class="cc-apply">
+        Apply Now <i class="fa fa-arrow-right"></i>
+      </a>
+    </div>
+
+    <!-- SIMPLE DETAILS -->
+    <div class="cc-more">
+      <h4>More Details</h4>
+      <div class="cc-more-grid">
+
+        <div class="cc-more-row">
+          <span class="mk">Welcome Benefit</span>
+          <span class="mv">Flipkart voucher</span>
+        </div>
+
+        <div class="cc-more-row">
+          <span class="mk">Rewards</span>
+          <span class="mv">Cashback on every spend</span>
+        </div>
+
+        <div class="cc-more-row">
+          <span class="mk">Dining Offer</span>
+          <span class="mv">Discount on dining</span>
+        </div>
+
+        <div class="cc-more-row">
+          <span class="mk">Fuel Benefit</span>
+          <span class="mv">Fuel surcharge waiver</span>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ 
+CARD: SBI Cashback – High Cashback on Online Spending
+══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══  -->
+
+<div class="cc-item" data-bank="SBI" data-type="Cashback" data-network="Visa">
+
+  <!-- 💰 CASHBACK -->
+  <div class="cc-badge">1100 cashback</div>
+
+  <div style="display:flex;flex-direction:column;align-items:center;gap:0">
+    
+    <div class="cc-img-wrap">
+      <img src="https://offline-agent-bk.s3.ap-south-1.amazonaws.com/profit_share1713252384041"
+        alt="SBI Cashback Credit Card"
+        onerror="this.src='https://placehold.co/140x88/1641b4/fff?text=Credit+Card'">
+    </div>
+
+    <div class="cc-rating">
+      <div class="cc-stars">
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+      </div>
+      <span class="cc-rating-num">4/5</span>
+    </div>
+
+  </div>
+
+  <div class="cc-info">
+    
+    <!-- 🔥 TITLE (HIGHLIGHTED STYLE) -->
+    <div class="cc-name">SBI Cashback Card</div>
+
+    <div class="cc-fees">
+      <div class="cc-fee-item">
+        <i class="fa fa-rupee-sign"></i> Joining fee: <strong>₹999</strong>
+      </div>
+      <div class="sep"></div>
+      <div class="cc-fee-item">
+        <i class="fa fa-sync-alt"></i> Annual Fee: <strong>₹999</strong>
+      </div>
+    </div>
+
+    <!-- 🔥 BENEFITS -->
+    <ul class="cc-benefits">
+      <li><i class="fa fa-check-circle"></i> High cashback on all online transactions</li>
+      <li><i class="fa fa-check-circle"></i> Savings on everyday online and offline spending</li>
+      <li><i class="fa fa-check-circle"></i> Automatic cashback credited to your account</li>
+    </ul>
+
+    <!-- TAGS -->
+    <div class="cc-tags">
+      <span class="cc-tag"><i class="fa fa-rupee-sign"></i> Cashback</span>
+      <span class="cc-tag"><i class="fa fa-shopping-cart"></i> Online Shopping</span>
+      <span class="cc-tag"><i class="fa fa-gift"></i> Rewards</span>
+    </div>
+
+    <!-- ACTIONS -->
+    <div class="cc-actions">
+      <button class="cc-details-btn" onclick="toggleMore(this)">
+        <i class="fa fa-plus-circle"></i> More Details
+      </button>
+
+  
+
+      <a href="https://earningshub.co/Vipul-Gupta-177408616603448613890" target="_blank" class="cc-apply">
+        Apply Now <i class="fa fa-arrow-right"></i>
+      </a>
+    </div>
+
+    <!-- MORE DETAILS -->
+    <div class="cc-more">
+      <h4>More Details</h4>
+      <div class="cc-more-grid">
+
+        <div class="cc-more-row">
+          <span class="mk">Rewards</span>
+          <span class="mv">Cashback on every online spend</span>
+        </div>
+
+        <div class="cc-more-row">
+          <span class="mk">Offline Benefit</span>
+          <span class="mv">Cashback on daily purchases</span>
+        </div>
+
+        <div class="cc-more-row">
+          <span class="mk">Fuel Benefit</span>
+          <span class="mv">Fuel surcharge waiver</span>
+        </div>
+
+        <div class="cc-more-row">
+          <span class="mk">Cashback Credit</span>
+          <span class="mv">Auto credited after statement</span>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ 
+CARD: HDFC Bank Card – Lounge Access & Premium Benefits
+══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══  -->
+
+<div class="cc-item" data-bank="HDFC Bank" data-type="Rewards" data-network="Visa">
+
+  <!-- 💰 CASHBACK -->
+  <div class="cc-badge">1000 cashback</div>
+
+  <div style="display:flex;flex-direction:column;align-items:center;gap:0">
+    
+    <div class="cc-img-wrap">
+      <img src="https://offline-agent-bk.s3.ap-south-1.amazonaws.com/profit_share1692794486521"
+        alt="HDFC Bank Credit Card"
+        onerror="this.src='https://placehold.co/140x88/1641b4/fff?text=Credit+Card'">
+    </div>
+
+    <div class="cc-rating">
+      <div class="cc-stars">
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+      </div>
+      <span class="cc-rating-num">4/5</span>
+    </div>
+
+  </div>
+
+  <div class="cc-info">
+    
+    <!-- 🔥 TITLE -->
+    <div class="cc-name">HDFC Bank Millennia Credit Card</div>
+
+    <div class="cc-fees">
+      <div class="cc-fee-item">
+        <i class="fa fa-rupee-sign"></i> Joining fee: <strong>₹500</strong>
+      </div>
+      <div class="sep"></div>
+      <div class="cc-fee-item">
+        <i class="fa fa-sync-alt"></i> Annual Fee: <strong>₹500</strong>
+      </div>
+    </div>
+
+    <!-- 🔥 BENEFITS -->
+    <ul class="cc-benefits">
+      <li><i class="fa fa-check-circle"></i> Complimentary airport lounge access</li>
+      <li><i class="fa fa-check-circle"></i> Convert spends into easy EMI options</li>
+      <li><i class="fa fa-check-circle"></i> Insurance and milestone reward benefits</li>
+    </ul>
+
+    <!-- TAGS -->
+    <div class="cc-tags">
+      <span class="cc-tag"><i class="fa fa-couch"></i> Lounge Access</span>
+      <span class="cc-tag"><i class="fa fa-gift"></i> Rewards</span>
+      <span class="cc-tag"><i class="fa fa-star"></i> Premium</span>
+    </div>
+
+    <!-- ACTIONS -->
+    <div class="cc-actions">
+      <button class="cc-details-btn" onclick="toggleMore(this)">
+        <i class="fa fa-plus-circle"></i> More Details
+      </button>
+
+      
+      <a href="https://earningshub.co/Vipul-Gupta-177408636152548213890" target="_blank" class="cc-apply">
+        Apply Now <i class="fa fa-arrow-right"></i>
+      </a>
+    </div>
+
+    <!-- MORE DETAILS -->
+    <div class="cc-more">
+      <h4>More Details</h4>
+      <div class="cc-more-grid">
+
+        <div class="cc-more-row">
+          <span class="mk">Lounge Access</span>
+          <span class="mv">Domestic and international access</span>
+        </div>
+
+        <div class="cc-more-row">
+          <span class="mk">EMI Option</span>
+          <span class="mv">Convert purchases into EMI</span>
+        </div>
+
+        <div class="cc-more-row">
+          <span class="mk">Insurance</span>
+          <span class="mv">Travel and emergency cover</span>
+        </div>
+
+        <div class="cc-more-row">
+          <span class="mk">Rewards</span>
+          <span class="mv">Vouchers on spending milestones</span>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ 
+CARD: Axis Airtel Card – High Cashback on Bills & Airtel Services
+══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══  -->
+
+<div class="cc-item" data-bank="Axis Bank" data-type="Cashback" data-network="Visa">
+
+  <!-- 💰 CASHBACK -->
+  <div class="cc-badge">900 cashback</div>
+
+  <div style="display:flex;flex-direction:column;align-items:center;gap:0">
+    
+    <div class="cc-img-wrap">
+      <img src="https://offline-agent-bk.s3.ap-south-1.amazonaws.com/profit_share1716901640366"
+        alt="Axis Airtel Credit Card"
+        onerror="this.src='https://placehold.co/140x88/1641b4/fff?text=Credit+Card'">
+    </div>
+
+    <div class="cc-rating">
+      <div class="cc-stars">
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+      </div>
+      <span class="cc-rating-num">4/5</span>
+    </div>
+
+  </div>
+
+  <div class="cc-info">
+    
+    <!-- 🔥 TITLE -->
+    <div class="cc-name">Axis Airtel Card</div>
+
+    <div class="cc-fees">
+      <div class="cc-fee-item">
+        <i class="fa fa-rupee-sign"></i> Joining fee: <strong>₹500</strong>
+      </div>
+      <div class="sep"></div>
+      <div class="cc-fee-item">
+        <i class="fa fa-sync-alt"></i> Annual Fee: <strong>₹500</strong>
+      </div>
+    </div>
+
+    <!-- 🔥 BENEFITS -->
+    <ul class="cc-benefits">
+      <li><i class="fa fa-check-circle"></i> High cashback on Airtel recharges and services</li>
+      <li><i class="fa fa-check-circle"></i> Savings on utility bills and food orders</li>
+      <li><i class="fa fa-check-circle"></i> Cashback on all everyday spending</li>
+    </ul>
+
+    <!-- TAGS -->
+    <div class="cc-tags">
+      <span class="cc-tag"><i class="fa fa-rupee-sign"></i> Cashback</span>
+      <span class="cc-tag"><i class="fa fa-bolt"></i> Utility Bills</span>
+      <span class="cc-tag"><i class="fa fa-mobile-alt"></i> Airtel</span>
+    </div>
+
+    <!-- ACTIONS -->
+    <div class="cc-actions">
+      <button class="cc-details-btn" onclick="toggleMore(this)">
+        <i class="fa fa-plus-circle"></i> More Details
+      </button>
+
+    
+      <a href="https://earningshub.co/Vipul-Gupta-177408659974847413890" target="_blank" class="cc-apply">
+        Apply Now <i class="fa fa-arrow-right"></i>
+      </a>
+    </div>
+
+    <!-- MORE DETAILS -->
+    <div class="cc-more">
+      <h4>More Details</h4>
+      <div class="cc-more-grid">
+
+        <div class="cc-more-row">
+          <span class="mk">Welcome Benefit</span>
+          <span class="mv">Amazon voucher</span>
+        </div>
+
+        <div class="cc-more-row">
+          <span class="mk">Lounge Access</span>
+          <span class="mv">Complimentary visits yearly</span>
+        </div>
+
+        <div class="cc-more-row">
+          <span class="mk">Utility Benefit</span>
+          <span class="mv">Cashback on bill payments</span>
+        </div>
+
+        <div class="cc-more-row">
+          <span class="mk">Fuel Benefit</span>
+          <span class="mv">Fuel surcharge waiver</span>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ 
+CARD: IDFC First Card – Lifetime Free with Rewards & Lounge Access
+══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══  -->
+
+<div class="cc-item" data-bank="IDFC First Bank" data-type="Rewards" data-network="Visa">
+
+  <!-- 💰 CASHBACK -->
+  <div class="cc-badge">800 cashback</div>
+
+  <div style="display:flex;flex-direction:column;align-items:center;gap:0">
+    
+    <div class="cc-img-wrap">
+      <img src="https://offline-agent-bk.s3.ap-south-1.amazonaws.com/profit_share1765194647608"
+        alt="IDFC First Credit Card"
+        onerror="this.src='https://placehold.co/140x88/1641b4/fff?text=Credit+Card'">
+    </div>
+
+    <div class="cc-rating">
+      <div class="cc-stars">
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+      </div>
+      <span class="cc-rating-num">4/5</span>
+    </div>
+
+  </div>
+
+  <div class="cc-info">
+    
+    <!-- 🔥 TITLE -->
+    <div class="cc-name">IDFC FIRST Select Credit Card</div>
+
+    <div class="cc-fees">
+      <div class="cc-fee-item">
+        <i class="fa fa-rupee-sign"></i> Joining fee: <strong>₹0</strong>
+      </div>
+      <div class="sep"></div>
+      <div class="cc-fee-item">
+        <i class="fa fa-sync-alt"></i> Annual Fee: <strong>₹0</strong>
+      </div>
+    </div>
+
+    <!-- 🔥 BENEFITS -->
+    <ul class="cc-benefits">
+      <li><i class="fa fa-check-circle"></i> Lifetime free credit card with no annual charges</li>
+      <li><i class="fa fa-check-circle"></i> Reward points that never expire</li>
+      <li><i class="fa fa-check-circle"></i> Lounge access and travel benefits</li>
+    </ul>
+
+    <!-- TAGS -->
+    <div class="cc-tags">
+      <span class="cc-tag"><i class="fa fa-gift"></i> Rewards</span>
+      <span class="cc-tag"><i class="fa fa-couch"></i> Lounge Access</span>
+      <span class="cc-tag"><i class="fa fa-star"></i> Lifetime Free</span>
+    </div>
+
+    <!-- ACTIONS -->
+    <div class="cc-actions">
+      <button class="cc-details-btn" onclick="toggleMore(this)">
+        <i class="fa fa-plus-circle"></i> More Details
+      </button>
+
+     
+
+      <a href="https://earningshub.co/Vipul-Gupta-177408703255354513890" target="_blank" class="cc-apply">
+        Apply Now <i class="fa fa-arrow-right"></i>
+      </a>
+    </div>
+
+    <!-- MORE DETAILS -->
+    <div class="cc-more">
+      <h4>More Details</h4>
+      <div class="cc-more-grid">
+
+        <div class="cc-more-row">
+          <span class="mk">Welcome Benefit</span>
+          <span class="mv">Voucher on initial spend</span>
+        </div>
+
+        <div class="cc-more-row">
+          <span class="mk">Rewards</span>
+          <span class="mv">Points on every transaction</span>
+        </div>
+
+        <div class="cc-more-row">
+          <span class="mk">Travel Benefit</span>
+          <span class="mv">Airport lounge access</span>
+        </div>
+
+        <div class="cc-more-row">
+          <span class="mk">Extra Benefit</span>
+          <span class="mv">Roadside assistance support</span>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ 
+CARD: Axis IOCL Card – Fuel Savings & Cashback Benefits
+══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══  -->
+
+<div class="cc-item" data-bank="Axis Bank" data-type="Fuel" data-network="RuPay">
+
+  <!-- 💰 CASHBACK -->
+  <div class="cc-badge">1600 cashback</div>
+
+  <div style="display:flex;flex-direction:column;align-items:center;gap:0">
+    
+    <div class="cc-img-wrap">
+      <img src="https://offline-agent-bk.s3.ap-south-1.amazonaws.com/profit_share1742926038265"
+        alt="Axis Indian Oil RuPay Credit Card"
+        onerror="this.src='https://placehold.co/140x88/1641b4/fff?text=Credit+Card'">
+    </div>
+
+    <div class="cc-rating">
+      <div class="cc-stars">
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+      </div>
+      <span class="cc-rating-num">4/5</span>
+    </div>
+
+  </div>
+
+  <div class="cc-info">
+    
+    <!-- 🔥 TITLE -->
+    <div class="cc-name">Axis Indian Oil Rupay Credit Card</div>
+
+    <div class="cc-fees">
+      <div class="cc-fee-item">
+        <i class="fa fa-rupee-sign"></i> Joining fee: <strong>₹500</strong>
+      </div>
+      <div class="sep"></div>
+      <div class="cc-fee-item">
+        <i class="fa fa-sync-alt"></i> Annual Fee: <strong>₹500</strong>
+      </div>
+    </div>
+
+    <!-- 🔥 BENEFITS -->
+    <ul class="cc-benefits">
+      <li><i class="fa fa-check-circle"></i> High savings on fuel transactions</li>
+      <li><i class="fa fa-check-circle"></i> Cashback on everyday online spending</li>
+      <li><i class="fa fa-check-circle"></i> Extra discounts on travel and dining</li>
+    </ul>
+
+    <!-- TAGS -->
+    <div class="cc-tags">
+      <span class="cc-tag"><i class="fa fa-gas-pump"></i> Fuel</span>
+      <span class="cc-tag"><i class="fa fa-rupee-sign"></i> Cashback</span>
+      <span class="cc-tag"><i class="fa fa-mobile-alt"></i> UPI</span>
+    </div>
+
+    <!-- ACTIONS -->
+    <div class="cc-actions">
+      <button class="cc-details-btn" onclick="toggleMore(this)">
+        <i class="fa fa-plus-circle"></i> More Details
+      </button>
+
+   
+
+      <a href="https://earningshub.co/Vipul-Gupta-177408714797547313890" target="_blank" class="cc-apply">
+        Apply Now <i class="fa fa-arrow-right"></i>
+      </a>
+    </div>
+
+    <!-- MORE DETAILS -->
+    <div class="cc-more">
+      <h4>More Details</h4>
+      <div class="cc-more-grid">
+
+        <div class="cc-more-row">
+          <span class="mk">Fuel Benefit</span>
+          <span class="mv">Rewards on fuel spends</span>
+        </div>
+
+        <div class="cc-more-row">
+          <span class="mk">Welcome Offer</span>
+          <span class="mv">Cashback on first fuel transaction</span>
+        </div>
+
+        <div class="cc-more-row">
+          <span class="mk">Travel Offers</span>
+          <span class="mv">Discounts on flights and hotels</span>
+        </div>
+
+        <div class="cc-more-row">
+          <span class="mk">Dining Benefit</span>
+          <span class="mv">Savings on dining orders</span>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ 
+CARD: Yes Pop-Club Card – Lifetime Free with Rewards & Offers
+══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══  -->
+
+<div class="cc-item" data-bank="Yes Bank" data-type="Rewards" data-network="RuPay">
+
+  <!-- 💰 CASHBACK -->
+  <div class="cc-badge">1050 cashback</div>
+
+  <div style="display:flex;flex-direction:column;align-items:center;gap:0">
+    
+    <div class="cc-img-wrap">
+      <img src="https://offline-agent-bk.s3.ap-south-1.amazonaws.com/profit_share1739945458291"
+        alt="Yes Bank Pop-Club Credit Card"
+        onerror="this.src='https://placehold.co/140x88/1641b4/fff?text=Credit+Card'">
+    </div>
+
+    <div class="cc-rating">
+      <div class="cc-stars">
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+      </div>
+      <span class="cc-rating-num">4/5</span>
+    </div>
+
+  </div>
+
+  <div class="cc-info">
+    
+    <!-- 🔥 TITLE -->
+    <div class="cc-name">Yes Bank Pop-Club Credit Card</div>
+
+    <div class="cc-fees">
+      <div class="cc-fee-item">
+        <i class="fa fa-rupee-sign"></i> Joining fee: <strong>₹0</strong>
+      </div>
+      <div class="sep"></div>
+      <div class="cc-fee-item">
+        <i class="fa fa-sync-alt"></i> Annual Fee: <strong>₹0</strong>
+      </div>
+    </div>
+
+    <!-- 🔥 BENEFITS -->
+    <ul class="cc-benefits">
+      <li><i class="fa fa-check-circle"></i> Lifetime free credit card with no annual fee</li>
+      <li><i class="fa fa-check-circle"></i> Earn rewards on every online and offline spend</li>
+      <li><i class="fa fa-check-circle"></i> Extra benefits on UPI payments and partner offers</li>
+    </ul>
+
+    <!-- TAGS -->
+    <div class="cc-tags">
+      <span class="cc-tag"><i class="fa fa-gift"></i> Rewards</span>
+      <span class="cc-tag"><i class="fa fa-mobile-alt"></i> UPI</span>
+      <span class="cc-tag"><i class="fa fa-star"></i> Lifetime Free</span>
+    </div>
+
+    <!-- ACTIONS -->
+    <div class="cc-actions">
+      <button class="cc-details-btn" onclick="toggleMore(this)">
+        <i class="fa fa-plus-circle"></i> More Details
+      </button>
+
+   
+
+      <a href="https://earningshub.co/Vipul-Gupta-177408728102248813890" target="_blank" class="cc-apply">
+        Apply Now <i class="fa fa-arrow-right"></i>
+      </a>
+    </div>
+
+    <!-- MORE DETAILS -->
+    <div class="cc-more">
+      <h4>More Details</h4>
+      <div class="cc-more-grid">
+
+        <div class="cc-more-row">
+          <span class="mk">Welcome Benefit</span>
+          <span class="mv">Vouchers and membership offers</span>
+        </div>
+
+        <div class="cc-more-row">
+          <span class="mk">Rewards</span>
+          <span class="mv">Earn POPcoins on every spend</span>
+        </div>
+
+        <div class="cc-more-row">
+          <span class="mk">UPI Benefit</span>
+          <span class="mv">Extra rewards on UPI payments</span>
+        </div>
+
+        <div class="cc-more-row">
+          <span class="mk">Fuel Benefit</span>
+          <span class="mv">Fuel surcharge waiver</span>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ 
+CARD: AU LIT Card – Lifetime Free with Customizable Benefits
+══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══  -->
+
+<div class="cc-item" data-bank="AU Bank" data-type="Rewards" data-network="Visa" >
+
+  <!-- 💰 CASHBACK -->
+  <div class="cc-badge">510 cashback</div>
+
+  <div style="display:flex;flex-direction:column;align-items:center;gap:0">
+    
+    <div class="cc-img-wrap">
+      <img src="https://offline-agent-bk.s3.ap-south-1.amazonaws.com/profit_share1713252474924"
+        alt="AU LIT Credit Card"
+        onerror="this.src='https://placehold.co/140x88/1641b4/fff?text=Credit+Card'">
+    </div>
+
+    <div class="cc-rating">
+      <div class="cc-stars">
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+      </div>
+      <span class="cc-rating-num">4/5</span>
+    </div>
+
+  </div>
+
+  <div class="cc-info">
+    
+    <!-- 🔥 TITLE -->
+    <div class="cc-name">AU LIT Credit Card</div>
+
+    <div class="cc-fees">
+      <div class="cc-fee-item">
+        <i class="fa fa-rupee-sign"></i> Joining fee: <strong>₹0</strong>
+      </div>
+      <div class="sep"></div>
+      <div class="cc-fee-item">
+        <i class="fa fa-sync-alt"></i> Annual Fee: <strong>₹0</strong>
+      </div>
+    </div>
+
+    <!-- 🔥 BENEFITS -->
+    <ul class="cc-benefits">
+      <li><i class="fa fa-check-circle"></i> Customize card benefits as per your needs</li>
+      <li><i class="fa fa-check-circle"></i> Discounts on shopping, travel and dining</li>
+      <li><i class="fa fa-check-circle"></i> Extra rewards and cashback on spending</li>
+    </ul>
+
+    <!-- TAGS -->
+    <div class="cc-tags">
+      <span class="cc-tag"><i class="fa fa-sliders-h"></i> Customizable</span>
+      <span class="cc-tag"><i class="fa fa-gift"></i> Rewards</span>
+      <span class="cc-tag"><i class="fa fa-star"></i> Lifetime Free</span>
+    </div>
+
+    <!-- ACTIONS -->
+    <div class="cc-actions">
+      <button class="cc-details-btn" onclick="toggleMore(this)">
+        <i class="fa fa-plus-circle"></i> More Details
+      </button>
+
+  
+
+      <a href="https://earningshub.co/Vipul-Gupta-177408741270449313890" target="_blank" class="cc-apply">
+        Apply Now <i class="fa fa-arrow-right"></i>
+      </a>
+    </div>
+
+    <!-- MORE DETAILS -->
+    <div class="cc-more">
+      <h4>More Details</h4>
+      <div class="cc-more-grid">
+
+        <div class="cc-more-row">
+          <span class="mk">Customization</span>
+          <span class="mv">Choose benefits based on usage</span>
+        </div>
+
+        <div class="cc-more-row">
+          <span class="mk">Shopping Offers</span>
+          <span class="mv">Discounts on popular brands</span>
+        </div>
+
+        <div class="cc-more-row">
+          <span class="mk">Travel Benefit</span>
+          <span class="mv">Flight and hotel discounts</span>
+        </div>
+
+        <div class="cc-more-row">
+          <span class="mk">Entertainment</span>
+          <span class="mv">Savings on movie tickets</span>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ 
+CARD: AU Altura Card – Cashback, Lounge & Everyday Savings
+══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══  -->
+
+<div class="cc-item" data-bank="AU Bank" data-type="Cashback" data-network="Visa">
+
+  <!-- 💰 CASHBACK -->
+  <div class="cc-badge">1100 cashback</div>
+
+  <div style="display:flex;flex-direction:column;align-items:center;gap:0">
+    
+    <div class="cc-img-wrap">
+      <img src="https://offline-agent-bk.s3.ap-south-1.amazonaws.com/profit_share1692852623902"
+        alt="AU Altura Credit Card"
+        onerror="this.src='https://placehold.co/140x88/1641b4/fff?text=Credit+Card'">
+    </div>
+
+    <div class="cc-rating">
+      <div class="cc-stars">
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+      </div>
+      <span class="cc-rating-num">4/5</span>
+    </div>
+
+  </div>
+
+  <div class="cc-info">
+    
+    <!-- 🔥 TITLE -->
+    <div class="cc-name">AU Altura Credit Card
+
+</div>
+
+    <div class="cc-fees">
+      <div class="cc-fee-item">
+        <i class="fa fa-rupee-sign"></i> Joining fee: <strong>₹199</strong>
+      </div>
+      <div class="sep"></div>
+      <div class="cc-fee-item">
+        <i class="fa fa-sync-alt"></i> Annual Fee: <strong>₹199</strong>
+      </div>
+    </div>
+
+    <!-- 🔥 BENEFITS -->
+    <ul class="cc-benefits">
+      <li><i class="fa fa-check-circle"></i> Cashback on daily shopping and bill payments</li>
+      <li><i class="fa fa-check-circle"></i> Lounge access and fuel surcharge benefits</li>
+      <li><i class="fa fa-check-circle"></i> Extra savings on travel, shopping and groceries</li>
+    </ul>
+
+    <!-- TAGS -->
+    <div class="cc-tags">
+      <span class="cc-tag"><i class="fa fa-rupee-sign"></i> Cashback</span>
+      <span class="cc-tag"><i class="fa fa-couch"></i> Lounge Access</span>
+      <span class="cc-tag"><i class="fa fa-gas-pump"></i> Fuel</span>
+    </div>
+
+    <!-- ACTIONS -->
+    <div class="cc-actions">
+      <button class="cc-details-btn" onclick="toggleMore(this)">
+        <i class="fa fa-plus-circle"></i> More Details
+      </button>
+
+     
+
+      <a href="https://earningshub.co/Vipul-Gupta-177408801856149413890" target="_blank" class="cc-apply">
+        Apply Now <i class="fa fa-arrow-right"></i>
+      </a>
+    </div>
+
+    <!-- MORE DETAILS -->
+    <div class="cc-more">
+      <h4>More Details</h4>
+      <div class="cc-more-grid">
+
+        <div class="cc-more-row">
+          <span class="mk">Cashback</span>
+          <span class="mv">Rewards on everyday spending</span>
+        </div>
+
+        <div class="cc-more-row">
+          <span class="mk">Lounge Access</span>
+          <span class="mv">Railway lounge access</span>
+        </div>
+
+        <div class="cc-more-row">
+          <span class="mk">Fuel Benefit</span>
+          <span class="mv">Fuel surcharge waiver</span>
+        </div>
+
+        <div class="cc-more-row">
+          <span class="mk">EMI Option</span>
+          <span class="mv">Convert spends into EMI</span>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ 
+CARD: Rio Card – Lifetime Free with UPI Rewards & Cashback
+══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══  -->
+
+<div class="cc-item" data-bank="Yes Bank" data-type="Cashback" data-network="RuPay">
+
+  <!-- 💰 CASHBACK -->
+  <div class="cc-badge">1050 cashback</div>
+
+  <div style="display:flex;flex-direction:column;align-items:center;gap:0">
+    
+    <div class="cc-img-wrap">
+      <img src="https://img1.paisawapas.com/images/2025/05/13193126/WhatsApp-Image-2025-05-13-at-7.28.04-PM.jpeg"
+        alt="Rio Credit Card"
+        onerror="this.src='https://placehold.co/140x88/1641b4/fff?text=Credit+Card'">
+    </div>
+
+    <div class="cc-rating">
+      <div class="cc-stars">
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+      </div>
+      <span class="cc-rating-num">4/5</span>
+    </div>
+
+  </div>
+
+  <div class="cc-info">
+    
+    <!-- 🔥 TITLE -->
+    <div class="cc-name">Rio (Zagg) credit card</div>
+
+    <div class="cc-fees">
+      <div class="cc-fee-item">
+        <i class="fa fa-rupee-sign"></i> Joining fee: <strong>₹0</strong>
+      </div>
+      <div class="sep"></div>
+      <div class="cc-fee-item">
+        <i class="fa fa-sync-alt"></i> Annual Fee: <strong>₹0</strong>
+      </div>
+    </div>
+
+    <!-- 🔥 BENEFITS -->
+    <ul class="cc-benefits">
+      <li><i class="fa fa-check-circle"></i> Earn rewards on every UPI and app payment</li>
+      <li><i class="fa fa-check-circle"></i> Lifetime free card with no annual charges</li>
+      <li><i class="fa fa-check-circle"></i> Lounge access and fuel surcharge benefits</li>
+    </ul>
+
+    <!-- TAGS -->
+    <div class="cc-tags">
+      <span class="cc-tag"><i class="fa fa-mobile-alt"></i> UPI</span>
+      <span class="cc-tag"><i class="fa fa-rupee-sign"></i> Cashback</span>
+      <span class="cc-tag"><i class="fa fa-star"></i> Lifetime Free</span>
+    </div>
+
+    <!-- ACTIONS -->
+    <div class="cc-actions">
+      <button class="cc-details-btn" onclick="toggleMore(this)">
+        <i class="fa fa-plus-circle"></i> More Details
+      </button>
+
+      
+
+      <a href="https://earningshub.co/Vipul-Gupta-177408817722251613890" target="_blank" class="cc-apply">
+        Apply Now <i class="fa fa-arrow-right"></i>
+      </a>
+    </div>
+
+    <!-- MORE DETAILS -->
+    <div class="cc-more">
+      <h4>More Details</h4>
+      <div class="cc-more-grid">
+
+        <div class="cc-more-row">
+          <span class="mk">Rewards</span>
+          <span class="mv">Earn coins on every payment</span>
+        </div>
+
+        <div class="cc-more-row">
+          <span class="mk">Lounge Access</span>
+          <span class="mv">Complimentary visits yearly</span>
+        </div>
+
+        <div class="cc-more-row">
+          <span class="mk">Fuel Benefit</span>
+          <span class="mv">Fuel surcharge waiver</span>
+        </div>
+
+        <div class="cc-more-row">
+          <span class="mk">Credit Limit</span>
+          <span class="mv">Flexible spending limit</span>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+
+<!-- ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ 
+CARD: Kiwi UPI Card – High Cashback on Scan & Pay Transactions
+══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══  -->
+
+<div class="cc-item" data-bank="Yes Bank" data-type="Cashback" data-network="RuPay">
+
+  <!-- 💰 CASHBACK -->
+  <div class="cc-badge">1100 cashback</div>
+
+  <div style="display:flex;flex-direction:column;align-items:center;gap:0">
+    
+    <div class="cc-img-wrap">
+      <img src="https://www.paisabazaar.com/wp-content/uploads/2026/02/Yes-Bank-Klick-RuPay-Credit-Card.webp"
+        alt="Kiwi UPI Credit Card"
+        onerror="this.src='https://placehold.co/140x88/1641b4/fff?text=Credit+Card'">
+    </div>
+
+    <div class="cc-rating">
+      <div class="cc-stars">
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+      </div>
+      <span class="cc-rating-num">4/5</span>
+    </div>
+
+  </div>
+
+  <div class="cc-info">
+    
+    <!-- 🔥 TITLE -->
+    <div class="cc-name">Kiwi UPI Card </div>
+
+    <div class="cc-fees">
+      <div class="cc-fee-item">
+        <i class="fa fa-rupee-sign"></i> Joining fee: <strong>₹0</strong>
+      </div>
+      <div class="sep"></div>
+      <div class="cc-fee-item">
+        <i class="fa fa-sync-alt"></i> Annual Fee: <strong>₹0</strong>
+      </div>
+    </div>
+
+    <!-- 🔥 BENEFITS -->
+    <ul class="cc-benefits">
+      <li><i class="fa fa-check-circle"></i> Cashback on UPI scan and pay transactions</li>
+      <li><i class="fa fa-check-circle"></i> Extra rewards and benefits on app usage</li>
+      <li><i class="fa fa-check-circle"></i> Lounge access on milestone spending</li>
+    </ul>
+
+    <!-- TAGS -->
+    <div class="cc-tags">
+      <span class="cc-tag"><i class="fa fa-mobile-alt"></i> UPI</span>
+      <span class="cc-tag"><i class="fa fa-rupee-sign"></i> Cashback</span>
+      <span class="cc-tag"><i class="fa fa-couch"></i> Lounge</span>
+    </div>
+
+    <!-- ACTIONS -->
+    <div class="cc-actions">
+      <button class="cc-details-btn" onclick="toggleMore(this)">
+        <i class="fa fa-plus-circle"></i> More Details
+      </button>
+
+   
+
+      <a href="https://earningshub.co/Vipul-Gupta-177408839934851713890" target="_blank" class="cc-apply">
+        Apply Now <i class="fa fa-arrow-right"></i>
+      </a>
+    </div>
+
+    <!-- MORE DETAILS -->
+    <div class="cc-more">
+      <h4>More Details</h4>
+      <div class="cc-more-grid">
+
+        <div class="cc-more-row">
+          <span class="mk">Cashback</span>
+          <span class="mv">Earn rewards on UPI payments</span>
+        </div>
+
+        <div class="cc-more-row">
+          <span class="mk">Rewards</span>
+          <span class="mv">Points on every transaction</span>
+        </div>
+
+        <div class="cc-more-row">
+          <span class="mk">Lounge Access</span>
+          <span class="mv">Based on spending milestones</span>
+        </div>
+
+        <div class="cc-more-row">
+          <span class="mk">Interest-Free</span>
+          <span class="mv">Up to 50 days credit period</span>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ 
+CARD: BOB Eterna Card – Premium Rewards & Unlimited Lounge Access
+══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══  -->
+
+<div class="cc-item" data-bank="Bank of Baroda" data-type="Premium" data-network="RuPay">
+
+  <!-- 💰 CASHBACK -->
+  <div class="cc-badge">750 cashback</div>
+
+  <div style="display:flex;flex-direction:column;align-items:center;gap:0">
+    
+    <div class="cc-img-wrap">
+      <img src="https://www.bobcard.co.in/_next/image?url=https%3A%2F%2Fmedia.bobcard.co.in%2F%2Fmedia%2Fb4pj5ukl%2Fbobcard-eterna_1920-x-1253.png&w=1080&q=75"
+        alt="BOBCARD Eterna Credit Card"
+        onerror="this.src='https://placehold.co/140x88/1641b4/fff?text=Credit+Card'">
+    </div>
+
+    <div class="cc-rating">
+      <div class="cc-stars">
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+      </div>
+      <span class="cc-rating-num">4/5</span>
+    </div>
+
+  </div>
+
+  <div class="cc-info">
+    
+    <!-- 🔥 TITLE -->
+    <div class="cc-name">BOBCARD Eterna Credit Card
+
+</div>
+
+    <div class="cc-fees">
+      <div class="cc-fee-item">
+        <i class="fa fa-rupee-sign"></i> Joining fee: <strong>₹2,499</strong>
+      </div>
+      <div class="sep"></div>
+      <div class="cc-fee-item">
+        <i class="fa fa-sync-alt"></i> Annual Fee: <strong>₹2,499</strong>
+      </div>
+    </div>
+
+    <!-- 🔥 BENEFITS -->
+    <ul class="cc-benefits">
+      <li><i class="fa fa-check-circle"></i> High reward points on dining, travel and shopping</li>
+      <li><i class="fa fa-check-circle"></i> Unlimited airport lounge access benefits</li>
+      <li><i class="fa fa-check-circle"></i> Free movie tickets and premium memberships</li>
+    </ul>
+
+    <!-- TAGS -->
+    <div class="cc-tags">
+      <span class="cc-tag"><i class="fa fa-crown"></i> Premium</span>
+      <span class="cc-tag"><i class="fa fa-couch"></i> Lounge Access</span>
+      <span class="cc-tag"><i class="fa fa-gift"></i> Rewards</span>
+    </div>
+
+    <!-- ACTIONS -->
+    <div class="cc-actions">
+      <button class="cc-details-btn" onclick="toggleMore(this)">
+        <i class="fa fa-plus-circle"></i> More Details
+      </button>
+
+
+
+      <a href="https://earningshub.co/Vipul-Gupta-177408914146454013890" target="_blank" class="cc-apply">
+        Apply Now <i class="fa fa-arrow-right"></i>
+      </a>
+    </div>
+
+    <!-- MORE DETAILS -->
+    <div class="cc-more">
+      <h4>More Details</h4>
+      <div class="cc-more-grid">
+
+        <div class="cc-more-row">
+          <span class="mk">Rewards</span>
+          <span class="mv">Earn points on every spend</span>
+        </div>
+
+        <div class="cc-more-row">
+          <span class="mk">Lounge Access</span>
+          <span class="mv">Unlimited domestic lounge access</span>
+        </div>
+
+        <div class="cc-more-row">
+          <span class="mk">Entertainment</span>
+          <span class="mv">Free movie tickets monthly</span>
+        </div>
+
+        <div class="cc-more-row">
+          <span class="mk">Forex</span>
+          <span class="mv">Low forex markup on international use</span>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ 
+CARD: BOB Cashback Card – High Cashback on Online Spending
+══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══  -->
+
+<div class="cc-item" data-bank="Bank of Baroda" data-type="Cashback" data-network="Mastercard">
+
+  <!-- 💰 CASHBACK -->
+  <div class="cc-badge">750 cashback</div>
+
+  <div style="display:flex;flex-direction:column;align-items:center;gap:0">
+    
+    <div class="cc-img-wrap">
+      <img src="https://offline-agent-bk.s3.ap-south-1.amazonaws.com/profit_share1764317895607"
+        alt="BOBCARD Cashback Credit Card"
+        onerror="this.src='https://placehold.co/140x88/1641b4/fff?text=Credit+Card'">
+    </div>
+
+    <div class="cc-rating">
+      <div class="cc-stars">
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+      </div>
+      <span class="cc-rating-num">4/5</span>
+    </div>
+
+  </div>
+
+  <div class="cc-info">
+    
+    <!-- 🔥 TITLE -->
+    <div class="cc-name">BOBCARD Cashback Credit Card
+
+</div>
+
+    <div class="cc-fees">
+      <div class="cc-fee-item">
+        <i class="fa fa-rupee-sign"></i> Joining fee: <strong>₹499</strong>
+      </div>
+      <div class="sep"></div>
+      <div class="cc-fee-item">
+        <i class="fa fa-sync-alt"></i> Annual Fee: <strong>₹499</strong>
+      </div>
+    </div>
+
+    <!-- 🔥 BENEFITS -->
+    <ul class="cc-benefits">
+      <li><i class="fa fa-check-circle"></i> High cashback on all online transactions</li>
+      <li><i class="fa fa-check-circle"></i> Savings on everyday offline spending</li>
+      <li><i class="fa fa-check-circle"></i> Cashback auto credited every month</li>
+    </ul>
+
+    <!-- TAGS -->
+    <div class="cc-tags">
+      <span class="cc-tag"><i class="fa fa-rupee-sign"></i> Cashback</span>
+      <span class="cc-tag"><i class="fa fa-shopping-cart"></i> Online Shopping</span>
+      <span class="cc-tag"><i class="fa fa-gift"></i> Rewards</span>
+    </div>
+
+    <!-- ACTIONS -->
+    <div class="cc-actions">
+      <button class="cc-details-btn" onclick="toggleMore(this)">
+        <i class="fa fa-plus-circle"></i> More Details
+      </button>
+
+
+
+      <a href="https://earningshub.co/Vipul-Gupta-177408991894954113890" target="_blank" class="cc-apply">
+        Apply Now <i class="fa fa-arrow-right"></i>
+      </a>
+    </div>
+
+    <!-- MORE DETAILS -->
+    <div class="cc-more">
+      <h4>More Details</h4>
+      <div class="cc-more-grid">
+
+        <div class="cc-more-row">
+          <span class="mk">Cashback</span>
+          <span class="mv">Earn on every online spend</span>
+        </div>
+
+        <div class="cc-more-row">
+          <span class="mk">Offline Benefit</span>
+          <span class="mv">Cashback on daily purchases</span>
+        </div>
+
+        <div class="cc-more-row">
+          <span class="mk">Fuel Benefit</span>
+          <span class="mv">Fuel surcharge waiver</span>
+        </div>
+
+        <div class="cc-more-row">
+          <span class="mk">EMI Option</span>
+          <span class="mv">Convert spends into EMI</span>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ 
+CARD: Yes Select Card – Lifetime Free with Rewards & Lounge Access
+══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══  -->
+
+<div class="cc-item" data-bank="Yes Bank" data-type="Premium" data-network="Visa">
+
+  <!-- 💰 CASHBACK -->
+  <div class="cc-badge">750 cashback</div>
+
+  <div style="display:flex;flex-direction:column;align-items:center;gap:0">
+    
+    <div class="cc-img-wrap">
+      <img src="https://offline-agent-bk.s3.ap-south-1.amazonaws.com/profit_share1764656111619"
+        alt="Yes Bank Select Credit Card"
+        onerror="this.src='https://placehold.co/140x88/1641b4/fff?text=Credit+Card'">
+    </div>
+
+    <div class="cc-rating">
+      <div class="cc-stars">
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+      </div>
+      <span class="cc-rating-num">4/5</span>
+    </div>
+
+  </div>
+
+  <div class="cc-info">
+    
+    <!-- 🔥 TITLE -->
+    <div class="cc-name">Yes Bank Select Credit Card
+
+</div>
+
+    <div class="cc-fees">
+      <div class="cc-fee-item">
+        <i class="fa fa-rupee-sign"></i> Joining fee: <strong>₹599</strong>
+      </div>
+      <div class="sep"></div>
+      <div class="cc-fee-item">
+        <i class="fa fa-sync-alt"></i> Annual Fee: <strong>₹599</strong>
+      </div>
+    </div>
+
+    <!-- 🔥 BENEFITS -->
+    <ul class="cc-benefits">
+      <li><i class="fa fa-check-circle"></i> Earn reward points on every online and offline spend</li>
+      <li><i class="fa fa-check-circle"></i> Complimentary airport lounge access benefits</li>
+      <li><i class="fa fa-check-circle"></i> Premium perks including golf and travel benefits</li>
+    </ul>
+
+    <!-- TAGS -->
+    <div class="cc-tags">
+      <span class="cc-tag"><i class="fa fa-crown"></i> Premium</span>
+      <span class="cc-tag"><i class="fa fa-couch"></i> Lounge Access</span>
+      <span class="cc-tag"><i class="fa fa-gift"></i> Rewards</span>
+    </div>
+
+    <!-- ACTIONS -->
+    <div class="cc-actions">
+      <button class="cc-details-btn" onclick="toggleMore(this)">
+        <i class="fa fa-plus-circle"></i> More Details
+      </button>
+
+
+
+      <a href="https://earningshub.co/Vipul-Gupta-177409035501154313890" target="_blank" class="cc-apply">
+        Apply Now <i class="fa fa-arrow-right"></i>
+      </a>
+    </div>
+
+    <!-- MORE DETAILS -->
+    <div class="cc-more">
+      <h4>More Details</h4>
+      <div class="cc-more-grid">
+
+        <div class="cc-more-row">
+          <span class="mk">Rewards</span>
+          <span class="mv">Points on every transaction</span>
+        </div>
+
+        <div class="cc-more-row">
+          <span class="mk">Lounge Access</span>
+          <span class="mv">Complimentary access quarterly</span>
+        </div>
+
+        <div class="cc-more-row">
+          <span class="mk">Golf Benefit</span>
+          <span class="mv">Free golf sessions and access</span>
+        </div>
+
+        <div class="cc-more-row">
+          <span class="mk">Fuel Benefit</span>
+          <span class="mv">Fuel surcharge waiver</span>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ 
+CARD: Yes Elite+ Card – Premium Rewards, Lounge & Concierge Benefits
+══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══  -->
+
+<div class="cc-item" data-bank="Yes Bank" data-type="Premium" data-network="Visa">
+
+  <!-- 💰 CASHBACK -->
+  <div class="cc-badge">750 cashback</div>
+
+  <div style="display:flex;flex-direction:column;align-items:center;gap:0">
+    
+    <div class="cc-img-wrap">
+      <img src="https://offline-agent-bk.s3.ap-south-1.amazonaws.com/profit_share1764657101698"
+        alt="Yes Bank Elite+ Credit Card"
+        onerror="this.src='https://placehold.co/140x88/1641b4/fff?text=Credit+Card'">
+    </div>
+
+    <div class="cc-rating">
+      <div class="cc-stars">
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+      </div>
+      <span class="cc-rating-num">4/5</span>
+    </div>
+
+  </div>
+
+  <div class="cc-info">
+    
+    <!-- 🔥 TITLE -->
+    <div class="cc-name">Yes Bank Elite+ Credit Card
+</div>
+
+    <div class="cc-fees">
+      <div class="cc-fee-item">
+        <i class="fa fa-rupee-sign"></i> Joining fee: <strong>₹999</strong>
+      </div>
+      <div class="sep"></div>
+      <div class="cc-fee-item">
+        <i class="fa fa-sync-alt"></i> Annual Fee: <strong>₹999</strong>
+      </div>
+    </div>
+
+    <!-- 🔥 BENEFITS -->
+    <ul class="cc-benefits">
+      <li><i class="fa fa-check-circle"></i> High reward points on online and offline spending</li>
+      <li><i class="fa fa-check-circle"></i> International and domestic lounge access benefits</li>
+      <li><i class="fa fa-check-circle"></i> Premium concierge and lifestyle privileges</li>
+    </ul>
+
+    <!-- TAGS -->
+    <div class="cc-tags">
+      <span class="cc-tag"><i class="fa fa-crown"></i> Premium</span>
+      <span class="cc-tag"><i class="fa fa-plane"></i> Travel</span>
+      <span class="cc-tag"><i class="fa fa-star"></i> Concierge</span>
+    </div>
+
+    <!-- ACTIONS -->
+    <div class="cc-actions">
+      <button class="cc-details-btn" onclick="toggleMore(this)">
+        <i class="fa fa-plus-circle"></i> More Details
+      </button>
+
+      
+
+      <a href="https://earningshub.co/Vipul-Gupta-177409052155054413890" target="_blank" class="cc-apply">
+        Apply Now <i class="fa fa-arrow-right"></i>
+      </a>
+    </div>
+
+    <!-- MORE DETAILS -->
+    <div class="cc-more">
+      <h4>More Details</h4>
+      <div class="cc-more-grid">
+
+        <div class="cc-more-row">
+          <span class="mk">Rewards</span>
+          <span class="mv">Earn points on every transaction</span>
+        </div>
+
+        <div class="cc-more-row">
+          <span class="mk">Lounge Access</span>
+          <span class="mv">Domestic and international access</span>
+        </div>
+
+        <div class="cc-more-row">
+          <span class="mk">Entertainment</span>
+          <span class="mv">Discount on movie bookings</span>
+        </div>
+
+        <div class="cc-more-row">
+          <span class="mk">Concierge</span>
+          <span class="mv">24x7 premium assistance</span>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ 
+CARD: IDFC Power Card – Fuel Savings & Cashback Benefits
+══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══  -->
+
+<div class="cc-item" data-bank="IDFC First Bank" data-type="Fuel" data-network="Visa">
+
+  <!-- 💰 CASHBACK -->
+  <div class="cc-badge">850 cashback</div>
+
+  <div style="display:flex;flex-direction:column;align-items:center;gap:0">
+    
+    <div class="cc-img-wrap">
+      <img src="https://www.idfcfirst.bank.in/content/dam/idfcfirstbank/images/hpcl-upi/Powerplus-new-desk-01.webp"
+        alt="IDFC First Power Credit Card"
+        onerror="this.src='https://placehold.co/140x88/1641b4/fff?text=Credit+Card'">
+    </div>
+
+    <div class="cc-rating">
+      <div class="cc-stars">
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+      </div>
+      <span class="cc-rating-num">4/5</span>
+    </div>
+
+  </div>
+
+  <div class="cc-info">
+    
+    <!-- 🔥 TITLE -->
+    <div class="cc-name">Idfc first power credit card</div>
+
+    <div class="cc-fees">
+      <div class="cc-fee-item">
+        <i class="fa fa-rupee-sign"></i> Joining fee: <strong>₹199</strong>
+      </div>
+      <div class="sep"></div>
+      <div class="cc-fee-item">
+        <i class="fa fa-sync-alt"></i> Annual Fee: <strong>₹199</strong>
+      </div>
+    </div>
+
+    <!-- 🔥 BENEFITS -->
+    <ul class="cc-benefits">
+      <li><i class="fa fa-check-circle"></i> High savings on fuel and LPG transactions</li>
+      <li><i class="fa fa-check-circle"></i> Cashback on first fuel purchase</li>
+      <li><i class="fa fa-check-circle"></i> Extra benefits on shopping and travel</li>
+    </ul>
+
+    <!-- TAGS -->
+    <div class="cc-tags">
+      <span class="cc-tag"><i class="fa fa-gas-pump"></i> Fuel</span>
+      <span class="cc-tag"><i class="fa fa-rupee-sign"></i> Cashback</span>
+      <span class="cc-tag"><i class="fa fa-car"></i> Travel</span>
+    </div>
+
+    <!-- ACTIONS -->
+    <div class="cc-actions">
+      <button class="cc-details-btn" onclick="toggleMore(this)">
+        <i class="fa fa-plus-circle"></i> More Details
+      </button>
+
+
+      <a href="https://earningshub.co/Vipul-Gupta-177409073158354613890" target="_blank" class="cc-apply">
+        Apply Now <i class="fa fa-arrow-right"></i>
+      </a>
+    </div>
+
+    <!-- MORE DETAILS -->
+    <div class="cc-more">
+      <h4>More Details</h4>
+      <div class="cc-more-grid">
+
+        <div class="cc-more-row">
+          <span class="mk">Fuel Benefit</span>
+          <span class="mv">Savings on fuel and LPG spends</span>
+        </div>
+
+        <div class="cc-more-row">
+          <span class="mk">Welcome Benefit</span>
+          <span class="mv">Cashback on first fuel transaction</span>
+        </div>
+
+        <div class="cc-more-row">
+          <span class="mk">Protection</span>
+          <span class="mv">Insurance and roadside assistance</span>
+        </div>
+
+        <div class="cc-more-row">
+          <span class="mk">Shopping Offers</span>
+          <span class="mv">Discounts on brands and electronics</span>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+<!-- ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ 
+CARD: SBI BPCL Card – High Fuel Savings & Cashback Rewards
+══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══  -->
+
+<div class="cc-item" data-bank="SBI" data-type="Fuel" data-network="Visa">
+
+  <!-- 💰 CASHBACK -->
+  <div class="cc-badge">1600 cashback</div>
+
+  <div style="display:flex;flex-direction:column;align-items:center;gap:0">
+    
+    <div class="cc-img-wrap">
+      <img src="https://offline-agent-bk.s3.ap-south-1.amazonaws.com/profit_share1765871153562"
+        alt="SBI BPCL Credit Card"
+        onerror="this.src='https://placehold.co/140x88/1641b4/fff?text=Credit+Card'">
+    </div>
+
+    <div class="cc-rating">
+      <div class="cc-stars">
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+      </div>
+      <span class="cc-rating-num">4/5</span>
+    </div>
+
+  </div>
+
+  <div class="cc-info">
+    
+    <!-- 🔥 TITLE -->
+    <div class="cc-name">SBI BPCL Credit Card
+
+</div>
+
+    <div class="cc-fees">
+      <div class="cc-fee-item">
+        <i class="fa fa-rupee-sign"></i> Joining fee: <strong>₹499</strong>
+      </div>
+      <div class="sep"></div>
+      <div class="cc-fee-item">
+        <i class="fa fa-sync-alt"></i> Annual Fee: <strong>₹499</strong>
+      </div>
+    </div>
+
+    <!-- 🔥 BENEFITS -->
+    <ul class="cc-benefits">
+      <li><i class="fa fa-check-circle"></i> High savings on BPCL fuel transactions</li>
+      <li><i class="fa fa-check-circle"></i> Rewards on dining, shopping and daily spends</li>
+      <li><i class="fa fa-check-circle"></i> Reward points redeemable for fuel</li>
+    </ul>
+
+    <!-- TAGS -->
+    <div class="cc-tags">
+      <span class="cc-tag"><i class="fa fa-gas-pump"></i> Fuel</span>
+      <span class="cc-tag"><i class="fa fa-rupee-sign"></i> Cashback</span>
+      <span class="cc-tag"><i class="fa fa-gift"></i> Rewards</span>
+    </div>
+
+    <!-- ACTIONS -->
+    <div class="cc-actions">
+      <button class="cc-details-btn" onclick="toggleMore(this)">
+        <i class="fa fa-plus-circle"></i> More Details
+      </button>
+
+     
+
+      <a href="https://earningshub.co/Vipul-Gupta-177409117972154713890" target="_blank" class="cc-apply">
+        Apply Now <i class="fa fa-arrow-right"></i>
+      </a>
+    </div>
+
+    <!-- MORE DETAILS -->
+    <div class="cc-more">
+      <h4>More Details</h4>
+      <div class="cc-more-grid">
+
+        <div class="cc-more-row">
+          <span class="mk">Fuel Benefit</span>
+          <span class="mv">Rewards on BPCL fuel spends</span>
+        </div>
+
+        <div class="cc-more-row">
+          <span class="mk">Welcome Benefit</span>
+          <span class="mv">Bonus reward points on joining</span>
+        </div>
+
+        <div class="cc-more-row">
+          <span class="mk">Rewards</span>
+          <span class="mv">Points on every transaction</span>
+        </div>
+
+        <div class="cc-more-row">
+          <span class="mk">Fuel Redemption</span>
+          <span class="mv">Use points for free fuel</span>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ 
+CARD: Axis Neo Card – Lifetime Free with Shopping & Cashback Offers
+══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══  -->
+
+<div class="cc-item" data-bank="Axis Bank" data-type="Cashback" data-network="RuPay">
+
+  <!-- 💰 CASHBACK -->
+  <div class="cc-badge">1600 cashback</div>
+
+  <div style="display:flex;flex-direction:column;align-items:center;gap:0">
+    
+    <div class="cc-img-wrap">
+      <img src="https://offline-agent-bk.s3.ap-south-1.amazonaws.com/profit_share1766057759000"
+        alt="Axis Neo RuPay Credit Card"
+        onerror="this.src='https://placehold.co/140x88/1641b4/fff?text=Credit+Card'">
+    </div>
+
+    <div class="cc-rating">
+      <div class="cc-stars">
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+      </div>
+      <span class="cc-rating-num">4/5</span>
+    </div>
+
+  </div>
+
+  <div class="cc-info">
+    
+    <!-- 🔥 TITLE -->
+    <div class="cc-name">Axis Neo Rupay Credit Card
+
+</div>
+
+    <div class="cc-fees">
+      <div class="cc-fee-item">
+        <i class="fa fa-rupee-sign"></i> Joining fee: <strong>₹0</strong>
+      </div>
+      <div class="sep"></div>
+      <div class="cc-fee-item">
+        <i class="fa fa-sync-alt"></i> Annual Fee: <strong>₹0</strong>
+      </div>
+    </div>
+
+    <!-- 🔥 BENEFITS -->
+    <ul class="cc-benefits">
+      <li><i class="fa fa-check-circle"></i> Discounts on shopping, food delivery and entertainment</li>
+      <li><i class="fa fa-check-circle"></i> Cashback on utility bills and recharges</li>
+      <li><i class="fa fa-check-circle"></i> Extra savings on travel and lifestyle spending</li>
+    </ul>
+
+    <!-- TAGS -->
+    <div class="cc-tags">
+      <span class="cc-tag"><i class="fa fa-rupee-sign"></i> Cashback</span>
+      <span class="cc-tag"><i class="fa fa-shopping-cart"></i> Shopping</span>
+      <span class="cc-tag"><i class="fa fa-utensils"></i> Dining</span>
+    </div>
+
+    <!-- ACTIONS -->
+    <div class="cc-actions">
+      <button class="cc-details-btn" onclick="toggleMore(this)">
+        <i class="fa fa-plus-circle"></i> More Details
+      </button>
+
+     
+      <a href="https://earningshub.co/Vipul-Gupta-177409206464354813890" target="_blank" class="cc-apply">
+        Apply Now <i class="fa fa-arrow-right"></i>
+      </a>
+    </div>
+
+    <!-- MORE DETAILS -->
+    <div class="cc-more">
+      <h4>More Details</h4>
+      <div class="cc-more-grid">
+
+        <div class="cc-more-row">
+          <span class="mk">Welcome Benefit</span>
+          <span class="mv">Cashback on first utility payment</span>
+        </div>
+
+        <div class="cc-more-row">
+          <span class="mk">Shopping Offers</span>
+          <span class="mv">Discounts on popular brands</span>
+        </div>
+
+        <div class="cc-more-row">
+          <span class="mk">Dining Benefit</span>
+          <span class="mv">Savings on food delivery</span>
+        </div>
+
+        <div class="cc-more-row">
+          <span class="mk">Travel Offers</span>
+          <span class="mv">Deals on flights and hotels</span>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ 
+CARD: Axis Privilege Amex – Premium Rewards, Movies & Lounge Access
+══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══  -->
+
+<div class="cc-item" data-bank="Axis Bank" data-type="Premium" data-network="Amex">
+
+  <!-- 💰 CASHBACK -->
+  <div class="cc-badge">1800 cashback</div>
+
+  <div style="display:flex;flex-direction:column;align-items:center;gap:0">
+    
+    <div class="cc-img-wrap">
+      <img src="https://offline-agent-bk.s3.ap-south-1.amazonaws.com/profit_share1766060647665"
+        alt="Axis Privilege Amex Credit Card"
+        onerror="this.src='https://placehold.co/140x88/1641b4/fff?text=Credit+Card'">
+    </div>
+
+    <div class="cc-rating">
+      <div class="cc-stars">
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+      </div>
+      <span class="cc-rating-num">4/5</span>
+    </div>
+
+  </div>
+
+  <div class="cc-info">
+    
+    <!-- 🔥 TITLE -->
+    <div class="cc-name">Axis Privilege Amex Credit Card
+
+</div>
+
+    <div class="cc-fees">
+      <div class="cc-fee-item">
+        <i class="fa fa-rupee-sign"></i> Joining fee: <strong>₹1500</strong>
+      </div>
+      <div class="sep"></div>
+      <div class="cc-fee-item">
+        <i class="fa fa-sync-alt"></i> Annual Fee: <strong>₹1500</strong>
+      </div>
+    </div>
+
+    <!-- 🔥 BENEFITS -->
+    <ul class="cc-benefits">
+      <li><i class="fa fa-check-circle"></i> Complimentary movie tickets and dining discounts</li>
+      <li><i class="fa fa-check-circle"></i> Airport lounge access with milestone benefits</li>
+      <li><i class="fa fa-check-circle"></i> High reward points on everyday spending</li>
+    </ul>
+
+    <!-- TAGS -->
+    <div class="cc-tags">
+      <span class="cc-tag"><i class="fa fa-crown"></i> Premium</span>
+      <span class="cc-tag"><i class="fa fa-film"></i> Movies</span>
+      <span class="cc-tag"><i class="fa fa-couch"></i> Lounge Access</span>
+    </div>
+
+    <!-- ACTIONS -->
+    <div class="cc-actions">
+      <button class="cc-details-btn" onclick="toggleMore(this)">
+        <i class="fa fa-plus-circle"></i> More Details
+      </button>
+
+      
+
+      <a href="https://earningshub.co/Vipul-Gupta-177409221521054913890" target="_blank" class="cc-apply">
+        Apply Now <i class="fa fa-arrow-right"></i>
+      </a>
+    </div>
+
+    <!-- MORE DETAILS -->
+    <div class="cc-more">
+      <h4>More Details</h4>
+      <div class="cc-more-grid">
+
+        <div class="cc-more-row">
+          <span class="mk">Rewards</span>
+          <span class="mv">Earn points on every spend</span>
+        </div>
+
+        <div class="cc-more-row">
+          <span class="mk">Lounge Access</span>
+          <span class="mv">Complimentary domestic visits</span>
+        </div>
+
+        <div class="cc-more-row">
+          <span class="mk">Dining Benefit</span>
+          <span class="mv">Discounts on restaurants</span>
+        </div>
+
+        <div class="cc-more-row">
+          <span class="mk">Fuel Benefit</span>
+          <span class="mv">Fuel surcharge waiver</span>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ 
+CARD: SBI BPCL Octane – Premium Fuel Cashback & Rewards Card
+══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══  -->
+
+<div class="cc-item" data-bank="SBI" data-type="Fuel" data-network="RuPay">
+
+  <!-- 💰 CASHBACK -->
+  <div class="cc-badge">1800 cashback</div>
+
+  <div style="display:flex;flex-direction:column;align-items:center;gap:0">
+    
+    <div class="cc-img-wrap">
+      <img src="https://offline-agent-bk.s3.ap-south-1.amazonaws.com/profit_share1766055239660"
+        alt="SBI BPCL Octane Credit Card"
+        onerror="this.src='https://placehold.co/140x88/1641b4/fff?text=Credit+Card'">
+    </div>
+
+    <div class="cc-rating">
+      <div class="cc-stars">
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+      </div>
+      <span class="cc-rating-num">4/5</span>
+    </div>
+
+  </div>
+
+  <div class="cc-info">
+    
+    <!-- 🔥 TITLE -->
+    <div class="cc-name">SBI BPCL Octane Credit Card
+
+</div>
+
+    <div class="cc-fees">
+      <div class="cc-fee-item">
+        <i class="fa fa-rupee-sign"></i> Joining fee: <strong>₹1499</strong>
+      </div>
+      <div class="sep"></div>
+      <div class="cc-fee-item">
+        <i class="fa fa-sync-alt"></i> Annual Fee: <strong>₹1499</strong>
+      </div>
+    </div>
+
+    <!-- 🔥 BENEFITS -->
+    <ul class="cc-benefits">
+      <li><i class="fa fa-check-circle"></i> High savings on BPCL fuel transactions</li>
+      <li><i class="fa fa-check-circle"></i> Rewards on dining, groceries and entertainment</li>
+      <li><i class="fa fa-check-circle"></i> Complimentary lounge access and milestone rewards</li>
+    </ul>
+
+    <!-- TAGS -->
+    <div class="cc-tags">
+      <span class="cc-tag"><i class="fa fa-gas-pump"></i> Fuel</span>
+      <span class="cc-tag"><i class="fa fa-crown"></i> Premium</span>
+      <span class="cc-tag"><i class="fa fa-gift"></i> Rewards</span>
+    </div>
+
+    <!-- ACTIONS -->
+    <div class="cc-actions">
+      <button class="cc-details-btn" onclick="toggleMore(this)">
+        <i class="fa fa-plus-circle"></i> More Details
+      </button>
+
+     
+      <a href="https://earningshub.co/Vipul-Gupta-177409235463455013890" target="_blank" class="cc-apply">
+        Apply Now <i class="fa fa-arrow-right"></i>
+      </a>
+    </div>
+
+    <!-- MORE DETAILS -->
+    <div class="cc-more">
+      <h4>More Details</h4>
+      <div class="cc-more-grid">
+
+        <div class="cc-more-row">
+          <span class="mk">Fuel Benefit</span>
+          <span class="mv">High rewards on BPCL fuel spends</span>
+        </div>
+
+        <div class="cc-more-row">
+          <span class="mk">Welcome Benefit</span>
+          <span class="mv">Bonus reward points on joining</span>
+        </div>
+
+        <div class="cc-more-row">
+          <span class="mk">Lounge Access</span>
+          <span class="mv">Complimentary domestic visits</span>
+        </div>
+
+        <div class="cc-more-row">
+          <span class="mk">Milestone Reward</span>
+          <span class="mv">Vouchers on high annual spending</span>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ 
+CARD: SBI Flipkart Card – High Cashback on Shopping & Online Spending
+══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══  -->
+
+<div class="cc-item" data-bank="SBI" data-type="Cashback" data-network="Visa">
+
+  <!-- 💰 CASHBACK -->
+  <div class="cc-badge">1800 cashback</div>
+
+  <div style="display:flex;flex-direction:column;align-items:center;gap:0">
+    
+    <div class="cc-img-wrap">
+      <img src="https://offline-agent-bk.s3.ap-south-1.amazonaws.com/profit_share1767875490699"
+        alt="SBI Flipkart Credit Card"
+        onerror="this.src='https://placehold.co/140x88/1641b4/fff?text=Credit+Card'">
+    </div>
+
+    <div class="cc-rating">
+      <div class="cc-stars">
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+      </div>
+      <span class="cc-rating-num">4/5</span>
+    </div>
+
+  </div>
+
+  <div class="cc-info">
+    
+    <!-- 🔥 TITLE -->
+    <div class="cc-name">SBI Flipkart Credit Card
+
+</div>
+
+    <div class="cc-fees">
+      <div class="cc-fee-item">
+        <i class="fa fa-rupee-sign"></i> Joining fee: <strong>₹500</strong>
+      </div>
+      <div class="sep"></div>
+      <div class="cc-fee-item">
+        <i class="fa fa-sync-alt"></i> Annual Fee: <strong>₹500</strong>
+      </div>
+    </div>
+
+    <!-- 🔥 BENEFITS -->
+    <ul class="cc-benefits">
+      <li><i class="fa fa-check-circle"></i> High cashback on Flipkart and Myntra shopping</li>
+      <li><i class="fa fa-check-circle"></i> Extra savings on travel, food and entertainment</li>
+      <li><i class="fa fa-check-circle"></i> Cashback on all everyday spending</li>
+    </ul>
+
+    <!-- TAGS -->
+    <div class="cc-tags">
+      <span class="cc-tag"><i class="fa fa-shopping-cart"></i> Shopping</span>
+      <span class="cc-tag"><i class="fa fa-rupee-sign"></i> Cashback</span>
+      <span class="cc-tag"><i class="fa fa-gift"></i> Rewards</span>
+    </div>
+
+    <!-- ACTIONS -->
+    <div class="cc-actions">
+      <button class="cc-details-btn" onclick="toggleMore(this)">
+        <i class="fa fa-plus-circle"></i> More Details
+      </button>
+
+
+
+      <a href="https://earningshub.co/Vipul-Gupta-177409269668955313890" target="_blank" class="cc-apply">
+        Apply Now <i class="fa fa-arrow-right"></i>
+      </a>
+    </div>
+
+    <!-- MORE DETAILS -->
+    <div class="cc-more">
+      <h4>More Details</h4>
+      <div class="cc-more-grid">
+
+        <div class="cc-more-row">
+          <span class="mk">Shopping Benefit</span>
+          <span class="mv">Cashback on Flipkart and Myntra</span>
+        </div>
+
+        <div class="cc-more-row">
+          <span class="mk">Welcome Benefit</span>
+          <span class="mv">Flipkart gift card on joining</span>
+        </div>
+
+        <div class="cc-more-row">
+          <span class="mk">Fuel Benefit</span>
+          <span class="mv">Fuel surcharge waiver</span>
+        </div>
+
+        <div class="cc-more-row">
+          <span class="mk">Rewards</span>
+          <span class="mv">Cashback on all transactions</span>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ 
+CARD: SBM ZET Card – Lifetime Free UPI Card with Easy Approval
+══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══  -->
+
+<div class="cc-item" data-bank="SBM Bank" data-type="Cashback" data-network="RuPay">
+
+  <!-- 💰 CASHBACK -->
+  <div class="cc-badge">500 cashback</div>
+
+  <div style="display:flex;flex-direction:column;align-items:center;gap:0">
+    
+    <div class="cc-img-wrap">
+      <img src="https://offline-agent-bk.s3.ap-south-1.amazonaws.com/profit_share1773298526381"
+        alt="SBM ZET Credit Card"
+        onerror="this.src='https://placehold.co/140x88/1641b4/fff?text=Credit+Card'">
+    </div>
+
+    <div class="cc-rating">
+      <div class="cc-stars">
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+      </div>
+      <span class="cc-rating-num">4/5</span>
+    </div>
+
+  </div>
+
+  <div class="cc-info">
+    
+    <!-- 🔥 TITLE -->
+    <div class="cc-name">SBM ZET Credit Card</div>
+
+    <div class="cc-fees">
+      <div class="cc-fee-item">
+        <i class="fa fa-rupee-sign"></i> Joining fee: <strong>₹0</strong>
+      </div>
+      <div class="sep"></div>
+      <div class="cc-fee-item">
+        <i class="fa fa-sync-alt"></i> Annual Fee: <strong>₹0</strong>
+      </div>
+    </div>
+
+    <!-- 🔥 BENEFITS -->
+    <ul class="cc-benefits">
+      <li><i class="fa fa-check-circle"></i> Easy approval with FD-based credit card</li>
+      <li><i class="fa fa-check-circle"></i> Cashback on shopping and UPI payments</li>
+      <li><i class="fa fa-check-circle"></i> Build credit score with no income proof</li>
+    </ul>
+
+    <!-- TAGS -->
+    <div class="cc-tags">
+      <span class="cc-tag"><i class="fa fa-mobile-alt"></i> UPI</span>
+      <span class="cc-tag"><i class="fa fa-rupee-sign"></i> Cashback</span>
+      <span class="cc-tag"><i class="fa fa-star"></i> Lifetime Free</span>
+    </div>
+
+    <!-- ACTIONS -->
+    <div class="cc-actions">
+      <button class="cc-details-btn" onclick="toggleMore(this)">
+        <i class="fa fa-plus-circle"></i> More Details
+      </button>
+
+     
+
+      <a href="https://earningshub.co/Vipul-Gupta-177409261784857213890" target="_blank" class="cc-apply">
+        Apply Now <i class="fa fa-arrow-right"></i>
+      </a>
+    </div>
+
+    <!-- MORE DETAILS -->
+    <div class="cc-more">
+      <h4>More Details</h4>
+      <div class="cc-more-grid">
+
+        <div class="cc-more-row">
+          <span class="mk">Approval</span>
+          <span class="mv">No income proof required</span>
+        </div>
+
+        <div class="cc-more-row">
+          <span class="mk">Cashback</span>
+          <span class="mv">Earn on UPI and online spends</span>
+        </div>
+
+        <div class="cc-more-row">
+          <span class="mk">Credit Building</span>
+          <span class="mv">Improve your credit score</span>
+        </div>
+
+        <div class="cc-more-row">
+          <span class="mk">Interest-Free</span>
+          <span class="mv">Up to 45 days credit period</span>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ 
+CARD: Stable Money Card – FD Based Lifetime Free with Lounge Access
+══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══ ══  -->
+
+<div class="cc-item" data-bank="Suryoday Bank" data-type="Cashback" data-network="RuPay">
+
+  <!-- 💰 CASHBACK -->
+  <div class="cc-badge">1000 cashback</div>
+
+  <div style="display:flex;flex-direction:column;align-items:center;gap:0">
+    
+    <div class="cc-img-wrap">
+      <img src="https://offline-agent-bk.s3.ap-south-1.amazonaws.com/profit_share1773818226109"
+        alt="Stable Money Suryoday Bank Credit Card"
+        onerror="this.src='https://placehold.co/140x88/1641b4/fff?text=Credit+Card'">
+    </div>
+
+    <div class="cc-rating">
+      <div class="cc-stars">
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+      </div>
+      <span class="cc-rating-num">4/5</span>
+    </div>
+
+  </div>
+
+  <div class="cc-info">
+    
+    <!-- 🔥 TITLE -->
+    <div class="cc-name">Stable Money Suryoday Bank Credit Card
+
+</div>
+
+    <div class="cc-fees">
+      <div class="cc-fee-item">
+        <i class="fa fa-rupee-sign"></i> Joining fee: <strong>₹0</strong>
+      </div>
+      <div class="sep"></div>
+      <div class="cc-fee-item">
+        <i class="fa fa-sync-alt"></i> Annual Fee: <strong>₹0</strong>
+      </div>
+    </div>
+
+    <!-- 🔥 BENEFITS -->
+    <ul class="cc-benefits">
+      <li><i class="fa fa-check-circle"></i> Lifetime free FD based credit card with easy approval</li>
+      <li><i class="fa fa-check-circle"></i> Cashback on all spends including UPI transactions</li>
+      <li><i class="fa fa-check-circle"></i> Complimentary airport lounge access with FD</li>
+    </ul>
+
+    <!-- TAGS -->
+    <div class="cc-tags">
+      <span class="cc-tag"><i class="fa fa-mobile-alt"></i> UPI</span>
+      <span class="cc-tag"><i class="fa fa-couch"></i> Lounge Access</span>
+      <span class="cc-tag"><i class="fa fa-star"></i> Lifetime Free</span>
+    </div>
+
+    <!-- ACTIONS -->
+    <div class="cc-actions">
+      <button class="cc-details-btn" onclick="toggleMore(this)">
+        <i class="fa fa-plus-circle"></i> More Details
+      </button>
+
+      
+
+      <a href="https://earningshub.co/Vipul-Gupta-177409280417557413890" target="_blank" class="cc-apply">
+        Apply Now <i class="fa fa-arrow-right"></i>
+      </a>
+    </div>
+
+    <!-- MORE DETAILS -->
+    <div class="cc-more">
+      <h4>More Details</h4>
+      <div class="cc-more-grid">
+
+        <div class="cc-more-row">
+          <span class="mk">Approval</span>
+          <span class="mv">No income proof required</span>
+        </div>
+
+        <div class="cc-more-row">
+          <span class="mk">Cashback</span>
+          <span class="mv">Earn on all transactions</span>
+        </div>
+
+        <div class="cc-more-row">
+          <span class="mk">Lounge Access</span>
+          <span class="mv">Complimentary domestic visits</span>
+        </div>
+
+        <div class="cc-more-row">
+          <span class="mk">Credit Limit</span>
+          <span class="mv">Based on FD value</span>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+
+
+
+
+
+    </div><!-- /cc-list -->
+
+    <!-- No results msg -->
+    <div class="no-results" id="noResults" style="display:none">
+      <i class="fa fa-credit-card"></i>
+      <p>No credit cards match your filters.</p>
+      <button onclick="resetAllFilters()" style="margin-top:14px;background:var(--bl);color:#fff;border:none;padding:10px 24px;border-radius:8px;font-size:14px;font-weight:700;font-family:'Nunito',sans-serif;cursor:pointer">Clear Filters</button>
+    </div>
+
+  </div><!-- /results-area -->
+</div><!-- /page-wrap -->
+
+<!-- ══════════════ FOOTER ══════════════ -->
+<footer class="ft">
+  <div class="ft-in">
+    <div class="ft-g">
+      <div>
+        <div class="ft-logo">
+          <img src="../images/logo.png" alt="DealsWala Logo"
+            onerror="this.style.display='none';this.insertAdjacentHTML('afterend','<div style=\'font-size:22px;font-weight:900;color:#fff;margin-bottom:12px\'>deals<span style=\'color:#f97316\'>wala</span></div>')">
+        </div>
+        <p class="ft-desc">India's best cashback &amp; deals platform. Save more on every purchase with extra cashback and exclusive deals.</p>
+        <div class="ft-soc">
+          <a href="#" class="ft-s"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="ft-s"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="ft-s"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="ft-s"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+      <div class="ft-col">
+        <h4>Quick Links</h4>
+        <ul class="ft-ul">
+          <li><a href="#">Credit Card</a></li>
+          <li><a href="#">All Brands</a></li>
+          <li><a href="#">Top Deals</a></li>
+          <li><a href="#">Blog</a></li>
+        </ul>
+      </div>
+      <div class="ft-col">
+        <h4>Categories</h4>
+        <ul class="ft-ul">
+          <li><a href="#">Fashion</a></li>
+          <li><a href="#">Beauty</a></li>
+          <li><a href="#">Electronics</a></li>
+          <li><a href="#">Home &amp; Kitchen</a></li>
+        </ul>
+      </div>
+      <div class="ft-col">
+        <h4>Help</h4>
+        <ul class="ft-ul">
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Use</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="ft-bot">
+      <p>© 2026 dealswala.shop — All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ── Drawer ── */
+const hbg=document.getElementById('hbgBtn'),drw=document.getElementById('drw'),ov=document.getElementById('ov'),drwX=document.getElementById('drwX');
+function openDrawer(){drw.classList.add('on');ov.classList.add('on');document.body.style.overflow='hidden'}
+function closeDrawer(){drw.classList.remove('on');ov.classList.remove('on');document.body.style.overflow='';document.getElementById('filterSidebar').classList.remove('mob-open')}
+hbg.addEventListener('click',openDrawer);drwX.addEventListener('click',closeDrawer);ov.addEventListener('click',closeDrawer);
+
+/* ── Filter group toggle ── */
+function toggleGroup(el){
+  el.classList.toggle('open');
+  el.nextElementSibling.classList.toggle('hidden');
+}
+
+/* ── Search inside filter ── */
+function searchFilter(input, bodyId){
+  const q = input.value.toLowerCase();
+  document.querySelectorAll(`#${bodyId} .f-check`).forEach(lbl => {
+    lbl.style.display = lbl.querySelector('span').textContent.toLowerCase().includes(q) ? '' : 'none';
+  });
+}
+
+/* ── Toggle More Details ── */
+function toggleMore(btn){
+  const more = btn.closest('.cc-info').querySelector('.cc-more');
+  const isOpen = more.classList.contains('open');
+  more.classList.toggle('open');
+  btn.innerHTML = isOpen
+    ? '<i class="fa fa-plus-circle"></i> More Details'
+    : '<i class="fa fa-minus-circle"></i> Less Details';
+}
+
+/* ── Filters ── */
+function applyFilters(){
+  const active = {};
+  document.querySelectorAll('input[data-filter]:checked').forEach(cb => {
+    const f = cb.dataset.filter;
+    if(!active[f]) active[f] = [];
+    active[f].push(cb.value);
+  });
+
+  const cards = document.querySelectorAll('.cc-item');
+  let visible = 0;
+
+  cards.forEach(card => {
+    let show = true;
+    for(const [key, vals] of Object.entries(active)){
+      if(!vals.includes(card.dataset[key])){
+        show = false; break;
+      }
+    }
+    card.style.display = show ? '' : 'none';
+    if(show) visible++;
+  });
+
+  document.getElementById('cardCount').textContent = visible;
+  document.getElementById('noResults').style.display = visible === 0 ? 'block' : 'none';
+
+  updateActiveChips(active);
+  updateBadges();
+}
+
+function updateActiveChips(active){
+  const wrap = document.getElementById('activeChips');
+  wrap.innerHTML = '';
+  for(const [key, vals] of Object.entries(active)){
+    vals.forEach(val => {
+      const chip = document.createElement('div');
+      chip.className = 'a-chip';
+      chip.innerHTML = `${val} <button onclick="removeFilter('${key}','${val}')">×</button>`;
+      wrap.appendChild(chip);
+    });
+  }
+}
+
+function removeFilter(key, val){
+  const cb = document.querySelector(`input[data-filter="${key}"][value="${val}"]`);
+  if(cb){ cb.checked = false; applyFilters(); }
+}
+
+function updateBadges(){
+  ['bank','type','network'].forEach(f => {
+    const count = document.querySelectorAll(`input[data-filter="${f}"]:checked`).length;
+    const el = document.getElementById(f + 'Count');
+    if(el){
+      el.textContent = count;
+      el.classList.toggle('show', count > 0);
+    }
+  });
+}
+function resetAllFilters(){
+  document.querySelectorAll('input[data-filter]').forEach(cb => cb.checked = false);
+  document.querySelectorAll('.cc-item').forEach(c => c.style.display = '');
+  document.getElementById('cardCount').textContent = document.querySelectorAll('.cc-item').length;
+  document.getElementById('noResults').style.display = 'none';
+  document.getElementById('activeChips').innerHTML = '';
+  updateBadges();
+}
+
+/* ── Sort ── */
+function sortCards(val){
+  const list = document.getElementById('ccList');
+  const cards = Array.from(list.querySelectorAll('.cc-item'));
+  cards.sort((a,b) => {
+    if(val === 'fee-low')  return parseInt(a.dataset.feeamt) - parseInt(b.dataset.feeamt);
+    if(val === 'fee-high') return parseInt(b.dataset.feeamt) - parseInt(a.dataset.feeamt);
+    if(val === 'rating')   return parseFloat(b.dataset.rating) - parseFloat(a.dataset.rating);
+    return 0;
+  });
+  cards.forEach(c => list.appendChild(c));
+}
+</script>
+</body>
+</html>
