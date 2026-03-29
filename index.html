@@ -2,8 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<link rel="icon" type="image/png" href="images/favicon.png"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="google-adsense-account" content="ca-pub-6499756690036375">
+<link rel="icon" type="image/png" href="file:images/favicon.png"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Dealswala — Cashback & Best Deals</title>
 <meta name="description" content="Get cashback, coupons and best deals on 1500+ brands.">
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -46,158 +45,95 @@ button{font-family:'Nunito',sans-serif;cursor:pointer}
 /* ═══════════════════════════════════════════════
                           Drawer
 ═══════════════════════════════════════════════ */
-
+/* DRAWER */
 .drw{position:fixed;top:0;left:-290px;bottom:0;width:268px;background:#fff;z-index:1900;overflow-y:auto;transition:left .3s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column}
 .drw.on{left:0}
 .drw-hdr{background:linear-gradient(135deg,var(--bl),var(--bl2));padding:18px 16px 14px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
 .drw-logo{font-size:19px;font-weight:900;color:#fff}
 .drw-logo em{color:#ffb347;font-style:normal}
 .drw-x{background:rgba(255,255,255,.18);border:none;width:30px;height:30px;border-radius:50%;color:#fff;font-size:17px;display:flex;align-items:center;justify-content:center}
-.drw-row{display:flex;align-items:center;justify-content:space-between;padding:13px 16px;border-bottom:1px solid #f3f4f6;font-size:13.5px;font-weight:700;color:#111}
-.drw-row .ar{color:#9ca3af;font-size:15px}
-.drw-sep{height:4px;background:#f9fafb}
-.drw-cat{display:flex;align-items:center;gap:12px;padding:11px 16px;border-bottom:1px solid #f9fafb}
-.drw-cat:hover{background:#f0f4ff}
-.dci{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
-.dcn{font-size:13.5px;font-weight:600}
-.drw-lnk{display:flex;align-items:center;gap:10px;padding:13px 16px;font-size:14px;font-weight:700;border-bottom:1px solid #f3f4f6;transition:color .18s,background .18s}
-.drw-lnk:hover{color:var(--or);background:#fff8f5}
-.ni{font-size:17px}
+
+/* ACCORDION HEADER */
+.drw-acc-hdr{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid #f1f1f1;background:#f9fafb;cursor:pointer;user-select:none}
+.drw-acc-label{font-size:13.5px;font-weight:800;color:var(--bl);text-transform:uppercase;letter-spacing:.04em}
+.drw-acc-arrow{font-size:13px;color:#9ca3af;transition:transform .25s}
+.drw-acc-hdr.on .drw-acc-arrow{transform:rotate(90deg)}
+
+/* ACCORDION BODY */
+.drw-acc-body{overflow:hidden;max-height:0;transition:max-height .32s cubic-bezier(.4,0,.2,1)}
+.drw-acc-body.on{max-height:700px}
+
+/* CATEGORY LINKS */
+.drw-cat-lnk{display:flex;align-items:center;gap:14px;padding:12px 16px;font-size:13.5px;font-weight:600;border-bottom:1px solid #f1f1f1;background:#fff;transition:background .2s;color:#111827}
+.drw-cat-lnk:hover{background:#eff6ff;color:var(--bl)}
+
+/* ICON BOX */
+.dci{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+
+/* MAJOR LINKS */
+.drw-major{display:flex;align-items:center;gap:14px;padding:16px;font-size:16px;font-weight:800;border-top:8px solid #f3f4f6;background:#fff;color:#111827;transition:background .2s}
+.drw-major:hover{background:#fff8f5;color:var(--or)}
+.mico{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
 
 /* ═══════════════════════════════════════════════
 HERO IMAGE SLIDER
 ═══════════════════════════════════════════════ */
 
-.hero{
-position:relative;
-overflow:hidden;
-width:100%;
-background:#f5f7ff;
-}
+/* HERO */
+.hero{position:relative;overflow:hidden;width:100%;background:#fff;line-height:0}
+.h-track{display:flex;transition:transform .55s cubic-bezier(.4,0,.2,1)}
+.h-slide{min-width:100%;width:100%;position:relative}
 
-/* slider track */
+/* desktop image default dikhe */
+.h-banner{width:100%;height:auto;display:block;object-fit:cover}
+.h-mob{display:none}
+.h-desk{display:block}
 
-.h-track{
-display:flex;
-transition:transform .55s cubic-bezier(.4,0,.2,1);
-}
+/* ARROWS */
+.h-arr{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.9);border:none;width:42px;height:42px;border-radius:50%;font-size:22px;color:#374151;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,.15);z-index:10;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.h-arr:hover{background:#fff;transform:translateY(-50%) scale(1.05)}
+.h-arr.l{left:16px}
+.h-arr.r{right:16px}
 
-/* slide */
+/* DOTS */
+.h-dots{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);display:flex;gap:6px;z-index:10}
+.h-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.6);border:none;cursor:pointer;transition:all .3s}
+.h-dot.on{background:#fff;width:24px;border-radius:20px}
 
-.h-slide{
-min-width:100%;
-height:540px;
-position:relative;
-overflow:hidden;
-}
-
-/* banner image */
-
-.h-banner{
-width:100%;
-height:100%;
-object-fit:cover;
-display:block;
-}
-
-/* arrows */
-
-.h-arr{
-position:absolute;
-top:50%;
-transform:translateY(-50%);
-background:rgba(255,255,255,.9);
-border:none;
-width:42px;
-height:42px;
-border-radius:50%;
-font-size:22px;
-color:#374151;
-cursor:pointer;
-box-shadow:0 6px 20px rgba(0,0,0,.15);
-z-index:10;
-display:flex;
-align-items:center;
-justify-content:center;
-transition:all .2s;
-}
-
-.h-arr:hover{
-background:#fff;
-transform:translateY(-50%) scale(1.05);
-}
-
-.h-arr.l{
-left:16px;
-}
-
-.h-arr.r{
-right:16px;
-}
-
-/* dots */
-
-.h-dots{
-position:absolute;
-bottom:16px;
-left:50%;
-transform:translateX(-50%);
-display:flex;
-gap:6px;
-z-index:10;
-}
-
-/* dot */
-
-.h-dot{
-width:8px;
-height:8px;
-border-radius:50%;
-background:rgba(255,255,255,.6);
-border:none;
-cursor:pointer;
-transition:all .3s;
-}
-
-/* active dot */
-
-.h-dot.on{
-background:#fff;
-width:24px;
-border-radius:20px;
-}
-
-/* ───────── MOBILE ───────── */
-
-@media(max-width:900px){
-
-.h-slide{
-height:260px;
-}
-
-.h-arr{
-width:34px;
-height:34px;
-font-size:18px;
-}
-
+/* MOBILE — 600px se neeche mobile image dikhe */
+@media(max-width:600px){
+  .h-desk{display:none}
+  .h-mob{display:block}
+  .h-arr{width:28px;height:28px;font-size:15px}
+  .h-arr.l{left:6px}
+  .h-arr.r{right:6px}
+  .h-dots{bottom:6px}
+  .h-dot{width:6px;height:6px}
+  .h-dot.on{width:16px}
 }
 
 
 /* ─── SECTION COMMON ─── */
-.sec{padding:32px 0 24px}
-.sec.g{background:var(--bg)}
-.si{max-width:1320px;margin:0 auto;padding:0 20px}
-.s-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
-.s-ttl{font-size:20px;font-weight:800}
-.va{font-size:13.5px;font-weight:800;color:var(--bl);display:flex;align-items:center;gap:4px;transition:gap .18s}
-.va:hover{gap:8px}
-.va svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2.5}
-.s-nav{display:flex;gap:6px}
-.sbt{width:32px;height:32px;border-radius:50%;border:1.5px solid var(--bd);background:#fff;font-size:16px;display:flex;align-items:center;justify-content:center;color:#6b7280;transition:all .18s}
-.sbt:hover{border-color:var(--or);background:var(--or);color:#fff}
-.sw{overflow:hidden}
-.st{display:flex;gap:16px;transition:transform .48s cubic-bezier(.4,0,.2,1)}
+.sec { padding: 32px 0 24px; }
+.sec.g { background: var(--bg); }
+.si { max-width: 1320px; margin: 0 auto; padding: 0 20px; }
+.s-hd { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
+.s-ttl { font-size: 20px; font-weight: 800; }
+.va { font-size: 13.5px; font-weight: 800; color: var(--bl); display: flex; align-items: center; gap: 4px; transition: gap .18s; }
+.va:hover { gap: 8px; }
+.va svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2.5; }
+.s-nav { display: flex; gap: 6px; }
+.sbt { width: 32px; height: 32px; border-radius: 50%; border: 1.5px solid var(--bd); background: #fff; font-size: 16px; display: flex; align-items: center; justify-content: center; color: #6b7280; transition: all .18s; }
+.sbt:hover { border-color: var(--or); background: var(--or); color: #fff; }
+.sw { overflow: hidden; }
+.st { display: flex; gap: 16px; transition: transform .48s cubic-bezier(.4,0,.2,1); }
+
+/* ─── MOBILE ─── */
+@media (max-width: 900px) {
+  .sec { padding: 20px 0 14px; }
+  .si { padding: 0 12px; }
+  .s-ttl { font-size: 17px; }
+}
 
 /* ═══════════════════════════════════════════════
                           Categories
@@ -205,7 +141,7 @@ font-size:18px;
 
 .cat-sec{padding:24px 0 20px;background:#fff;border-bottom:1px solid var(--bd)}
 .cat-ttl{font-size:18px;font-weight:800;margin-bottom:18px}
-.cat-row{display:flex;gap:20px;overflow-x:auto;-ms-overflow-style:none;scrollbar-width:none;padding-bottom:4px}
+.cat-row{display:flex;gap:40px;overflow-x:auto;-ms-overflow-style:none;scrollbar-width:none;padding-bottom:4px}
 .cat-row::-webkit-scrollbar{display:none}
 .cat-it{display:flex;flex-direction:column;align-items:center;gap:10px;flex-shrink:0;cursor:pointer;min-width:80px}
 .cat-it:hover .cat-circle{border-color:var(--or);box-shadow:0 4px 16px rgba(249,115,22,.2)}
@@ -738,7 +674,7 @@ background:var(--bl2);
 <header class="hdr">
   <div class="hdr-in">
     <button class="hbg" id="hbgBtn"><span></span><span></span><span></span></button>
-    <a href="https://dealswala.shop/">
+    <a href="#">
       <img class="logo-img"
         src="images\logo.png"
         alt="dealswala.shop"
@@ -752,68 +688,112 @@ background:var(--bl2);
 <div class="ov" id="ov"></div>
 
 <!-- SIDE DRAWER -->
+<!-- DRAWER
+     Structure:
+     1. "All Categories" accordion (toggle) → 9 clickable category links inside
+     2. "Credit Cards" — major clickable link
+     3. "Blog"         — major clickable link
+-->
 <aside class="drw" id="drw">
+
   <div class="drw-hdr">
     <span class="drw-logo">deals<em>wala</em></span>
     <button class="drw-x" id="drwX">✕</button>
   </div>
-  <div class="drw-row"><span>Category</span><span class="ar">›</span></div>
-  <div class="drw-row"><span>Most Popular Retailers</span><span class="ar">›</span></div>
-  <div class="drw-row"><span>Retailers by Category</span><span class="ar">›</span></div>
-  <div class="drw-row"><span>Top Product Deals</span><span class="ar">›</span></div>
-  <div class="drw-sep"></div>
-  <div class="drw-cat"><div class="dci" style="background:#fff0e8">📱</div><span class="dcn">Mobiles</span></div>
-  <div class="drw-cat"><div class="dci" style="background:#e8f0ff">🎧</div><span class="dcn">Headphones</span></div>
-  <div class="drw-cat"><div class="dci" style="background:#e8fff0">💻</div><span class="dcn">Laptops</span></div>
-  <div class="drw-cat"><div class="dci" style="background:#fff8e8">👔</div><span class="dcn">Men Fashion</span></div>
-  <div class="drw-cat"><div class="dci" style="background:#ffe8f0">👗</div><span class="dcn">Women Fashion</span></div>
-  <div class="drw-cat"><div class="dci" style="background:#f0e8ff">👟</div><span class="dcn">Men Shoes</span></div>
-  <div class="drw-cat"><div class="dci" style="background:#ffe8ee">👠</div><span class="dcn">Women Shoes</span></div>
-  <div class="drw-cat"><div class="dci" style="background:#fff0f8">💄</div><span class="dcn">Beauty</span></div>
-  <div class="drw-cat"><div class="dci" style="background:#e8fff8">🛒</div><span class="dcn">Grocery</span></div>
-  <div class="drw-sep"></div>
-  <a href="https://dealswala.shop/blog" class="drw-lnk"><span class="ni">📝</span> Blog &amp; Articles</a>
-</aside>
 
+  <!-- 1. ALL CATEGORIES accordion toggle -->
+  <div class="drw-acc-hdr" id="accHdr">
+    <span class="drw-acc-label">🗂️ All Categories</span>
+    <span class="drw-acc-arrow">›</span>
+  </div>
+  <div class="drw-acc-body" id="accBody">
+<a href="https://dealswala.shop/all-deals/?category=fashion" class="drw-cat-lnk">
+  <div class="dci" style="background:#ffe8f0">👗</div>Fashion
+</a>
+
+<a href="https://dealswala.shop/all-deals/?category=electronics" class="drw-cat-lnk">
+  <div class="dci" style="background:#e8f0ff">💻</div>Electronics
+</a>
+
+<a href="https://dealswala.shop/all-deals/?category=beauty" class="drw-cat-lnk">
+  <div class="dci" style="background:#fff0f8">💄</div>Beauty
+</a>
+
+<a href="https://dealswala.shop/all-deals/?category=home" class="drw-cat-lnk">
+  <div class="dci" style="background:#fff8e8">🏠</div>Home
+</a>
+
+<a href="https://dealswala.shop/all-deals/?category=health" class="drw-cat-lnk">
+  <div class="dci" style="background:#e8fff0">💪</div>Health &amp; Wellness
+</a>
+
+<a href="https://dealswala.shop/all-deals/?category=kids" class="drw-cat-lnk">
+  <div class="dci" style="background:#fff0e8">👶</div>Kids
+</a>
+
+<a href="https://dealswala.shop/all-deals/?category=laptops" class="drw-cat-lnk">
+  <div class="dci" style="background:#e8f4ff">🖥️</div>Laptops
+</a>
+
+<a href="https://dealswala.shop/all-deals/?category=mobiles" class="drw-cat-lnk">
+  <div class="dci" style="background:#f0e8ff">📱</div>Mobiles
+</a>
+
+<a href="https://dealswala.shop/all-deals/?category=grocery" class="drw-cat-lnk">
+  <div class="dci" style="background:#e8fff8">🛒</div>Grocery
+</a>
+  </div>
+
+  <!-- 2. CREDIT CARDS — major link -->
+  <a href="https://dealswala.shop/credit-cards/" class="drw-major">
+    <div class="mico" style="background:#eff6ff">💳</div>
+    Credit Cards
+  </a>
+
+  <!-- 3. BLOG — major link -->
+  <a href="https://dealswala.shop/blog" class="drw-major">
+    <div class="mico" style="background:#fff7ed">📝</div>
+    Blog &amp; Articles
+  </a>
+
+</aside>
 
 <!-- ═══════════════════════════════════════
 slider
 ══════════════════════════════════════ -->
+<!-- HERO SLIDER -->
 <section class="hero">
+  <div class="h-track" id="hTrack">
 
-<div class="h-track" id="hTrack">
+    <!-- Slide 1 -->
+    <div class="h-slide">
+      <img src="images/koozo_banner.png" class="h-banner h-desk" alt="koozo offer">
+      <img src="images/koozo_750x500.png" class="h-banner h-mob" alt="koozo offer">
+    </div>
 
-<!-- Slide 1 -->
-<div class="h-slide">
-<img src="images\koozo_banner.png" class="h-banner" alt="koozo offer">
-</div>
+    <!-- Slide 2 -->
+    <div class="h-slide">
+      <img src="images/timesprime_banner.png" class="h-banner h-desk" alt="Timesprime">
+      <img src="images/timesprime_750x500.png" class="h-banner h-mob" alt="Timesprime">
+    </div>
 
-<!-- Slide 2 -->
-<div class="h-slide">
-<img src="images\timesprime_banner.png" class="h-banner" alt="Flipkart Sale">
-</div>
+    <!-- Slide 3 -->
+    <div class="h-slide">
+      <img src="images/clove_banner.png" class="h-banner h-desk" alt="Clove">
+      <img src="images/clove_mobile_banner.png" class="h-banner h-mob" alt="Clove">
+    </div>
 
-<!-- Slide 3 -->
-<div class="h-slide">
-<img src="images\clove_banner.png" class="h-banner" alt="Clove deals">
-</div>
+    <!-- Slide 4 -->
+    <div class="h-slide">
+      <img src="images/creditcard_banner.png" class="h-banner h-desk" alt="Credit Card">
+      <img src="images/creditcard_750x500.png" class="h-banner h-mob" alt="Credit Card">
+    </div>
 
+  </div>
 
-<!-- Slide 4 -->
-<div class="h-slide">
-<img src="images\creditcard_banner.png" class="h-banner" alt="koozo offer">
-</div>
-
-
-</div>
-
-<!-- Navigation -->
-<button class="h-arr l" id="hPrev">&#8249;</button>
-<button class="h-arr r" id="hNext">&#8250;</button>
-
-<!-- Dots -->
-<div class="h-dots" id="hDots"></div>
-
+  <button class="h-arr l" id="hPrev">&#8249;</button>
+  <button class="h-arr r" id="hNext">&#8250;</button>
+  <div class="h-dots" id="hDots"></div>
 </section>
 
 
@@ -826,73 +806,72 @@ categories
   <div class="si">
     <div class="cat-ttl">Top Categories</div>
     <div class="cat-row" id="catRow">
-      <a href="#" class="cat-it">
-        <div class="cat-circle" style="background:linear-gradient(135deg,#1641b4,#2874f0)">
-          <img src="https://asset20.ckassets.com/resources/image/category/most-popular-5257-17696609361.gif" alt="Most Popular" onerror="this.parentElement.innerHTML='<span style=\'font-size:28px\'>⭐</span>'">
-        </div>
-        <span class="cat-lbl">Most Popular</span>
-      </a>
-      <a href="#" class="cat-it">
+    
+      <a href="https://dealswala.shop/credit-cards/" class="cat-it">
         <div class="cat-circle" style="background:#00bcd4">
           <img src="https://asset20.ckassets.com/resources/image/category/banking-finance-offers-4684-17593288271.gif" alt="Credit Cards" onerror="this.parentElement.innerHTML='<span style=\'font-size:28px\'>💳</span>'">
         </div>
         <span class="cat-lbl">Credit Cards</span>
       </a>
-      <a href="#" class="cat-it">
+      <a href="https://dealswala.shop/all-deals/?category=fashion
+" class="cat-it">
         <div class="cat-circle">
           <img src="https://asset20.ckassets.com/resources/image/category/fashion-offers-4199-17352129510.png" alt="Fashion" onerror="this.parentElement.innerHTML='<span style=\'font-size:28px\'>👗</span>'">
         </div>
         <span class="cat-lbl">Fashion</span>
       </a>
-      <a href="#" class="cat-it">
+      <a href="https://dealswala.shop/all-deals/?category=beauty
+" class="cat-it">
         <div class="cat-circle">
           <img src="https://asset20.ckassets.com/resources/image/category/beauty-personal-care-offers-4206-17352128850.png" alt="Beauty" onerror="this.parentElement.innerHTML='<span style=\'font-size:28px\'>💄</span>'">
         </div>
         <span class="cat-lbl">Beauty &amp; Grooming</span>
       </a>
-      <a href="#" class="cat-it">
+      <a href="https://dealswala.shop/all-deals/?category=electronics
+" class="cat-it">
         <div class="cat-circle">
           <img src="https://asset20.ckassets.com/resources/image/category/electronics-offers-4205-17584717970.png" alt="Electronics" onerror="this.parentElement.innerHTML='<span style=\'font-size:28px\'>💻</span>'">
         </div>
         <span class="cat-lbl">Electronics</span>
       </a>
-      <a href="#" class="cat-it">
+      <a href="https://dealswala.shop/all-deals/?category=mobiles
+" class="cat-it">
         <div class="cat-circle">
           <img src="https://asset20.ckassets.com/resources/image/category/mobiles-phones-offers-4200-17352851830.png" alt="Mobiles" onerror="this.parentElement.innerHTML='<span style=\'font-size:28px\'>📱</span>'">
         </div>
         <span class="cat-lbl">Mobiles</span>
       </a>
-      <a href="#" class="cat-it">
+      <a href="https://dealswala.shop/all-deals/?category=home
+" class="cat-it">
         <div class="cat-circle">
           <img src="https://asset20.ckassets.com/resources/image/category/home-kitchen-offers-4209-17352129920.png" alt="Home" onerror="this.parentElement.innerHTML='<span style=\'font-size:28px\'>🏠</span>'">
         </div>
         <span class="cat-lbl">Home &amp; Kitchen</span>
       </a>
-      <a href="#" class="cat-it">
+    
+      <a href="https://dealswala.shop/all-deals/?category=laptops
+" class="cat-it">
         <div class="cat-circle">
-          <img src="https://asset20.ckassets.com/resources/image/category/min-cashback-5417-17585353791.png" alt="Min 50%" onerror="this.parentElement.innerHTML='<span style=\'font-size:28px\'>🏷️</span>'">
+          <img src="https://png.pngtree.com/png-clipart/20250523/original/pngtree-modern-laptop-computer-with-screen-open-technology-digital-device-png-image_21059292.png" alt="Laptop" onerror="this.parentElement.innerHTML='<span style=\'font-size:28px\'></span>'">
         </div>
-        <span class="cat-lbl">Min 50% Cashback</span>
+        <span class="cat-lbl">Laptop</span>
       </a>
-      <a href="#" class="cat-it">
+      <a href="https://dealswala.shop/all-deals/?category=kids
+" class="cat-it">
         <div class="cat-circle">
-          <img src="https://asset20.ckassets.com/resources/image/category/travel-offers-4207-17352130220.png" alt="Flights" onerror="this.parentElement.innerHTML='<span style=\'font-size:28px\'>✈️</span>'">
+          <img src="https://static.vecteezy.com/system/resources/thumbnails/029/830/133/small/toys-and-car-on-isolated-white-background-ai-generative-photo.jpg" alt="kids" onerror="this.parentElement.innerHTML='<span style=\'font-size:28px\'></span>'">
         </div>
-        <span class="cat-lbl">Flights &amp; Hotels</span>
+        <span class="cat-lbl">Kids</span>
       </a>
-      <a href="#" class="cat-it">
-        <div class="cat-circle">
-          <img src="https://asset20.ckassets.com/resources/image/category/health-medicine-offers-4203-17352130130.png" alt="Pharmacy" onerror="this.parentElement.innerHTML='<span style=\'font-size:28px\'>💊</span>'">
-        </div>
-        <span class="cat-lbl">Pharmacy</span>
-      </a>
-      <a href="#" class="cat-it">
+      <a href="https://dealswala.shop/all-deals/?category=grocery
+" class="cat-it">
         <div class="cat-circle">
           <img src="https://asset20.ckassets.com/resources/image/category/food-and-grocery-4901-17352860840.png" alt="Food" onerror="this.parentElement.innerHTML='<span style=\'font-size:28px\'>🛒</span>'">
         </div>
         <span class="cat-lbl">Food &amp; Grocery</span>
       </a>
-      <a href="#" class="cat-it">
+      <a href="https://dealswala.shop/all-deals/?category=health
+" class="cat-it">
         <div class="cat-circle">
           <img src="https://asset20.ckassets.com/resources/image/category/health-and-wellness-4900-17352129720.png" alt="Health" onerror="this.parentElement.innerHTML='<span style=\'font-size:28px\'>💪</span>'">
         </div>
@@ -1024,7 +1003,7 @@ View All
 <button class="sbt" id="c0n">&#8250;</button>
 </div>
 
-<a href="https://dealswala.shop/credit-cards/" class="va">
+<a href="#" class="va">
 View All
 <svg viewBox="0 0 24 24">
 <line x1="5" y1="12" x2="19" y2="12"/>
@@ -1096,7 +1075,7 @@ View All
       <h2 class="s-ttl">Latest Deals</h2>
       <div style="display:flex;align-items:center;gap:10px">
         <div class="s-nav"><button class="sbt" id="p1p">&#8249;</button><button class="sbt" id="p1n">&#8250;</button></div>
-        <a href="#" class="va">View All <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+        <a href="https://dealswala.shop/all-deals/" class="va">View All <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
       </div>
     </div>
     <div class="sw"><div class="st" id="p1">
@@ -1277,7 +1256,7 @@ Collapsible Silicone Box<br>(Pack of 3)
       <h2 class="s-ttl">Top Deals</h2>
       <div style="display:flex;align-items:center;gap:10px">
         <div class="s-nav"><button class="sbt" id="p2p">&#8249;</button><button class="sbt" id="p2n">&#8250;</button></div>
-        <a href="#" class="va">View All <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+        <a href="https://dealswala.shop/all-deals/" class="va">View All <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
       </div>
     </div>
     <div class="sw"><div class="st" id="p2">
@@ -1457,7 +1436,7 @@ Blue & White Stripe Printed Oversized Set
       <h2 class="s-ttl">Top Selling Offers</h2>
       <div style="display:flex;align-items:center;gap:10px">
         <div class="s-nav"><button class="sbt" id="p3p">&#8249;</button><button class="sbt" id="p3n">&#8250;</button></div>
-        <a href="#" class="va">View All <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+        <a href="https://dealswala.shop/all-deals/" class="va">View All <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
       </div>
     </div>
     <div class="sw"><div class="st" id="p3">
@@ -1724,7 +1703,7 @@ Comfort-Fit Active Crop Top in Lilac
         <ul class="ft-ul">
           <li><a href="https://dealswala.shop/credit-cards/">Credit Card</a></li>
           <li><a href="#">All Brands</a></li>
-          <li><a href="#">Top Deals</a></li>
+          <li><a href="https://dealswala.shop/all-deals/">Top Deals</a></li>
           <li><a href="https://dealswala.shop/blog">Blog</a></li>
         </ul>
       </div>
@@ -1733,16 +1712,16 @@ Comfort-Fit Active Crop Top in Lilac
         <h3>Categories</h3><br>
 
         <ul class="ft-ul">
-          <li><a href="#">Fashion</a></li>
-          <li><a href="#">Beauty</a></li>
-          <li><a href="#">Electronics</a></li>
-          <li><a href="#">Home &amp; Kitchen</a></li>
+          <li><a href="https://dealswala.shop/all-deals/?category=fashion">Fashion</a></li>
+          <li><a href="https://dealswala.shop/all-deals/?category=beauty">Beauty</a></li>
+          <li><a href="https://dealswala.shop/all-deals/?category=electronics">Electronics</a></li>
+          <li><a href="https://dealswala.shop/all-deals/?category=home">Home &amp; Kitchen</a></li>
         </ul>
       </div>
 
     </div>
     <div class="ft-bot">
-      <p>© 2026 dealswala.shop  — All rights reserved.</p
+      <p>© 2026 dealswala.shop  — All rights reserved.</p>
     </div>
 
   </div>
@@ -1759,11 +1738,26 @@ Comfort-Fit Active Crop Top in Lilac
 
 <script>
 /* Drawer */
-const hbg=document.getElementById('hbgBtn'),drw=document.getElementById('drw'),ov=document.getElementById('ov'),drwX=document.getElementById('drwX');
+const hbg=document.getElementById('hbgBtn'),
+      drw=document.getElementById('drw'),
+      ov=document.getElementById('ov'),
+      drwX=document.getElementById('drwX');
+
 function open(){drw.classList.add('on');ov.classList.add('on');document.body.style.overflow='hidden'}
 function close(){drw.classList.remove('on');ov.classList.remove('on');document.body.style.overflow=''}
-hbg.addEventListener('click',open);drwX.addEventListener('click',close);ov.addEventListener('click',close);
 
+hbg.addEventListener('click',open);
+drwX.addEventListener('click',close);
+ov.addEventListener('click',close);
+
+/* Accordion */
+const accHdr=document.getElementById('accHdr');
+const accBody=document.getElementById('accBody');
+
+accHdr.addEventListener('click',()=>{
+  accHdr.classList.toggle('on');
+  accBody.classList.toggle('on');
+});
 /* ───────────────── HERO SLIDER ───────────────── */
 
 (function(){
