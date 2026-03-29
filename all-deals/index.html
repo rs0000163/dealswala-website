@@ -1,0 +1,2144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="images/favicon.png">
+<title>Latest Deals — Dealswala</title>
+<meta name="description" content="Best deals and offers on fashion, electronics, beauty and more.">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Nunito',sans-serif;background:#f5f7ff;color:#111827;overflow-x:hidden;font-size:14px}
+a{text-decoration:none;color:inherit}
+img{display:block;max-width:100%}
+button{font-family:'Nunito',sans-serif;cursor:pointer}
+:root{
+  --or:#f97316;--bl:#1641b4;--bl2:#2448e0;
+  --t2:#374151;--t3:#6b7280;
+  --bd:#e5e7eb;--bg:#f5f7ff;--wh:#fff;
+  --sh:0 2px 12px rgba(0,0,0,.07);
+  --sh2:0 8px 32px rgba(0,0,0,.13);
+}
+/* HEADER */
+.hdr{position:sticky;top:0;z-index:900;background:#fff;border-bottom:1px solid var(--bd);height:58px}
+.hdr-in{max-width:1320px;margin:0 auto;padding:0 20px;height:100%;display:flex;align-items:center;gap:12px}
+.hbg{background:none;border:none;display:flex;flex-direction:column;gap:4.5px;padding:6px 4px}
+.hbg span{display:block;width:21px;height:2px;background:#374151;border-radius:2px;transition:.25s}
+.logo-img{height:50px}
+.logo-txt{font-size:21px;font-weight:900;color:var(--bl);display:none}
+.logo-txt em{color:var(--or);font-style:normal}
+/* OVERLAY */
+.ov{position:fixed;inset:0;background:rgba(0,0,0,.48);z-index:1800;opacity:0;pointer-events:none;transition:opacity .28s}
+.ov.on{opacity:1;pointer-events:all}
+/* DRAWER */
+.drw{position:fixed;top:0;left:-290px;bottom:0;width:268px;background:#fff;z-index:1900;overflow-y:auto;transition:left .3s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column}
+.drw.on{left:0}
+.drw-hdr{background:linear-gradient(135deg,var(--bl),var(--bl2));padding:18px 16px 14px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.drw-logo{font-size:19px;font-weight:900;color:#fff}
+.drw-logo em{color:#ffb347;font-style:normal}
+.drw-x{background:rgba(255,255,255,.18);border:none;width:30px;height:30px;border-radius:50%;color:#fff;font-size:17px;display:flex;align-items:center;justify-content:center}
+/* Accordion header — non-clickable label that toggles open/close */
+.drw-acc-hdr{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid #f3f4f6;background:#f9fafb;cursor:pointer;user-select:none}
+.drw-acc-label{font-size:13.5px;font-weight:800;color:var(--bl);text-transform:uppercase;letter-spacing:.04em}
+.drw-acc-arrow{font-size:13px;color:#9ca3af;transition:transform .25s}
+.drw-acc-hdr.open .drw-acc-arrow{transform:rotate(90deg)}
+/* Accordion body — collapses/expands */
+.drw-acc-body{overflow:hidden;max-height:0;transition:max-height .32s cubic-bezier(.4,0,.2,1)}
+.drw-acc-body.open{max-height:700px}
+/* Category links inside accordion */
+.drw-cat-lnk{display:flex;align-items:center;gap:12px;padding:11px 16px 11px 20px;border-bottom:1px solid #f9fafb;font-size:13.5px;font-weight:600;color:#111827;transition:background .18s,color .18s}
+.drw-cat-lnk:hover{background:#eff6ff;color:var(--bl)}
+.dci{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+/* Major nav links — Credit Cards & Blog */
+.drw-major{display:flex;align-items:center;gap:12px;padding:15px 16px;border-bottom:1px solid #f3f4f6;font-size:14.5px;font-weight:800;color:#111827;transition:background .18s,color .18s}
+.drw-major:hover{background:#fff8f5;color:var(--or)}
+.drw-major .mico{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+/* PAGE HERO */
+.page-hero{background:linear-gradient(135deg,var(--bl) 0%,var(--bl2) 100%);padding:44px 0 36px;position:relative;overflow:hidden}
+.page-hero::before{content:'';position:absolute;top:-60px;right:-60px;width:280px;height:280px;background:rgba(255,255,255,.06);border-radius:50%}
+.ph-in{max-width:1320px;margin:0 auto;padding:0 20px;position:relative;z-index:1}
+.page-hero h1{font-size:clamp(24px,3.5vw,38px);font-weight:900;color:#fff}
+.page-hero p{color:rgba(255,255,255,.75);font-size:14px;margin-top:8px}
+.hero-stats{display:flex;gap:24px;margin-top:18px;flex-wrap:wrap}
+.h-stat{background:rgba(255,255,255,.14);border-radius:10px;padding:10px 18px;text-align:center}
+.h-stat-num{font-size:20px;font-weight:900;color:#fff}
+.h-stat-lbl{font-size:11px;color:rgba(255,255,255,.7);font-weight:600}
+/* BREADCRUMB */
+.bc{background:#fff;border-bottom:1px solid var(--bd);padding:10px 0}
+.bc-in{max-width:1320px;margin:0 auto;padding:0 20px;display:flex;align-items:center;gap:6px;font-size:13px;color:var(--t3)}
+.bc-in a{color:var(--bl);font-weight:600}
+.bc-in a:hover{text-decoration:underline}
+/* WRAP */
+.wrap{max-width:1320px;margin:0 auto;padding:28px 20px 64px}
+/* TOOLBAR */
+.toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;background:#fff;border-radius:12px;padding:14px 18px;box-shadow:var(--sh);margin-bottom:20px}
+.tc{font-size:14px;font-weight:700;color:var(--t2)}
+.tc strong{color:#111827}
+.sort-row{display:flex;align-items:center;gap:8px}
+.sort-lbl{font-size:13px;font-weight:700;color:var(--t3)}
+.sort-sel{border:1.5px solid var(--bd);border-radius:9px;padding:7px 12px;font-size:13px;font-weight:700;color:var(--t2);background:#fff;outline:none;font-family:'Nunito',sans-serif;cursor:pointer}
+.sort-sel:focus{border-color:var(--bl)}
+/* PILLS */
+.pills{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}
+.pill{padding:8px 18px;border-radius:100px;border:1.5px solid var(--bd);background:#fff;font-size:13px;font-weight:700;color:var(--t2);cursor:pointer;transition:all .18s;white-space:nowrap;box-shadow:var(--sh)}
+.pill:hover,.pill.active{background:var(--bl);border-color:var(--bl);color:#fff}
+/* PRODUCT GRID */
+.prod-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+@media(max-width:1100px){.prod-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:700px){.prod-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:420px){.prod-grid{grid-template-columns:1fr}}
+/* Product Card */
+.pc{background:#fff;border-radius:18px;overflow:hidden;box-shadow:var(--sh);display:flex;flex-direction:column;cursor:pointer;transition:transform .22s,box-shadow .22s;position:relative}
+.pc:hover{transform:translateY(-5px);box-shadow:var(--sh2)}
+.pc.filtered{display:none}
+.pc-badge{position:absolute;top:12px;right:12px;background:#fff;color:#e11d48;font-size:12px;font-weight:800;padding:3px 10px;border-radius:100px;box-shadow:0 2px 8px rgba(0,0,0,.12);z-index:2}
+.pc-img{width:100%;aspect-ratio:1/1;overflow:hidden;background:#f9fafb}
+.pc-img img{width:100%;height:100%;object-fit:cover;transition:transform .38s}
+.pc:hover .pc-img img{transform:scale(1.06)}
+.pc-body{padding:14px 14px 16px;display:flex;flex-direction:column;flex:1}
+.pc-brand{font-size:12px;font-weight:600;color:var(--t3);margin-bottom:5px}
+.pc-name{font-size:15px;font-weight:800;color:#111827;line-height:1.35;margin-bottom:10px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.pc-pr{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.pc-cur{font-size:19px;font-weight:900;color:#111827}
+.pc-old{font-size:13px;font-weight:600;color:var(--t3);text-decoration:line-through}
+.pc-off{font-size:13px;font-weight:800;color:#2448e0}
+.pc-btn{display:block;width:100%;text-align:center;background:var(--bl);color:#fff;padding:12px 0;border-radius:10px;font-size:14px;font-weight:900;margin-top:auto;transition:background .18s,transform .15s}
+.pc-btn:hover{background:var(--bl2);transform:scale(1.02)}
+/* No results */
+.no-results{display:none;grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--t3);font-size:16px;font-weight:700}
+.no-results.show{display:block}
+/* LOAD MORE */
+.lm-wrap{text-align:center;margin-top:32px}
+.lm-btn{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1.5px solid var(--bd);color:var(--t2);padding:12px 36px;border-radius:100px;font-size:14px;font-weight:800;cursor:pointer;transition:all .22s;box-shadow:var(--sh)}
+.lm-btn:hover{background:var(--bl);border-color:var(--bl);color:#fff;transform:translateY(-2px)}
+/* FOOTER */
+.ft{background:#111827;color:rgba(255,255,255,.72);padding:28px 0}
+.ft-in{max-width:1320px;margin:0 auto;padding:0 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:12px;color:rgba(255,255,255,.38)}
+.ft-logo{font-size:18px;font-weight:900;color:#fff}
+.ft-logo em{color:var(--or);font-style:normal}
+/* FADE-IN */
+.fu{opacity:0;transform:translateY(16px);transition:opacity .45s,transform .45s}
+.fu.vis{opacity:1;transform:none}
+/* MOBILE */
+@media(max-width:700px){
+  .wrap{padding:20px 12px 48px}
+  .page-hero{padding:28px 0 24px}
+  .hero-stats{gap:10px}
+  .h-stat{padding:8px 12px}
+  .h-stat-num{font-size:16px}
+  .toolbar{padding:10px 14px}
+  .pills{gap:6px}
+  .pill{padding:7px 14px;font-size:12px}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="hdr">
+  <div class="hdr-in">
+    <button class="hbg" id="hbgBtn"><span></span><span></span><span></span></button>
+    <a href="index.html">
+      <img class="logo-img" src="images/logo.png" alt="dealswala.shop"
+        onerror="this.style.display='none';document.querySelector('.logo-txt').style.display='block'">
+      <span class="logo-txt">deals<em>wala</em></span>
+    </a>
+  </div>
+</header>
+
+<div class="ov" id="ov"></div>
+
+<!-- DRAWER
+     Structure:
+     1. "All Categories" accordion (toggle) → 9 clickable category links inside
+     2. "Credit Cards" — major clickable link
+     3. "Blog"         — major clickable link
+-->
+<aside class="drw" id="drw">
+
+  <div class="drw-hdr">
+    <span class="drw-logo">deals<em>wala</em></span>
+    <button class="drw-x" id="drwX">✕</button>
+  </div>
+
+  <!-- 1. ALL CATEGORIES accordion toggle -->
+  <div class="drw-acc-hdr" id="accHdr">
+    <span class="drw-acc-label">🗂️ All Categories</span>
+    <span class="drw-acc-arrow">›</span>
+  </div>
+  <div class="drw-acc-body" id="accBody">
+    <a href="all-deals.html?category=fashion"     class="drw-cat-lnk"><div class="dci" style="background:#ffe8f0">👗</div>Fashion</a>
+    <a href="all-deals.html?category=electronics" class="drw-cat-lnk"><div class="dci" style="background:#e8f0ff">💻</div>Electronics</a>
+    <a href="all-deals.html?category=beauty"      class="drw-cat-lnk"><div class="dci" style="background:#fff0f8">💄</div>Beauty</a>
+    <a href="all-deals.html?category=home"        class="drw-cat-lnk"><div class="dci" style="background:#fff8e8">🏠</div>Home</a>
+    <a href="all-deals.html?category=health"      class="drw-cat-lnk"><div class="dci" style="background:#e8fff0">💪</div>Health &amp; Wellness</a>
+    <a href="all-deals.html?category=kids"        class="drw-cat-lnk"><div class="dci" style="background:#fff0e8">👶</div>Kids</a>
+    <a href="all-deals.html?category=laptops"     class="drw-cat-lnk"><div class="dci" style="background:#e8f4ff">🖥️</div>Laptops</a>
+    <a href="all-deals.html?category=mobiles"     class="drw-cat-lnk"><div class="dci" style="background:#f0e8ff">📱</div>Mobiles</a>
+    <a href="all-deals.html?category=grocery"     class="drw-cat-lnk"><div class="dci" style="background:#e8fff8">🛒</div>Grocery</a>
+  </div>
+
+  <!-- 2. CREDIT CARDS — major link -->
+  <a href="credit-cards.html" class="drw-major">
+    <div class="mico" style="background:#eff6ff">💳</div>
+    Credit Cards
+  </a>
+
+  <!-- 3. BLOG — major link -->
+  <a href="blog.html" class="drw-major">
+    <div class="mico" style="background:#fff7ed">📝</div>
+    Blog &amp; Articles
+  </a>
+
+</aside>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="ph-in">
+    <h1>🔥 Latest Deals</h1>
+    <p>Verified offers updated daily across all categories</p>
+    <div class="hero-stats">
+      <div class="h-stat"><div class="h-stat-num">12</div><div class="h-stat-lbl">Active Deals</div></div>
+      <div class="h-stat"><div class="h-stat-num">Upto 84%</div><div class="h-stat-lbl">Max Discount</div></div>
+      <div class="h-stat"><div class="h-stat-num">₹50K+</div><div class="h-stat-lbl">Saved This Week</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- BREADCRUMB -->
+<div class="bc">
+  <div class="bc-in">
+    <a href="index.html">Home</a><span>›</span><span>All Deals</span>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="wrap">
+
+  <!-- Toolbar -->
+  <div class="toolbar fu">
+    <div class="tc">Showing <strong id="countText">12 deals</strong></div>
+    <div class="sort-row">
+      <span class="sort-lbl">Sort:</span>
+      <select class="sort-sel">
+        <option>Best Discount</option>
+        <option>Newest First</option>
+        <option>Price: Low to High</option>
+        <option>Price: High to Low</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- FILTER PILLS — 10 unique slugs (all + 9 categories) -->
+  <div class="pills fu">
+    <button class="pill" data-category="all">All</button>
+    <button class="pill" data-category="fashion">👗 Fashion</button>
+    <button class="pill" data-category="electronics">💻 Electronics</button>
+    <button class="pill" data-category="beauty">💄 Beauty</button>
+    <button class="pill" data-category="home">🏠 Home</button>
+    <button class="pill" data-category="health">💪 Health &amp; Wellness</button>
+    <button class="pill" data-category="kids">👶 Kids</button>
+    <button class="pill" data-category="laptops">🖥️ Laptops</button>
+    <button class="pill" data-category="mobiles">📱 Mobiles</button>
+    <button class="pill" data-category="grocery">🛒 Grocery</button>
+  </div>
+
+  <!-- PRODUCT GRID -->
+  <div class="prod-grid fu" id="prodGrid">
+
+    <div class="no-results" id="noResults">😕 No deals found. Try another category!</div>
+
+
+<!-- CARD 1 · beauty -->
+<a href="https://amzn.to/4m29HNe" class="pc fu" data-category="beauty">
+  <span class="pc-badge">41% off</span>
+  <div class="pc-img">
+    <img src="https://m.media-amazon.com/images/I/41FkrmbWMkL._SL1000_.jpg" alt="Eyeconic Waterproof Liquid Eyeliner">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">LAKME</div>
+    <div class="pc-name">Eyeconic Waterproof Liquid Eyeliner</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹191</span>
+      <span class="pc-old">₹325</span>
+      <span class="pc-off">(41% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 2 · home -->
+<a href="https://amzn.to/4tbedLk" class="pc fu" data-category="home">
+  <span class="pc-badge">75% off</span>
+  <div class="pc-img">
+    <img src="https://m.media-amazon.com/images/I/81jLRi7zxtL._SL1500_.jpg" alt="Ram Lalla Murti">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">Artbiz</div>
+    <div class="pc-name">Ram Lalla Murti</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹399</span>
+      <span class="pc-old">₹1599</span>
+      <span class="pc-off">(75% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 3 · mobiles -->
+<a href="https://amzn.to/4rYLXus" class="pc fu" data-category="mobiles">
+  <span class="pc-badge">27% off</span>
+  <div class="pc-img">
+    <img src="https://m.media-amazon.com/images/I/610lbucItmL._SL1500_.jpg" alt="Galaxy M07 Mobile">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">Samsung </div>
+    <div class="pc-name">Galaxy M07 Mobile</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹7999</span>
+      <span class="pc-old">₹10999</span>
+      <span class="pc-off">(27% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 4 · kids -->
+<a href="https://amzn.to/4bSpXeT" class="pc fu" data-category="kids">
+  <span class="pc-badge">43% off</span>
+  <div class="pc-img">
+    <img src="https://m.media-amazon.com/images/I/61HU5f3wKaL._SY879_.jpg" alt="Girls' Striped Co-ord Set">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">Kidbea</div>
+    <div class="pc-name">Girls' Striped Co-ord Set</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹849</span>
+      <span class="pc-old">₹1499</span>
+      <span class="pc-off">(43% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 5 · kids -->
+<a href="https://amzn.to/4s0rlSC" class="pc fu" data-category="kids">
+  <span class="pc-badge">68% off</span>
+  <div class="pc-img">
+    <img src="https://m.media-amazon.com/images/I/51Q6vFc6AmL._SY879_.jpg" alt="Boys Cotton Clothing Set">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">RIZZQ</div>
+    <div class="pc-name">Boys Cotton Clothing Set</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹474</span>
+      <span class="pc-old">₹1499</span>
+      <span class="pc-off">(68% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 6 · electronics -->
+<a href="https://amzn.to/3PDwVwO" class="pc fu" data-category="electronics">
+  <span class="pc-badge">89% off</span>
+  <div class="pc-img">
+    <img src="https://m.media-amazon.com/images/I/61GTQaNz14L._SL1100_.jpg" alt="Rise Smart Watch 1.85″ HD Display">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">Fire‑Boltt</div>
+    <div class="pc-name">Rise Smart Watch 1.85″ HD Display</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹1299</span>
+      <span class="pc-old">₹11999</span>
+      <span class="pc-off">(89% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 7 · fashion -->
+<a href="https://bitli.in/u2A9FsY" class="pc fu" data-category="fashion">
+  <span class="pc-badge">50% off</span>
+  <div class="pc-img">
+    <img src="https://rigo.in/cdn/shop/files/WTOP320-1471MainPic_1080x.jpg?v=1745843262" alt="Women’s Waffle Texture Crop Top">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">Rigo</div>
+    <div class="pc-name">Women’s Waffle Texture Crop Top</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹549</span>
+      <span class="pc-old">₹1099</span>
+      <span class="pc-off">(50% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 8 · beauty -->
+<a href="https://amzn.to/4c9VQRs" class="pc fu" data-category="beauty">
+  <span class="pc-badge">48% off</span>
+  <div class="pc-img">
+    <img src="https://m.media-amazon.com/images/I/51ixwpTYK7L._SL1100_.jpg" alt="Purifying Neem Face Wash">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">Himalaya</div>
+    <div class="pc-name">Purifying Neem Face Wash</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹310</span>
+      <span class="pc-old">₹599</span>
+      <span class="pc-off">(48% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 9 · fashion -->
+<a href="https://myntr.it/RELii3J" class="pc fu" data-category="fashion">
+  <span class="pc-badge">67% off</span>
+  <div class="pc-img">
+    <img src="https://assets.myntassets.com/h_200,w_200,c_fill,g_auto/h_1440,q_75,w_1080/v1/assets/images/2025/JUNE/20/FvWZWu5s_6600dbfea418490f9cd616a896e2972f.jpg" alt="Men Loose Fit Shorts">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">HIGHLANDER
+</div>
+    <div class="pc-name">Men Loose Fit Shorts</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹899</span>
+      <span class="pc-old">₹2699</span>
+      <span class="pc-off">(67% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 10 · fashion -->
+<a href="https://amzn.to/4uUlp0b" class="pc fu" data-category="fashion">
+  <span class="pc-badge">81% off</span>
+  <div class="pc-img">
+    <img src="https://m.media-amazon.com/images/I/41tGbsN3b8L.jpg" alt="Men’s Stylish Cotton Blend Casual Shirt">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">DEELMO </div>
+    <div class="pc-name">Men’s Stylish Cotton Blend Casual Shirt</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹495</span>
+      <span class="pc-old">₹2599</span>
+      <span class="pc-off">(81% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 11 · fashion -->
+<a href="https://amzn.to/4lW9Otv" class="pc fu" data-category="fashion">
+  <span class="pc-badge">73% off</span>
+  <div class="pc-img">
+    <img src="https://m.media-amazon.com/images/I/71PJhJJZcBL._SY879_.jpg" alt="Rayon Viscose Bandhani Printed Kurti">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">GoSriKi</div>
+    <div class="pc-name">Rayon Viscose Bandhani Printed Kurti</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹699</span>
+      <span class="pc-old">₹2599</span>
+      <span class="pc-off">(73% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 12 · electronics -->
+<a href="https://amzn.to/47tDYhT" class="pc fu" data-category="electronics">
+  <span class="pc-badge">77% off</span>
+  <div class="pc-img">
+    <img src="https://m.media-amazon.com/images/I/51+e7yrgPpL._SL1500_.jpg" alt="VS104 Truly Wireless Earbuds">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">Noise</div>
+    <div class="pc-name">VS104 Truly Wireless Earbuds</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹799</span>
+      <span class="pc-old">₹3499</span>
+      <span class="pc-off">(77% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 13 · mobiles -->
+<a href="https://amzn.to/4bRvthY" class="pc fu" data-category="mobiles">
+  <span class="pc-badge">35% off</span>
+  <div class="pc-img">
+    <img src="https://m.media-amazon.com/images/I/71eUNTW+nJL._SL1500_.jpg" alt="Galaxy S24 FE 5G AI Smartphone">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">Samsung </div>
+    <div class="pc-name">Galaxy S24 FE 5G AI Smartphone</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹39029</span>
+      <span class="pc-old">₹59999</span>
+      <span class="pc-off">(35% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 14 · electronics -->
+<a href="https://amzn.to/4sKPHRO" class="pc fu" data-category="electronics">
+  <span class="pc-badge">57% off</span>
+  <div class="pc-img">
+    <img src="https://m.media-amazon.com/images/I/71QdB7hDCAL._SL1500_.jpg" alt="Boat 2025 Launch Rockerz 411">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">Boat</div>
+    <div class="pc-name">Boat 2025 Launch Rockerz 411</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹1299</span>
+      <span class="pc-old">₹2999</span>
+      <span class="pc-off">(57% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 15 · grocery -->
+<a href="https://amzn.to/47sgGsA" class="pc fu" data-category="grocery">
+  <span class="pc-badge">41% off</span>
+  <div class="pc-img">
+    <img src="https://m.media-amazon.com/images/I/61VPzj5dBML._SL1200_.jpg" alt="Navratan Mixture">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">Bikano</div>
+    <div class="pc-name">Navratan Mixture</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹168</span>
+      <span class="pc-old">₹285</span>
+      <span class="pc-off">(41% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 16 · fashion -->
+<a href="https://myntr.it/XwsZ6Q0" class="pc fu" data-category="fashion">
+  <span class="pc-badge">60% off</span>
+  <div class="pc-img">
+    <img src="https://assets.myntassets.com/h_200,w_200,c_fill,g_auto/h_1440,q_75,w_1080/v1/assets/images/2025/NOVEMBER/22/QbijvVj1_43d8025aadae495ca5cae4f1a016d840.jpg" alt="Sweetheart Neck Cotton Crop Regular Top">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">Burgstudio9</div>
+    <div class="pc-name">Sweetheart Neck Cotton Crop Regular Top</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹396</span>
+      <span class="pc-old">₹998</span>
+      <span class="pc-off">(60% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 17 · laptops -->
+<a href="https://amzn.to/3O2euS5" class="pc fu" data-category="laptops">
+  <span class="pc-badge">14% off</span>
+  <div class="pc-img">
+    <img src="https://m.media-amazon.com/images/I/61d+uhYgdNL._SL1500_.jpg" alt="Chromebook CX1405">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">ASUS</div>
+    <div class="pc-name">Chromebook CX1405</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹27490</span>
+      <span class="pc-old">₹31990</span>
+      <span class="pc-off">(14% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 18 · laptops -->
+<a href="https://amzn.to/4bQPxB3" class="pc fu" data-category="laptops">
+  <span class="pc-badge">57% off</span>
+  <div class="pc-img">
+    <img src="https://m.media-amazon.com/images/I/71h+7L8gcrL._SL1500_.jpg" alt="BrowseBook 14.1" FHD IPS Laptop">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">Neopticon</div>
+    <div class="pc-name">BrowseBook 14.1" FHD IPS Laptop</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹12990</span>
+      <span class="pc-old">₹30000</span>
+      <span class="pc-off">(57% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 19 · fashion -->
+<a href="https://amzn.to/4lVaJu0" class="pc fu" data-category="fashion">
+  <span class="pc-badge">82% off</span>
+  <div class="pc-img">
+    <img src="https://m.media-amazon.com/images/I/91n5s+BPQSL._SY879_.jpg" alt="Cotton Printed Readymade Salwar Suit">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">Rajnandini</div>
+    <div class="pc-name">Cotton Printed Readymade Salwar Suit</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹474</span>
+      <span class="pc-old">₹2663</span>
+      <span class="pc-off">(82% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 20 · electronics -->
+<a href="https://amzn.to/3PzS7nu" class="pc fu" data-category="electronics">
+  <span class="pc-badge">70% off</span>
+  <div class="pc-img">
+    <img src="https://m.media-amazon.com/images/I/71q1X+E4tSL._SL1500_.jpg" alt="Mustang Torq Wireless in Ear Earbuds">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">GOBOULT</div>
+    <div class="pc-name">Mustang Torq Wireless in Ear Earbuds</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹1799</span>
+      <span class="pc-old">₹5999</span>
+      <span class="pc-off">(70% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 21 · home -->
+<a href="https://amzn.to/4uWnecV" class="pc fu" data-category="home">
+  <span class="pc-badge">64% off</span>
+  <div class="pc-img">
+    <img src="https://m.media-amazon.com/images/I/71775fRr+gL._SL1500_.jpg" alt="Digital Kitchen Weighing Scale">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">ALISTON</div>
+    <div class="pc-name">Digital Kitchen Weighing Scale</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹215</span>
+      <span class="pc-old">₹599</span>
+      <span class="pc-off">(64% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 22 · beauty -->
+<a href="https://amzn.to/4sF4SvK" class="pc fu" data-category="beauty">
+  <span class="pc-badge">60% off</span>
+  <div class="pc-img">
+    <img src="https://m.media-amazon.com/images/I/71iAMC6U3dL._SL1500_.jpg" alt="Vatika Naturals Ayurvedic Shampoo">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">Dabur</div>
+    <div class="pc-name">Vatika Naturals Ayurvedic Shampoo</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹264</span>
+      <span class="pc-old">₹662</span>
+      <span class="pc-off">(60% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 23 · fashion -->
+<a href="https://amzn.to/4dfIuEe" class="pc fu" data-category="fashion">
+  <span class="pc-badge">91% off</span>
+  <div class="pc-img">
+    <img src="https://m.media-amazon.com/images/I/710dnChlpcS._SY695_.jpg" alt="Bohemian Multi-Color Earrings">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">YouBella</div>
+    <div class="pc-name">Bohemian Multi-Color Earrings</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹176</span>
+      <span class="pc-old">₹1999</span>
+      <span class="pc-off">(91% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 24 · kids -->
+<a href="https://amzn.to/4sOCkQc" class="pc fu" data-category="kids">
+  <span class="pc-badge">41% off</span>
+  <div class="pc-img">
+    <img src="https://m.media-amazon.com/images/I/61XC4-QDkKL._SL1500_.jpg" alt="Junior Ring (Plastic,Multicolour)">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">Little's</div>
+    <div class="pc-name">Junior Ring (Plastic,Multicolour)</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹146</span>
+      <span class="pc-old">₹249</span>
+      <span class="pc-off">(41% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 25 · health -->
+<a href="https://amzn.to/4rZaPlW" class="pc fu" data-category="health">
+  <span class="pc-badge">40% off</span>
+  <div class="pc-img">
+    <img src="https://m.media-amazon.com/images/I/81vvfDUMgcL._SL1500_.jpg" alt="Glucose-D Instant Energy Drink Powder">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">Dabur </div>
+    <div class="pc-name">Glucose-D Instant Energy Drink Powder</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹148</span>
+      <span class="pc-old">₹247</span>
+      <span class="pc-off">(40% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 26 · fashion -->
+<a href="https://bitli.in/1m8fPCW" class="pc fu" data-category="fashion">
+  <span class="pc-badge">66% off</span>
+  <div class="pc-img">
+    <img src="https://image.clovia.com/media/clovia-images/images/400x600/clovia-picture-lb0179f03-876205.jpg" alt="Print Me Pretty Pyjama in Powder Blue">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">Clovia</div>
+    <div class="pc-name">Print Me Pretty Pyjama in Powder Blue</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹399</span>
+      <span class="pc-old">₹1199</span>
+      <span class="pc-off">(66% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 27 · kids -->
+<a href="https://amzn.to/4sCEbrn" class="pc fu" data-category="kids">
+  <span class="pc-badge">61% off</span>
+  <div class="pc-img">
+    <img src="https://m.media-amazon.com/images/I/611lG1us0cL._SL1080_.jpg" alt="Toys 7 Pcs Rattle Set">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">Storio</div>
+    <div class="pc-name">Toys 7 Pcs Rattle Set</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹159</span>
+      <span class="pc-old">₹409</span>
+      <span class="pc-off">(61% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 28 · grocery -->
+<a href="https://amzn.to/4bD3vHN" class="pc fu" data-category="grocery">
+  <span class="pc-badge">35% off</span>
+  <div class="pc-img">
+    <img src="https://m.media-amazon.com/images/I/81EOSmJ7+rL._SL1500_.jpg" alt="Green Apple Fruit Drink">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">Del Monte</div>
+    <div class="pc-name">Green Apple Fruit Drink</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹196</span>
+      <span class="pc-old">₹300</span>
+      <span class="pc-off">(35% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 29 · fashion -->
+<a href="https://amzn.to/4d8rRua" class="pc fu" data-category="fashion">
+  <span class="pc-badge">77% off</span>
+  <div class="pc-img">
+    <img src="https://m.media-amazon.com/images/I/61F348t3NML._SX679_.jpg" alt="Soft Cotton Adjustable Unisex Cap">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">SELLORIA</div>
+    <div class="pc-name">Soft Cotton Adjustable Unisex Cap</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹234</span>
+      <span class="pc-old">₹999</span>
+      <span class="pc-off">(77% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 30 · mobiles -->
+<a href="https://amzn.to/4tbyyjE" class="pc fu" data-category="mobiles">
+  <span class="pc-badge">47% off</span>
+  <div class="pc-img">
+    <img src="https://m.media-amazon.com/images/I/61rU5cgT0rL._SL1280_.jpg" alt="POP X (Flare White, 4GB+64GB) ">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">Tecno</div>
+    <div class="pc-name">POP X (Flare White, 4GB+64GB) </div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹8499</span>
+      <span class="pc-old">₹15999</span>
+      <span class="pc-off">(47% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 31 · fashion -->
+<a href="https://amzn.to/3PLogsc" class="pc fu" data-category="fashion">
+  <span class="pc-badge">76% off</span>
+  <div class="pc-img">
+    <img src="https://m.media-amazon.com/images/I/61SB14qT0EL._SY879_.jpg" alt="Printed Striped Stylish Latest Formal Shirt">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">U TURN</div>
+    <div class="pc-name">Printed Striped Stylish Latest Formal Shirt</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹379</span>
+      <span class="pc-old">₹1599</span>
+      <span class="pc-off">(76% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 32 · kids -->
+<a href="https://amzn.to/4lYD0jt" class="pc fu" data-category="kids">
+  <span class="pc-badge">81% off</span>
+  <div class="pc-img">
+    <img src="https://m.media-amazon.com/images/I/71Nfl0irvUL._SX679_.jpg" alt="150-Pack Drawing Painting Set for Kids">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">Cable World</div>
+    <div class="pc-name">150-Pack Drawing Painting Set for Kids</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹299</span>
+      <span class="pc-old">₹1599</span>
+      <span class="pc-off">(81% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 33 · beauty -->
+<a href="https://amzn.to/4teVw9U" class="pc fu" data-category="beauty">
+  <span class="pc-badge">45% off</span>
+  <div class="pc-img">
+    <img src="https://m.media-amazon.com/images/I/51ZLM+t9+yL._SL1000_.jpg" alt="Deeply Nourishing Body Wash">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">Dove</div>
+    <div class="pc-name">Deeply Nourishing Body Wash</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹308</span>
+      <span class="pc-old">₹560</span>
+      <span class="pc-off">(45% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 34 · fashion -->
+<a href="https://amzn.to/3PO5sbM" class="pc fu" data-category="fashion">
+  <span class="pc-badge">87% off</span>
+  <div class="pc-img">
+    <img src="https://m.media-amazon.com/images/I/81kLhCWFSjL._SX679_.jpg" alt="Leather Strap Analog Wrist Watch">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">LOUIS DEVIN</div>
+    <div class="pc-name">Leather Strap Analog Wrist Watch</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹317</span>
+      <span class="pc-old">₹2399</span>
+      <span class="pc-off">(87% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 35 · grocery -->
+<a href="https://amzn.to/3PPtXFw" class="pc fu" data-category="grocery">
+  <span class="pc-badge">19% off</span>
+  <div class="pc-img">
+    <img src="https://m.media-amazon.com/images/I/71OexQTz4-L._SL1500_.jpg" alt="Classic Instant Coffee Powder">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">NESCAFE</div>
+    <div class="pc-name">Classic Instant Coffee Powder</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹360</span>
+      <span class="pc-old">₹445</span>
+      <span class="pc-off">(19% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 36 · fashion -->
+<a href="https://amzn.to/4df32g5" class="pc fu" data-category="fashion">
+  <span class="pc-badge">57% off</span>
+  <div class="pc-img">
+    <img src="https://m.media-amazon.com/images/I/71V4GGv1edL._SY695_.jpg" alt="Men Lace Up Basketball Shoe">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">Bacca Bucci</div>
+    <div class="pc-name">Men Lace Up Basketball Shoe</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹1494</span>
+      <span class="pc-old">₹3499</span>
+      <span class="pc-off">(57% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 37 · health -->
+<a href="https://amzn.to/410cMU7" class="pc fu" data-category="health">
+  <span class="pc-badge">37% off</span>
+  <div class="pc-img">
+    <img src="https://m.media-amazon.com/images/I/61Z+fB4vGoL._SL1500_.jpg" alt="Pancharishta Ayurvedic Digestive Tonic">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">Zandu</div>
+    <div class="pc-name">Pancharishta Ayurvedic Digestive Tonic</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹219</span>
+      <span class="pc-old">₹350</span>
+      <span class="pc-off">(37% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 38 · health -->
+<a href="https://amzn.to/4bBhtKi" class="pc fu" data-category="health">
+  <span class="pc-badge">51% off</span>
+  <div class="pc-img">
+    <img src="https://m.media-amazon.com/images/I/711BtjiDpxL._SL1500_.jpg" alt="Dabur Tulsi Drops- 50% Extra">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">Dabur </div>
+    <div class="pc-name">Dabur Tulsi Drops- 50% Extra</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹96</span>
+      <span class="pc-old">₹195</span>
+      <span class="pc-off">(51% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 39 · electronics -->
+<a href="https://bitli.in/n6PZdwt" class="pc fu" data-category="electronics">
+  <span class="pc-badge">87% off</span>
+  <div class="pc-img">
+    <img src="https://www.fireboltt.com/cdn/shop/files/1_f0391c8d-5343-41c7-9e89-75e8971b1c91_1800x1800.png?v=1768561496" alt="Phoenix - Black">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">Fire‑Boltt</div>
+    <div class="pc-name">Phoenix - Black</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹1299</span>
+      <span class="pc-old">₹9999</span>
+      <span class="pc-off">(87% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 40 · fashion -->
+<a href="https://amzn.to/4rWWh6o" class="pc fu" data-category="fashion">
+  <span class="pc-badge">65% off</span>
+  <div class="pc-img">
+    <img src="https://m.media-amazon.com/images/I/51pDTyN91pL._SY879_.jpg" alt="Cotton Oversized T-Shirt Unisex">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">boffi ...</div>
+    <div class="pc-name">Cotton Oversized T-Shirt Unisex</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹350</span>
+      <span class="pc-old">₹999</span>
+      <span class="pc-off">(65% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 41 · kids -->
+<a href="https://amzn.to/4caZfzn" class="pc fu" data-category="kids">
+  <span class="pc-badge">73% off</span>
+  <div class="pc-img">
+    <img src="https://m.media-amazon.com/images/I/61nDvtxeqwL._SX679_.jpg" alt="Cute Cartoon Plush Kids Backpack">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">LUXIVA</div>
+    <div class="pc-name">Cute Cartoon Plush Kids Backpack</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹271</span>
+      <span class="pc-old">₹999</span>
+      <span class="pc-off">(73% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 42 · electronics -->
+<a href="https://bitli.in/wS1eggj" class="pc fu" data-category="electronics">
+  <span class="pc-badge">92% off</span>
+  <div class="pc-img">
+    <img src="https://www.fireboltt.com/cdn/shop/files/aero_1_5e335aca-6df8-4c6b-96dc-4a20249945f9_1800x1800.jpg?v=1769065509" alt="FirePods Aero TWS - Black">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">Fire‑Boltt</div>
+    <div class="pc-name">FirePods Aero TWS - Black</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹699</span>
+      <span class="pc-old">₹8999</span>
+      <span class="pc-off">(92% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 43 · fashion -->
+<a href="https://bitli.in/9IfoyTm" class="pc fu" data-category="fashion">
+  <span class="pc-badge">76% off</span>
+  <div class="pc-img">
+    <img src="https://image.clovia.com/media/clovia-images/images/400x600/clovia-picture-at0153p12-924019.jpg" alt="Comfort-Fit Active Crop Top in Lilac">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">Clovia</div>
+    <div class="pc-name">Comfort-Fit Active Crop Top in Lilac</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹288</span>
+      <span class="pc-old">₹1199</span>
+      <span class="pc-off">(76% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 44 · grocery -->
+<a href="https://amzn.to/4bNzSSY" class="pc fu" data-category="grocery">
+  <span class="pc-badge">34% off</span>
+  <div class="pc-img">
+    <img src="https://m.media-amazon.com/images/I/51vWn2zfrJL._SL1500_.jpg" alt="Swing Yummy Guava Juice">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">Paper Boat</div>
+    <div class="pc-name">Swing Yummy Guava Juice</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹73</span>
+      <span class="pc-old">₹110</span>
+      <span class="pc-off">(34% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 45 · fashion -->
+<a href="https://amzn.to/48brk7e" class="pc fu" data-category="fashion">
+  <span class="pc-badge">80% off</span>
+  <div class="pc-img">
+    <img src="https://m.media-amazon.com/images/I/81-LjInwmFL._SL1500_.jpg" alt="Olive Leather Men's Wallet">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">WildHorn</div>
+    <div class="pc-name">Olive Leather Men's Wallet</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹298</span>
+      <span class="pc-old">₹1499</span>
+      <span class="pc-off">(80% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 46 · fashion -->
+<a href="https://amzn.to/3PzQFS4" class="pc fu" data-category="fashion">
+  <span class="pc-badge">82% off</span>
+  <div class="pc-img">
+    <img src="https://m.media-amazon.com/images/I/51gC4waUH0L._SX679_.jpg" alt="Polygon Diamond Shaped Metal Frame Punk Sunglasses">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">Dervin</div>
+    <div class="pc-name">Polygon Diamond Shaped Metal Frame Punk Sunglasses</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹368</span>
+      <span class="pc-old">₹1999</span>
+      <span class="pc-off">(82% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 47 · beauty -->
+<a href="https://amzn.to/3NtmuLO" class="pc fu" data-category="beauty">
+  <span class="pc-badge">40% off</span>
+  <div class="pc-img">
+    <img src="https://m.media-amazon.com/images/I/51FJJi7f8XL._SL1200_.jpg" alt="Luminous Even Glow Face Wash">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">NIVEA</div>
+    <div class="pc-name">Luminous Even Glow Face Wash</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹151</span>
+      <span class="pc-old">₹250</span>
+      <span class="pc-off">(40% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 48 · fashion -->
+<a href="https://bitli.in/bDiwTU7" class="pc fu" data-category="fashion">
+  <span class="pc-badge">58% off</span>
+  <div class="pc-img">
+    <img src="https://image.clovia.com/media/clovia-images/images/400x600/clovia-picture-ns1566p22-437738.jpg" alt="Chic Floral Print Short Nighty">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">Clovia</div>
+    <div class="pc-name">Chic Floral Print Short Nighty</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹699</span>
+      <span class="pc-old">₹1699</span>
+      <span class="pc-off">(58% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 49 · health -->
+<a href="https://amzn.to/4bSFivZ" class="pc fu" data-category="health">
+  <span class="pc-badge">38% off</span>
+  <div class="pc-img">
+    <img src="https://m.media-amazon.com/images/I/51MdeJAOaML._SL1000_.jpg" alt="Dr. Ortho Pain Reliever Spray">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">Dr Ortho</div>
+    <div class="pc-name">Dr. Ortho Pain Reliever Spray</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹205</span>
+      <span class="pc-old">₹330</span>
+      <span class="pc-off">(38% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 50 · fashion -->
+<a href="https://amzn.to/47o3Yer" class="pc fu" data-category="fashion">
+  <span class="pc-badge">77% off</span>
+  <div class="pc-img">
+    <img src="https://m.media-amazon.com/images/I/61YWdqkF8iL._SY879_.jpg" alt="Asymmetric Hem Stretchable Draped Crop Top">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">Istyle Can</div>
+    <div class="pc-name">Asymmetric Hem Stretchable Draped Crop Top</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹228</span>
+      <span class="pc-old">₹999</span>
+      <span class="pc-off">(77% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 51 · fashion -->
+<a href="https://bitli.in/emcwVmY" class="pc fu" data-category="fashion">
+  <span class="pc-badge">64% off</span>
+  <div class="pc-img">
+    <img src="https://image.clovia.com/media/clovia-images/images/400x600/clovia-picture-brs083p03-142628.jpg" alt="Ombre Print Seamless Sports Bra">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">Clovia</div>
+    <div class="pc-name">Ombre Print Seamless Sports Bra</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹499</span>
+      <span class="pc-old">₹1399</span>
+      <span class="pc-off">(64% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 52 · fashion -->
+<a href="https://amzn.to/4tgB7Bl" class="pc fu" data-category="fashion">
+  <span class="pc-badge">75% off</span>
+  <div class="pc-img">
+    <img src="https://m.media-amazon.com/images/I/51efXl8NOnL._SY879_.jpg" alt="Men's Lycra Cargo Track Pants">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">GRECIILOOKS</div>
+    <div class="pc-name">Men's Lycra Cargo Track Pants</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹499</span>
+      <span class="pc-old">₹1999</span>
+      <span class="pc-off">(75% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 53 · fashion -->
+<a href="https://amzn.to/4bPt4UP" class="pc fu" data-category="fashion">
+  <span class="pc-badge">76% off</span>
+  <div class="pc-img">
+    <img src="https://m.media-amazon.com/images/I/51p88hpTrLL._SY695_.jpg" alt="Women's Block Heel Boots">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">Shoetopia</div>
+    <div class="pc-name">Women's Block Heel Boots</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹708</span>
+      <span class="pc-old">₹2999</span>
+      <span class="pc-off">(76% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 54 · electronics -->
+<a href="https://amzn.to/48bsJL2" class="pc fu" data-category="electronics">
+  <span class="pc-badge">20% off</span>
+  <div class="pc-img">
+    <img src="https://m.media-amazon.com/images/I/61nFKgi0qPL._SL1500_.jpg" alt="Nord Buds 3r TWS Earbuds">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">OnePlus</div>
+    <div class="pc-name">Nord Buds 3r TWS Earbuds</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹1599</span>
+      <span class="pc-old">₹1999</span>
+      <span class="pc-off">(20% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 55 · fashion -->
+<a href="https://amzn.to/40Z2mUL" class="pc fu" data-category="fashion">
+  <span class="pc-badge">77% off</span>
+  <div class="pc-img">
+    <img src="https://m.media-amazon.com/images/I/71mtw+e95QL._SX679_.jpg" alt="Men's Cotton Oversized Fit Casual Printed tshirt">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">London Hills</div>
+    <div class="pc-name">Men's Cotton Oversized Fit Casual Printed tshirt</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹299</span>
+      <span class="pc-old">₹1299</span>
+      <span class="pc-off">(77% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 56 · laptops -->
+<a href="https://amzn.to/4dgC6g8" class="pc fu" data-category="laptops">
+  <span class="pc-badge">45% off</span>
+  <div class="pc-img">
+    <img src="https://m.media-amazon.com/images/I/71rDlgf2Q6L._SL1500_.jpg" alt="HP 15 255R G10, AMD Ryzen 5 7535U Hexa Core">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">HP</div>
+    <div class="pc-name">HP 15 255R G10, AMD Ryzen 5 7535U Hexa Core</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹41209</span>
+      <span class="pc-old">₹74990</span>
+      <span class="pc-off">(45% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 57 · fashion -->
+<a href="https://amzn.to/3PKqVSX" class="pc fu" data-category="fashion">
+  <span class="pc-badge">60% off</span>
+  <div class="pc-img">
+    <img src="https://m.media-amazon.com/images/I/51PXGancElL._SY695_.jpg" alt="anti slip slippers for boys">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">Boldfit</div>
+    <div class="pc-name">anti slip slippers for boys</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹399</span>
+      <span class="pc-old">₹999</span>
+      <span class="pc-off">(60% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 58 · health -->
+<a href="https://amzn.to/4s1aUFJ" class="pc fu" data-category="health">
+  <span class="pc-badge">57% off</span>
+  <div class="pc-img">
+    <img src="https://m.media-amazon.com/images/I/316-nD0fnVL.jpg" alt="Clavicle Support – Posture Corrector Belt">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">DOLTAS </div>
+    <div class="pc-name">Clavicle Support – Posture Corrector Belt</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹299</span>
+      <span class="pc-old">₹699</span>
+      <span class="pc-off">(57% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 59 · electronics -->
+<a href="https://amzn.to/3PO474J" class="pc fu" data-category="electronics">
+  <span class="pc-badge">60% off</span>
+  <div class="pc-img">
+    <img src="https://m.media-amazon.com/images/I/719tcBRmrUL._SL1500_.jpg" alt="EnergyShroom PB300 Activ 10000mAh Power Bank">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">Boat</div>
+    <div class="pc-name">EnergyShroom PB300 Activ 10000mAh Power Bank</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹999</span>
+      <span class="pc-old">₹2499</span>
+      <span class="pc-off">(60% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 60 · beauty -->
+<a href="https://amzn.to/4uXq3dV" class="pc fu" data-category="beauty">
+  <span class="pc-badge">50% off</span>
+  <div class="pc-img">
+    <img src="https://m.media-amazon.com/images/I/41gtDaYQqSL._SL1000_.jpg" alt="Intense Repair Conditioner">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">Dove</div>
+    <div class="pc-name">Intense Repair Conditioner</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹262</span>
+      <span class="pc-old">₹525</span>
+      <span class="pc-off">(50% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 61 · home -->
+<a href="https://amzn.to/4bXpf05" class="pc fu" data-category="home">
+  <span class="pc-badge">61% off</span>
+  <div class="pc-img">
+    <img src="https://m.media-amazon.com/images/I/61uG5z8r8qL._SL1280_.jpg" alt="Fan Cleaning Mop Microfiber Duster">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">UCRAVO</div>
+    <div class="pc-name">Fan Cleaning Mop Microfiber Duster</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹197</span>
+      <span class="pc-old">₹499</span>
+      <span class="pc-off">(61% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 62 · grocery -->
+<a href="https://amzn.to/4s4Izyi" class="pc fu" data-category="grocery">
+  <span class="pc-badge">49% off</span>
+  <div class="pc-img">
+    <img src="https://m.media-amazon.com/images/I/51mqMmhG-sL.jpg" alt="Red Chilli Powder Pouch">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">Kewal</div>
+    <div class="pc-name">Red Chilli Powder Pouch</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹113</span>
+      <span class="pc-old">₹220</span>
+      <span class="pc-off">(49% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 63 · home -->
+<a href="https://amzn.to/3POd26d" class="pc fu" data-category="home">
+  <span class="pc-badge">82% off</span>
+  <div class="pc-img">
+    <img src="https://m.media-amazon.com/images/I/41LEa9p287L.jpg" alt="Portable Mini Sealing Machine">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">LuxHaven</div>
+    <div class="pc-name">Portable Mini Sealing Machine</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹179</span>
+      <span class="pc-old">₹999</span>
+      <span class="pc-off">(82% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 64 · kids -->
+<a href="https://amzn.to/4uY0IQX" class="pc fu" data-category="kids">
+  <span class="pc-badge">83% off</span>
+  <div class="pc-img">
+    <img src="https://m.media-amazon.com/images/I/415ZploGdpL.jpg" alt="Shinchan Soft Lovable hugable Cute Teddy ">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">HUG 'n' FEEL</div>
+    <div class="pc-name">Shinchan Soft Lovable hugable Cute Teddy </div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹376</span>
+      <span class="pc-old">₹2199</span>
+      <span class="pc-off">(83% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 65 · kids -->
+<a href="https://amzn.to/3O2k4ns" class="pc fu" data-category="kids">
+  <span class="pc-badge">70% off</span>
+  <div class="pc-img">
+    <img src="https://m.media-amazon.com/images/I/61Kb6Fi9pJL._SL1500_.jpg" alt="Leak Proof Straw Water Bottle with Strap">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">JOUET</div>
+    <div class="pc-name">Leak Proof Straw Water Bottle with Strap</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹299</span>
+      <span class="pc-old">₹999</span>
+      <span class="pc-off">(70% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 66 · health -->
+<a href="https://bitli.in/2VmjKII" class="pc fu" data-category="health">
+  <span class="pc-badge">44% off</span>
+  <div class="pc-img">
+    <img src="https://www.guardian.in/cdn/shop/files/Artboard_2_e810dea0-97fc-4154-be2c-fd2b4b1eb36f.png?v=1764250127&width=900" alt="Creatine Monohydrate">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">GNC Pro</div>
+    <div class="pc-name">Creatine Monohydrate</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹449</span>
+      <span class="pc-old">₹799</span>
+      <span class="pc-off">(44% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 67 · kids -->
+<a href="https://amzn.to/3PLlQtB" class="pc fu" data-category="kids">
+  <span class="pc-badge">57% off</span>
+  <div class="pc-img">
+    <img src="https://m.media-amazon.com/images/I/71r30AguKSL._SL1500_.jpg" alt="Fashion Girl Doll/Doll Toy">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">EL FIGO</div>
+    <div class="pc-name">Fashion Girl Doll/Doll Toy</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹298</span>
+      <span class="pc-old">₹699</span>
+      <span class="pc-off">(57% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 68 · health -->
+<a href="https://amzn.to/4bTdIP4" class="pc fu" data-category="health">
+  <span class="pc-badge">30% off</span>
+  <div class="pc-img">
+    <img src="https://m.media-amazon.com/images/I/81zraOoZp1L._SL1500_.jpg" alt="Gas-O-Fast For Relieving Acidity, Active Jeera">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">Mankind </div>
+    <div class="pc-name">Gas-O-Fast For Relieving Acidity, Active Jeera</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹337</span>
+      <span class="pc-old">₹480</span>
+      <span class="pc-off">(30% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 69 · home -->
+<a href="https://amzn.to/4bSWbqi" class="pc fu" data-category="home">
+  <span class="pc-badge">65% off</span>
+  <div class="pc-img">
+    <img src="https://m.media-amazon.com/images/I/610biGbcawL._SL1500_.jpg" alt="Mid Century Plant Stand/Table, Gamla Stand">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">UHUD CRAFTS</div>
+    <div class="pc-name">Mid Century Plant Stand/Table, Gamla Stand</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹349</span>
+      <span class="pc-old">₹999</span>
+      <span class="pc-off">(65% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 70 · grocery -->
+<a href="https://amzn.to/4rZCrqY" class="pc fu" data-category="grocery">
+  <span class="pc-badge">42% off</span>
+  <div class="pc-img">
+    <img src="https://m.media-amazon.com/images/I/61HWmesEe-L.jpg" alt="Arhar Dal (Toor Dal)">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">Fortune</div>
+    <div class="pc-name">Arhar Dal (Toor Dal)</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹145</span>
+      <span class="pc-old">₹249</span>
+      <span class="pc-off">(42% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 71 · laptops -->
+<a href="https://amzn.to/4sD64Q5" class="pc fu" data-category="laptops">
+  <span class="pc-badge">26% off</span>
+  <div class="pc-img">
+    <img src="https://m.media-amazon.com/images/I/71aup0IO2ZL._SL1500_.jpg" alt="Lenovo V15 G4 AMD Ryzen 5 7520U 15.6 inch FHD Laptop">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">Lenovo</div>
+    <div class="pc-name">Lenovo V15 G4 AMD Ryzen 5 7520U 15.6 inch FHD Laptop</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹44550</span>
+      <span class="pc-old">₹59800</span>
+      <span class="pc-off">(26% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 72 · kids -->
+<a href="https://amzn.to/4bF8sji" class="pc fu" data-category="kids">
+  <span class="pc-badge">69% off</span>
+  <div class="pc-img">
+    <img src="https://m.media-amazon.com/images/I/71HsQUHZFxL._SL1500_.jpg" alt="Soft Cleansing Baby Wipes with Lid">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">Little's</div>
+    <div class="pc-name">Soft Cleansing Baby Wipes with Lid</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹206</span>
+      <span class="pc-old">₹660</span>
+      <span class="pc-off">(69% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 73 · home -->
+<a href="https://amzn.to/47vQOMp" class="pc fu" data-category="home">
+  <span class="pc-badge">29% off</span>
+  <div class="pc-img">
+    <img src="https://m.media-amazon.com/images/I/71EroFTNnzL._SL1500_.jpg" alt="Good Luck Money Plant">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">Ugaoo</div>
+    <div class="pc-name">Good Luck Money Plant</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹279</span>
+      <span class="pc-old">₹395</span>
+      <span class="pc-off">(29% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 74 · kids -->
+<a href="https://amzn.to/4veVqRx" class="pc fu" data-category="kids">
+  <span class="pc-badge">70% off</span>
+  <div class="pc-img">
+    <img src="https://m.media-amazon.com/images/I/715-zLWJP2L._SL1500_.jpg" alt="DIY Mould and Paint Craft kit">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">SUPER TOY</div>
+    <div class="pc-name">DIY Mould and Paint Craft kit</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹299</span>
+      <span class="pc-old">₹999</span>
+      <span class="pc-off">(70% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 75 · grocery -->
+<a href="https://amzn.to/4s56rSh" class="pc fu" data-category="grocery">
+  <span class="pc-badge">13% off</span>
+  <div class="pc-img">
+    <img src="https://m.media-amazon.com/images/I/614mm2hYHyL._SL1000_.jpg" alt="Tata Salt 1 Kg">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">Tata</div>
+    <div class="pc-name">Tata Salt 1 Kg</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹26</span>
+      <span class="pc-old">₹30</span>
+      <span class="pc-off">(13% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 76 · home -->
+<a href="https://amzn.to/4uXMXlc" class="pc fu" data-category="home">
+  <span class="pc-badge">77% off</span>
+  <div class="pc-img">
+    <img src="https://m.media-amazon.com/images/I/81+UK3lmWiL._SL1500_.jpg" alt="Plastic Warm White Swastik Curtain Light">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">Desidiya</div>
+    <div class="pc-name">Plastic Warm White Swastik Curtain Light</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹458</span>
+      <span class="pc-old">₹1999</span>
+      <span class="pc-off">(77% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 77 · laptops -->
+<a href="https://amzn.to/4lZ3K3q" class="pc fu" data-category="laptops">
+  <span class="pc-badge">35% off</span>
+  <div class="pc-img">
+    <img src="https://m.media-amazon.com/images/I/61CISrp2PzL._SL1500_.jpg" alt="Aspire 3">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">acer</div>
+    <div class="pc-name">Aspire 3</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹35499</span>
+      <span class="pc-old">₹55000</span>
+      <span class="pc-off">(35% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 78 · electronics -->
+<a href="https://amzn.to/41xBtrb" class="pc fu" data-category="electronics">
+  <span class="pc-badge">77% off</span>
+  <div class="pc-img">
+    <img src="https://m.media-amazon.com/images/I/71qedw-kh+L._SL1500_.jpg" alt="Airdopes 131/8 with 60 Hrs Playback">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">Boat</div>
+    <div class="pc-name">Airdopes 131/8 with 60 Hrs Playback</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹699</span>
+      <span class="pc-old">₹2990</span>
+      <span class="pc-off">(77% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 79 · grocery -->
+<a href="https://amzn.to/47wc84x" class="pc fu" data-category="grocery">
+  <span class="pc-badge">26% off</span>
+  <div class="pc-img">
+    <img src="https://m.media-amazon.com/images/I/81RKRIt-RlL._SL1500_.jpg" alt="Cow Ghee Tetra Pack">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">Patanjali</div>
+    <div class="pc-name">Cow Ghee Tetra Pack</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹315</span>
+      <span class="pc-old">₹425</span>
+      <span class="pc-off">(26% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 80 · home -->
+<a href="https://amzn.to/4bDKNjo" class="pc fu" data-category="home">
+  <span class="pc-badge">62% off</span>
+  <div class="pc-img">
+    <img src="https://m.media-amazon.com/images/I/41VjpB32w8S.jpg" alt="Flat Mop with Bucket for Home Floor Cleaning">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">Krysonex</div>
+    <div class="pc-name">Flat Mop with Bucket for Home Floor Cleaning</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹498</span>
+      <span class="pc-old">₹1299</span>
+      <span class="pc-off">(62% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 81 · health -->
+<a href="https://amzn.to/41ye8Wo" class="pc fu" data-category="health">
+  <span class="pc-badge">33% off</span>
+  <div class="pc-img">
+    <img src="https://m.media-amazon.com/images/I/815ISK5MWBL._SL1500_.jpg" alt="Jamun Neem Karela Juice">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">Dabur </div>
+    <div class="pc-name">Jamun Neem Karela Juice</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹211</span>
+      <span class="pc-old">₹315</span>
+      <span class="pc-off">(33% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 82 · beauty -->
+<a href="https://amzn.to/3PQWMkZ" class="pc fu" data-category="beauty">
+  <span class="pc-badge">40% off</span>
+  <div class="pc-img">
+    <img src="https://m.media-amazon.com/images/I/51hMRBjagAL._SL1000_.jpg" alt="Pure Glycerin Pure & Gentle Bodywash">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">Pears</div>
+    <div class="pc-name">Pure Glycerin Pure & Gentle Bodywash</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹275</span>
+      <span class="pc-old">₹460</span>
+      <span class="pc-off">(40% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 83 · electronics -->
+<a href="https://amzn.to/4bSnOjl" class="pc fu" data-category="electronics">
+  <span class="pc-badge">47% off</span>
+  <div class="pc-img">
+    <img src="https://m.media-amazon.com/images/I/51bHPX7AhPL._SL1200_.jpg" alt="Toofan Mini Portable Rechargeable Fan">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">Portronics</div>
+    <div class="pc-name">Toofan Mini Portable Rechargeable Fan</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹799</span>
+      <span class="pc-old">₹1499</span>
+      <span class="pc-off">(47% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 84 · fashion -->
+<a href="https://amzn.to/3PxOKNW" class="pc fu" data-category="fashion">
+  <span class="pc-badge">78% off</span>
+  <div class="pc-img">
+    <img src="https://m.media-amazon.com/images/I/61+mLsWpdwL._SY695_.jpg" alt="women's pu leather handbag">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">Generic</div>
+    <div class="pc-name">women's pu leather handbag</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹220</span>
+      <span class="pc-old">₹999</span>
+      <span class="pc-off">(78% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 85 · fashion -->
+<a href="https://bitli.in/3vjdnS7" class="pc fu" data-category="fashion">
+  <span class="pc-badge">74% off</span>
+  <div class="pc-img">
+    <img src="https://image.clovia.com/media/clovia-images/images/400x600/clovia-picture-pretty-florals-button-me-up-shirt-pyjama-set-in-white-cotton-rich-620690.JPG" alt="Pretty Florals Button Down Night Suit in Blue & Green">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">Clovia</div>
+    <div class="pc-name">Pretty Florals Button Down Night Suit in Blue & Green</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹659</span>
+      <span class="pc-old">₹2599</span>
+      <span class="pc-off">(74% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 86 · home -->
+<a href="https://amzn.to/4s1AXg3" class="pc fu" data-category="home">
+  <span class="pc-badge">73% off</span>
+  <div class="pc-img">
+    <img src="https://m.media-amazon.com/images/I/61LeZnJhT-L._SL1024_.jpg" alt="Meditating Buddha Statue">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">GLUN</div>
+    <div class="pc-name">Meditating Buddha Statue</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹269</span>
+      <span class="pc-old">₹999</span>
+      <span class="pc-off">(73% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 87 · fashion -->
+<a href="https://bitli.in/fY91Z5h" class="pc fu" data-category="fashion">
+  <span class="pc-badge">60% off</span>
+  <div class="pc-img">
+    <img src="https://houseofkoala.com/cdn/shop/files/1L9A4191_11zon_4.jpg?v=1736580987&width=980" alt="Cuban Collar Oversized Resort Shirt">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">House of Koala</div>
+    <div class="pc-name">Cuban Collar Oversized Resort Shirt</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹999</span>
+      <span class="pc-old">₹2499</span>
+      <span class="pc-off">(60% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 88 · fashion -->
+<a href="https://amzn.to/4c8PEJj" class="pc fu" data-category="fashion">
+  <span class="pc-badge">85% off</span>
+  <div class="pc-img">
+    <img src="https://m.media-amazon.com/images/I/81ObCB2e4DL._SY879_.jpg" alt="Womens Jacquard Standard Length Saree">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">Yashika</div>
+    <div class="pc-name">Womens Jacquard Standard Length Saree</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹272</span>
+      <span class="pc-old">₹1799</span>
+      <span class="pc-off">(85% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 89 · fashion -->
+<a href="https://bitli.in/m87eteJ" class="pc fu" data-category="fashion">
+  <span class="pc-badge">54% off</span>
+  <div class="pc-img">
+    <img src="https://rigo.in/cdn/shop/files/WTOP355-1445MainPic_1080x.jpg?v=1745846268" alt="Zippy Waffle Top">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">Rigo</div>
+    <div class="pc-name">Zippy Waffle Top</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹549</span>
+      <span class="pc-old">₹1199</span>
+      <span class="pc-off">(54% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 90 · beauty -->
+<a href="https://amzn.to/4bEMltr" class="pc fu" data-category="beauty">
+  <span class="pc-badge">60% off</span>
+  <div class="pc-img">
+    <img src="https://m.media-amazon.com/images/I/51rwEF2jq8L._SL1500_.jpg" alt="Kesh Kanti Hair Cleanser Natural Shampoo">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">Patanjali</div>
+    <div class="pc-name">Kesh Kanti Hair Cleanser Natural Shampoo</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹240</span>
+      <span class="pc-old">₹600</span>
+      <span class="pc-off">(60% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 91 · grocery -->
+<a href="https://amzn.to/3NHa4zX" class="pc fu" data-category="grocery">
+  <span class="pc-badge">55% off</span>
+  <div class="pc-img">
+    <img src="https://m.media-amazon.com/images/I/71cQsziqYDL._SL1500_.jpg" alt="Dark Fantasy Choco Fills">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">Sunfeast</div>
+    <div class="pc-name">Dark Fantasy Choco Fills</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹149</span>
+      <span class="pc-old">₹328</span>
+      <span class="pc-off">(55% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 92 · mobiles -->
+<a href="https://amzn.to/4bTxt9e" class="pc fu" data-category="mobiles">
+  <span class="pc-badge">25% off</span>
+  <div class="pc-img">
+    <img src="https://m.media-amazon.com/images/I/71QnMG2gedL._SL1500_.jpg" alt="NARZO 80 Pro 5G">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">realme </div>
+    <div class="pc-name">NARZO 80 Pro 5G</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹17999</span>
+      <span class="pc-old">₹23999</span>
+      <span class="pc-off">(25% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 93 · beauty -->
+<a href="https://amzn.to/4dQcOFD" class="pc fu" data-category="beauty">
+  <span class="pc-badge">53% off</span>
+  <div class="pc-img">
+    <img src="https://m.media-amazon.com/images/I/51Lw2rJA-RL._SL1200_.jpg" alt="Herbcolor Conditioning Hair Colour">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">Biotique</div>
+    <div class="pc-name">Herbcolor Conditioning Hair Colour</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹178</span>
+      <span class="pc-old">₹375</span>
+      <span class="pc-off">(53% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 94 · beauty -->
+<a href="https://amzn.to/4lWGi6V" class="pc fu" data-category="beauty">
+  <span class="pc-badge">35% off</span>
+  <div class="pc-img">
+    <img src="https://m.media-amazon.com/images/I/61b2tDBxhlL._SL1500_.jpg" alt="Kajal, Black, Matte Finish">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">Maybelline New York</div>
+    <div class="pc-name">Kajal, Black, Matte Finish</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹142</span>
+      <span class="pc-old">₹220</span>
+      <span class="pc-off">(35% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 95 · fashion -->
+<a href="https://bitli.in/239Q0qu" class="pc fu" data-category="fashion">
+  <span class="pc-badge">70% off</span>
+  <div class="pc-img">
+    <img src="https://houseofkoala.com/cdn/shop/files/BD0A1034_09c0c9b2-a9de-4406-a42d-e4218e844bf6.jpg?v=1756277087&width=1946" alt="Baseball Resort Shirt & Shorts Co-ord Set">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">House of Koala</div>
+    <div class="pc-name">Baseball Resort Shirt & Shorts Co-ord Set</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹1349</span>
+      <span class="pc-old">₹4498</span>
+      <span class="pc-off">(70% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 96 · home -->
+<a href="https://amzn.to/48fEdgC" class="pc fu" data-category="home">
+  <span class="pc-badge">85% off</span>
+  <div class="pc-img">
+    <img src="https://m.media-amazon.com/images/I/71W0D-K-tBL._SL1500_.jpg" alt="Little Monk Buddha Statue">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">eCraftIndia</div>
+    <div class="pc-name">Little Monk Buddha Statue</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹197</span>
+      <span class="pc-old">₹1299</span>
+      <span class="pc-off">(85% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 97 · mobiles -->
+<a href="https://amzn.to/40VUvaC" class="pc fu" data-category="mobiles">
+  <span class="pc-badge">22% off</span>
+  <div class="pc-img">
+    <img src="https://m.media-amazon.com/images/I/51uF8G+5+UL.jpg" alt="K13x 5G">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">OPPO </div>
+    <div class="pc-name">K13x 5G</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹14800</span>
+      <span class="pc-old">₹18999</span>
+      <span class="pc-off">(22% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 98 · fashion -->
+<a href="https://amzn.to/3NxO2zE" class="pc fu" data-category="fashion">
+  <span class="pc-badge">78% off</span>
+  <div class="pc-img">
+    <img src="https://m.media-amazon.com/images/I/61dFcpPdJkL._SY879_.jpg" alt="Mide Rise Strachable Jeans">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">KOTTY</div>
+    <div class="pc-name">Mide Rise Strachable Jeans</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹449</span>
+      <span class="pc-old">₹1999</span>
+      <span class="pc-off">(78% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 99 · grocery -->
+<a href="https://amzn.to/481qfPn" class="pc fu" data-category="grocery">
+  <span class="pc-badge">42% off</span>
+  <div class="pc-img">
+    <img src="https://m.media-amazon.com/images/I/51Vspg8VcHL._SL1200_.jpg" alt="Chocobakes ChocFilled Cookies">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">Cadbury</div>
+    <div class="pc-name">Chocobakes ChocFilled Cookies</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹93</span>
+      <span class="pc-old">₹160</span>
+      <span class="pc-off">(42% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+<!-- CARD 100 · kids -->
+<a href="https://amzn.to/4uXAo9K" class="pc fu" data-category="kids">
+  <span class="pc-badge">46% off</span>
+  <div class="pc-img">
+    <img src="https://m.media-amazon.com/images/I/61lctvtfJaL._SL1500_.jpg" alt="Steel Tek Jr. Insulated Lunch Box">
+  </div>
+  <div class="pc-body">
+    <div class="pc-brand">JAYPEE</div>
+    <div class="pc-name">Steel Tek Jr. Insulated Lunch Box</div>
+    <div class="pc-pr">
+      <span class="pc-cur">₹369</span>
+      <span class="pc-old">₹678</span>
+      <span class="pc-off">(46% off)</span>
+    </div>
+    <span class="pc-btn">Shop Now</span>
+  </div>
+</a>
+
+
+
+
+  </div><!-- /prod-grid -->
+
+  <div class="lm-wrap fu">
+    <button class="lm-btn" id="loadMore">Load More Deals ↓</button>
+  </div>
+
+</div><!-- /wrap -->
+
+<!-- FOOTER -->
+<footer class="ft">
+  <div class="ft-in">
+    <div><div class="ft-logo">deals<em>wala</em></div><p>© 2026 dealswala.shop — All rights reserved.</p></div>
+    <p>Affiliate Disclosure: We earn commissions on qualified purchases.</p>
+  </div>
+</footer>
+
+<script>
+/* Drawer open/close */
+const hbg=document.getElementById('hbgBtn'),drw=document.getElementById('drw'),ov=document.getElementById('ov'),drwX=document.getElementById('drwX');
+function oD(){drw.classList.add('on');ov.classList.add('on');document.body.style.overflow='hidden'}
+function cD(){drw.classList.remove('on');ov.classList.remove('on');document.body.style.overflow=''}
+hbg.addEventListener('click',oD);drwX.addEventListener('click',cD);ov.addEventListener('click',cD);
+
+/* Categories accordion */
+const accHdr=document.getElementById('accHdr');
+const accBody=document.getElementById('accBody');
+accHdr.addEventListener('click',()=>{
+  accHdr.classList.toggle('open');
+  accBody.classList.toggle('open');
+});
+
+/* DOM refs — queried once */
+const allCards=document.querySelectorAll('.pc[data-category]');
+const allPills=document.querySelectorAll('.pill[data-category]');
+const countEl=document.getElementById('countText');
+const noResults=document.getElementById('noResults');
+
+/* Core filter function — single source of truth */
+function applyFilter(category){
+  const isAll=!category||category.toLowerCase()==='all';
+  const target=isAll?null:category.toLowerCase();
+  let shown=0;
+  allCards.forEach(card=>{
+    const match=isAll||card.dataset.category.toLowerCase()===target;
+    card.classList.toggle('filtered',!match);
+    if(match)shown++;
+  });
+  if(countEl)countEl.textContent=shown+' deal'+(shown!==1?'s':'');
+  if(noResults)noResults.classList.toggle('show',shown===0);
+  allPills.forEach(pill=>{
+    const pc=pill.dataset.category.toLowerCase();
+    pill.classList.toggle('active',isAll?pc==='all':pc===target);
+  });
+}
+
+/* Read URL param */
+function getCatFromURL(){return new URLSearchParams(window.location.search).get('category')||'all'}
+
+/* Apply on load */
+applyFilter(getCatFromURL());
+
+/* Pill click → filter + update URL silently */
+allPills.forEach(pill=>{
+  pill.addEventListener('click',()=>{
+    const cat=pill.dataset.category;
+    const params=new URLSearchParams(window.location.search);
+    cat==='all'?params.delete('category'):params.set('category',cat);
+    history.pushState({category:cat},'',(window.location.pathname+(params.toString()?'?'+params.toString():'')));
+    applyFilter(cat);
+  });
+});
+
+/* Browser back/forward */
+window.addEventListener('popstate',()=>applyFilter(getCatFromURL()));
+
+/* Load more */
+document.getElementById('loadMore')?.addEventListener('click',function(){
+  this.textContent='Loading...';
+  setTimeout(()=>{this.textContent='✓ All Deals Loaded';this.disabled=true;this.style.opacity='.5'},900);
+});
+
+/* Scroll reveal */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');io.unobserve(e.target)}}),{threshold:.06});
+document.querySelectorAll('.fu').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
